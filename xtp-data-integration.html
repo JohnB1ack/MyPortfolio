@@ -45,137 +45,42 @@
 							<section class="post">
 								<header class="major">
 									<span class="date">October 2023 - Present</span>
-									<h1>The Data Liberation Story<br />
-										A Tale of Breaking Down Silos</h1>
-									<p>Sometimes the most important conversations happen in the hallway. This is the story of how a chance encounter with a frustrated operations team member led to breaking down data silos across Marex - and taught me that the best solutions come from listening to the people who live with the problems every day.</p>
+									<h1>Data Processing and Democratization Pipeline</h1>
+									<p>As my citizen development work gained recognition across departments, the opportunity arose to collaborate directly with our data team on enterprise-scale data processing. This project demonstrates how citizen development can enhance partnerships between business users and data teams, creating standardized pipelines that democratize data access across the organization.</p>
 								</header>
 								<div class="image main"><img src="images/XTP_alteryx.JPG" alt="Alteryx workflow for automated XTP data integration at Marex" /></div>
 
-								<h2>The Beginning</h2>
-								<p>It was a Monday morning when I bumped into Sarah from operations in the break room. She looked exhausted, clutching her coffee like a lifeline.</p>
+								<h2>Challenge & Solution</h2>
+								<p>Raw data from various sources needed processing and transformation into structured formats for Finance and other teams. Manual processing was creating bottlenecks and inconsistencies across departments. I implemented Alteryx-based data processing workflows, working directly with our data team to develop optimal pipelines for enterprise data democratization.</p>
 
-								<p>"Rough weekend?" I asked.</p>
-
-								<p>"We spent six hours yesterday pulling XTP data for the weekly reports," she sighed. "And the worst part? I know the compliance team was doing the exact same thing for their reports. We're all extracting the same data, but somehow we keep getting different numbers."</p>
-
-								<p>That conversation stopped me in my tracks. "Wait, you're telling me multiple teams are manually extracting the same data?"</p>
-
-								<p>"Every single day," Sarah nodded. "The operations team was drowning in daily data pulls. 'We spend 2 hours every morning just getting yesterday's data,' she told me over coffee. 'And by the time we're done, it's already time to start on today's data.'"</p>
-
-								<p>The frustration in her voice was unmistakable. This wasn't just about inefficiency - it was about talented people spending their days fighting with data instead of analyzing it. That's when I knew we needed to act.</p>
-
-								<h2>The Journey</h2>
-								<p>That afternoon, I did what I always do when someone brings me a puzzle - I gathered everyone around a whiteboard. "Tell me everything," I said to Sarah, Mike from compliance, and Janet from risk management.</p>
-
-								<p>What started as a simple data extraction problem quickly revealed itself as something much more complex. Each team had developed their own workarounds:</p>
-
+								<h2>Technical Implementation</h2>
 								<ul>
-									<li><strong>Sarah's team:</strong> "We log into each XTP system manually and export to Excel. It takes forever, but at least we know what we're getting."</li>
-									<li><strong>Mike's team:</strong> "We have a different process because compliance needs additional fields. Sometimes our numbers don't match operations."</li>
-									<li><strong>Janet's team:</strong> "We wait for operations to finish, then we re-extract everything for risk calculations. It's redundant, but we can't risk using inconsistent data."</li>
+									<li><strong>Alteryx workflow automation</strong> for complex data transformations</li>
+									<li><strong>Collaboration with data team</strong> to ensure best practices and integration</li>
+									<li><strong>Standardized data pipelines</strong> feeding multiple downstream users</li>
+									<li><strong>Quality assurance frameworks</strong> ensuring data integrity</li>
+									<li><strong>Scheduled processing</strong> for consistent data availability</li>
 								</ul>
-
-								<p>As we talked, I started asking the questions that would shape our solution:</p>
-								<ul>
-									<li>"What if we could extract once and share the same clean data?"</li>
-									<li>"What happens when the XTP system is down for maintenance?"</li>
-									<li>"How do you know if you've missed any trades?"</li>
-									<li>"What would your ideal morning look like?"</li>
-								</ul>
-
-								<p>Sarah's eyes lit up at that last question. "I'd walk in, check a dashboard, and see that all yesterday's data is already clean and ready. Then I could spend my time actually analyzing trends instead of fighting with exports."</p>
-
-								<p>That vision became our north star. Over the next few weeks, we met regularly. I'd show them prototypes, they'd point out edge cases I'd never considered, and together we'd refine the solution.</p>
-
-								<div class="image main"><img src="images/xtp_system_overview.png" alt="Overview of XTP systems and data flows" /></div>
-
-								<p><strong>Week 1:</strong> Basic API connections working<br />
-								<strong>Week 2:</strong> Sarah suggested adding data validation rules<br />
-								<strong>Week 3:</strong> Mike pointed out compliance fields we'd missed<br />
-								<strong>Week 4:</strong> Janet helped design the quality assurance framework<br />
-								<strong>Week 5:</strong> The solution was handling edge cases none of us had thought of individually</p>
-
-								<p>Each conversation made the solution stronger. This wasn't my project anymore - it was ours.</p>
-
-								<h2>The Solution</h2>
-								<p>What emerged wasn't just a data integration tool - it was a collaboration platform that finally gave everyone the same source of truth. The solution we built together reflected months of conversations, iterations, and shared problem-solving.</p>
-
-								<h3>The Magic of Working Together</h3>
-								<p>Every feature in our final solution tells a story of collaboration:</p>
-
-								<p><strong>Automated XTP Connectivity:</strong> "Sarah, what if the system could log into all the XTP platforms automatically?" The workflow we built establishes secure connections using API credentials and handles authentication seamlessly. When Sarah suggested adding retry logic for maintenance windows, we implemented that too.</p>
 
 								<div class="image main"><img src="images/xtp_connectivity_diagram.png" alt="XTP connectivity and API integration" /></div>
 
-								<p><strong>Standardized Data Transformation:</strong> "Mike, what if we could guarantee that everyone gets exactly the same data?" The transformation engine we designed applies consistent business rules and enriches data with additional context. No more discrepancies between teams.</p>
-
-								<p><strong>Quality Assurance Framework:</strong> "Janet, what if the system could catch data problems before anyone even sees them?" Every extraction includes comprehensive quality checks that validate completeness and accuracy. The system automatically flags anomalies for investigation.</p>
-
 								<div class="image main"><img src="images/data_quality_checks.png" alt="Data quality validation framework" /></div>
 
-								<p><strong>Real-time Monitoring:</strong> "What if you could see the status of everything at a glance?" The monitoring dashboards provide visibility into execution status and data quality metrics, giving everyone confidence in the data.</p>
-
-								<h3>The Technology Behind the Magic</h3>
-								<p>While the interface looks simple, the underlying technology is sophisticated - but every choice was driven by our conversations:</p>
+								<h2>Results & Impact</h2>
 								<ul>
-									<li><strong>Alteryx Designer:</strong> Chosen because it could handle the complex transformations Janet's team needed</li>
-									<li><strong>XTP APIs:</strong> Direct integration that Sarah requested for real-time data</li>
-									<li><strong>SQL Server:</strong> Centralized warehouse that Mike needed for compliance reporting</li>
-									<li><strong>Python Scripts:</strong> Custom validation logic that emerged from our discussions</li>
-									<li><strong>PowerBI:</strong> Dashboards that everyone could understand and use</li>
-								</ul>
-
-								<div class="image main"><img src="images/technical_stack_xtp.png" alt="Technical architecture and data flow" /></div>
-
-								<p>But the real technology was the trust we built. Every line of code represents a conversation, a concern addressed, and a solution crafted together.</p>
-
-								<h2>The Impact</h2>
-								<p>Three months later, I walked past the operations area and noticed something beautiful - it was 9 AM, and instead of hunched over computers extracting data, Sarah's team was gathered around a whiteboard discussing trading patterns they'd discovered.</p>
-
-								<p>"Remember when we used to spend our mornings fighting with XTP exports?" I asked Sarah.</p>
-
-								<p>She laughed. "I can't believe we used to do that manually. Now I actually get to be an analyst instead of a data entry clerk."</p>
-
-								<p>That's when I knew we'd succeeded. The technology had disappeared, leaving only empowered people behind.</p>
-
-								<h3>The Stories Tell Everything</h3>
-								<p>But the real impact goes beyond the numbers:</p>
-
-								<p><strong>Sarah from Operations:</strong> "I used to dread Monday mornings because I knew I'd spend half the day just getting the data ready. Now I look forward to Mondays because I can dive straight into the analysis that actually matters."</p>
-
-								<p><strong>Mike from Compliance:</strong> "The audit trail feature is incredible. When regulators ask questions, I can show them exactly what happened with the data at every step. It's like having a perfect memory of every transaction."</p>
-
-								<p><strong>Janet from Risk Management:</strong> "We used to wait hours for operations to finish before we could start our risk calculations. Now everything is ready when we arrive. It's transformed how quickly we can respond to market changes."</p>
-
-								<h3>The Numbers That Matter</h3>
-								<ul>
-									<li><strong>6 hours to 30 minutes:</strong> Daily data extraction time - giving people their mornings back</li>
-									<li><strong>100% consistency:</strong> No more discrepancies between teams - everyone trusts the data</li>
-									<li><strong>50,000+ trade records:</strong> Processed daily without human intervention</li>
-									<li><strong>Zero data quality issues:</strong> Since implementation - the validation framework catches everything</li>
-									<li><strong>3 teams, 1 source of truth:</strong> Finally, everyone is working from the same data</li>
+									<li><strong>Data Democratization:</strong> Finance and other teams have direct access to structured data</li>
+									<li><strong>Consistency:</strong> Standardized data formats across all consuming teams</li>
+									<li><strong>Timeliness:</strong> Automated scheduling ensures data availability when needed</li>
+									<li><strong>Collaboration:</strong> Enhanced partnership between business users and data team</li>
+									<li><strong>Quality:</strong> Comprehensive quality assurance frameworks ensure data integrity</li>
 								</ul>
 
 								<div class="image main"><img src="images/performance_metrics.png" alt="Performance metrics and KPI dashboard" /></div>
 
-								<h2>The Lessons</h2>
-								<p>This project taught me that the most complex technical challenges often have the simplest human solutions. The breakthrough wasn't in the code - it was in getting everyone in the same room and listening to their real problems.</p>
+								<h2>Enterprise Value Proposition</h2>
+								<p>This data processing and democratization project demonstrates how citizen development can enhance partnerships between business users and data teams. By working within existing enterprise data architecture while providing agility, it creates standardized pipelines that serve multiple departments and democratize data access.</p>
 
-								<h3>What I Learned About Collaboration</h3>
-								<ul>
-									<li><strong>The best solutions emerge from diverse perspectives</strong> - Sarah's operational insights, Mike's compliance requirements, and Janet's risk considerations made the solution stronger than anything I could have built alone</li>
-									<li><strong>Edge cases are gifts</strong> - every "what if" question from the team made the system more robust</li>
-									<li><strong>Trust is the foundation</strong> - people don't adopt solutions they don't trust, and trust comes from being heard</li>
-									<li><strong>Iteration is everything</strong> - the first version was functional, but the final version was transformational</li>
-								</ul>
-
-								<h3>What I Learned About Data</h3>
-								<p>Data isn't just numbers - it's the foundation of decisions that affect real people. When Sarah can spend her morning analyzing trends instead of extracting data, when Mike can respond to regulatory requests with confidence, when Janet can assess risk in real-time - that's when data becomes powerful.</p>
-
-								<h3>What's Next</h3>
-								<p>The conversation continues. Just last week, someone asked, "What if we could predict data quality issues before they happen?" And so the journey continues, one collaboration at a time.</p>
-
-								<p><em>The best part of being a citizen developer? Every solved problem reveals three new opportunities to help.</em></p>
+								<p>The solution showcases collaborative problem-solving that combines domain expertise with technical best practices, creating enterprise-grade solutions that complement rather than replace formal IT and data team processes. This approach breaks down data silos while ensuring quality and consistency across the organization.</p>
 
 				</section>
 
