@@ -230,9 +230,11 @@ white-space: nowrap;
 
 transform: translate(-50%, -50%);
 
-transition: color 0.3s ease, text-shadow 0.3s ease;
+transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
 z-index: 2; /* Below heading */
+
+cursor: pointer;
 
 /* Mobile touch improvements */
 
@@ -243,6 +245,43 @@ user-select: none;
 -webkit-user-select: none;
 
 }
+
+.skill-node:hover {
+    border-color: var(--glow-analyst);
+    background-color: rgba(13, 17, 23, 0.8);
+    transform: translate(-50%, -50%) scale(1.05);
+    box-shadow: 0 0 20px rgba(88, 166, 255, 0.3);
+}
+
+.skill-node:active {
+    transform: translate(-50%, -50%) scale(0.95);
+}
+
+.skill-node.constellation-active {
+    border-color: #58a6ff;
+    background-color: rgba(88, 166, 255, 0.15);
+    color: #58a6ff;
+    text-shadow: 0 0 15px rgba(88, 166, 255, 0.8);
+    box-shadow:
+        0 0 30px rgba(88, 166, 255, 0.5),
+        inset 0 0 20px rgba(88, 166, 255, 0.1);
+    animation: constellation-pulse 2s ease-in-out infinite;
+}
+
+@keyframes constellation-pulse {
+    0%, 100% {
+        box-shadow:
+            0 0 30px rgba(88, 166, 255, 0.5),
+            inset 0 0 20px rgba(88, 166, 255, 0.1);
+    }
+    50% {
+        box-shadow:
+            0 0 40px rgba(88, 166, 255, 0.8),
+            inset 0 0 25px rgba(88, 166, 255, 0.2);
+    }
+}
+
+/* Project card constellation styling removed - keeping only skill node effects */
 
 
 .skill-node.active {
@@ -862,7 +901,7 @@ transition: none;
 
 <section id="project-grid">
 
-<a href="about-me.html" class="project-card">
+<a href="about-me.html" class="project-card user-experience">
 
 <i class="card-icon fas fa-user-astronaut"></i>
 
@@ -874,7 +913,7 @@ transition: none;
 
 
 
-<a href="streamlit-report-generator.html" class="project-card">
+<a href="streamlit-report-generator.html" class="project-card dashboard-development financial-analysis">
 
 <i class="card-icon fas fa-chart-line"></i>
 
@@ -886,7 +925,7 @@ transition: none;
 
 
 
-<a href="interest-rate-automation.html" class="project-card">
+<a href="interest-rate-automation.html" class="project-card automation-platform risk-automation">
 
 <i class="card-icon fas fa-cogs"></i>
 
@@ -898,7 +937,7 @@ transition: none;
 
 
 
-<a href="xtp-data-integration.html" class="project-card">
+<a href="xtp-data-integration.html" class="project-card data-platform system-integration">
 
 <i class="card-icon fas fa-database"></i>
 
@@ -910,7 +949,7 @@ transition: none;
 
 
 
-<a href="generic.html" class="project-card">
+<a href="generic.html" class="project-card ai-development">
 
 <i class="card-icon fas fa-code"></i>
 
@@ -947,13 +986,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
 const analystSkills = [
 
-{ name: 'Financial Reporting' }, { name: 'Risk Management' },
+{ name: 'Financial Reporting', constellationStars: [] },
+{ name: 'Risk Management', constellationStars: [] },
 
-{ name: 'Trade Reconciliation' }, { name: 'Data-Driven Analysis' },
+{ name: 'Trade Reconciliation', constellationStars: [] },
+{ name: 'Data-Driven Analysis', constellationStars: [] },
 
-{ name: 'Futures Settlement' }, { name: 'Operational Efficiency' },
+{ name: 'Futures Settlement', constellationStars: [] },
+{ name: 'Operational Efficiency', constellationStars: [] },
 
-{ name: 'Regulatory Compliance' }, { name: 'Financial System Integrity' }
+{ name: 'Regulatory Compliance', constellationStars: [] },
+{ name: 'Financial System Integrity', constellationStars: [] }
 
 ];
 
@@ -961,13 +1004,17 @@ const analystSkills = [
 
 const developerSkills = [
 
-{ name: 'Python Process Automation' }, { name: 'AI/ML Frameworks' },
+{ name: 'Python Process Automation', constellationStars: [] },
+{ name: 'AI/ML Frameworks', constellationStars: [] },
 
-{ name: 'API Integration' }, { name: 'Data Pipeline Architecture' },
+{ name: 'API Integration', constellationStars: [] },
+{ name: 'Data Pipeline Architecture', constellationStars: [] },
 
-{ name: 'Alteryx Development' }, { name: 'System Integration' },
+{ name: 'Alteryx Development', constellationStars: [] },
+{ name: 'System Integration', constellationStars: [] },
 
-{ name: 'Interactive Dashboards' }, { name: 'User Empowerment Focus' }
+{ name: 'Interactive Dashboards', constellationStars: [] },
+{ name: 'User Empowerment Focus', constellationStars: [] }
 
 ];
 
@@ -991,7 +1038,412 @@ let isMobile = false;
 
 let isTouch = false;
 
+// Constellation system variables
+let screenStars = [];           // All stars positioned on screen (constellation + background)
+let constellationStars = [];    // Only the constellation stars
+let backgroundStars = [];       // Additional background stars for rich night sky
+let activeConstellation = null; // Currently lit constellation name
+let constellationTimeout = null;
+let rippleEffects = [];
 
+// Real Astronomical Constellation Atlas - The Single Source of Truth
+// Star data with real celestial coordinates converted to screen positions
+const constellationAtlas = {
+    stars: {
+        // Orion - The Hunter
+        "Betelgeuse": { ra: 88.8, dec: 7.4, magnitude: 0.5, constellation: "Orion" },
+        "Rigel": { ra: 78.6, dec: -8.2, magnitude: 0.1, constellation: "Orion" },
+        "Bellatrix": { ra: 81.3, dec: 6.3, magnitude: 1.6, constellation: "Orion" },
+        "Mintaka": { ra: 83.0, dec: -0.3, magnitude: 2.2, constellation: "Orion" },
+        "Alnilam": { ra: 84.1, dec: -1.2, magnitude: 1.7, constellation: "Orion" },
+        "Alnitak": { ra: 85.2, dec: -1.9, magnitude: 1.8, constellation: "Orion" },
+        "Saiph": { ra: 86.9, dec: -9.7, magnitude: 2.1, constellation: "Orion" },
+
+        // Ursa Major - The Great Bear
+        "Dubhe": { ra: 165.9, dec: 61.8, magnitude: 1.8, constellation: "UrsaMajor" },
+        "Merak": { ra: 165.5, dec: 56.4, magnitude: 2.4, constellation: "UrsaMajor" },
+        "Phecda": { ra: 178.5, dec: 53.7, magnitude: 2.4, constellation: "UrsaMajor" },
+        "Megrez": { ra: 183.9, dec: 57.0, magnitude: 3.3, constellation: "UrsaMajor" },
+        "Alioth": { ra: 193.5, dec: 55.9, magnitude: 1.8, constellation: "UrsaMajor" },
+        "Mizar": { ra: 200.9, dec: 54.9, magnitude: 2.3, constellation: "UrsaMajor" },
+        "Alkaid": { ra: 206.9, dec: 49.3, magnitude: 1.9, constellation: "UrsaMajor" },
+
+        // Cassiopeia - The Queen
+        "Caph": { ra: 9.2, dec: 59.1, magnitude: 2.3, constellation: "Cassiopeia" },
+        "Schedar": { ra: 10.1, dec: 56.5, magnitude: 2.2, constellation: "Cassiopeia" },
+        "Gamma_Cas": { ra: 14.2, dec: 60.7, magnitude: 2.5, constellation: "Cassiopeia" },
+        "Ruchbah": { ra: 22.8, dec: 57.8, magnitude: 2.7, constellation: "Cassiopeia" },
+        "Segin": { ra: 25.7, dec: 63.7, magnitude: 3.4, constellation: "Cassiopeia" },
+
+        // Leo - The Lion
+        "Regulus": { ra: 152.1, dec: 11.9, magnitude: 1.4, constellation: "Leo" },
+        "Denebola": { ra: 177.3, dec: 14.6, magnitude: 2.1, constellation: "Leo" },
+        "Algieba": { ra: 154.9, dec: 19.8, magnitude: 2.6, constellation: "Leo" },
+        "Zosma": { ra: 169.6, dec: 20.5, magnitude: 2.6, constellation: "Leo" },
+        "Chertan": { ra: 165.9, dec: 15.4, magnitude: 3.3, constellation: "Leo" },
+
+        // Cygnus - The Swan
+        "Deneb": { ra: 310.4, dec: 45.3, magnitude: 1.3, constellation: "Cygnus" },
+        "Sadr": { ra: 305.6, dec: 40.3, magnitude: 2.2, constellation: "Cygnus" },
+        "Gienah": { ra: 304.0, dec: 40.2, magnitude: 2.5, constellation: "Cygnus" },
+        "Delta_Cyg": { ra: 292.7, dec: 45.1, magnitude: 2.9, constellation: "Cygnus" },
+        "Albireo": { ra: 292.7, dec: 27.9, magnitude: 3.1, constellation: "Cygnus" },
+
+        // Libra - The Scales
+        "Zubeneschamali": { ra: 229.3, dec: -9.4, magnitude: 2.6, constellation: "Libra" },
+        "Zubenelgenubi": { ra: 222.7, dec: -16.0, magnitude: 2.8, constellation: "Libra" },
+        "Brachium": { ra: 233.9, dec: -14.8, magnitude: 3.3, constellation: "Libra" },
+
+        // Virgo - The Maiden
+        "Spica": { ra: 201.3, dec: -11.2, magnitude: 1.0, constellation: "Virgo" },
+        "Zavijava": { ra: 177.7, dec: 1.8, magnitude: 3.6, constellation: "Virgo" },
+        "Porrima": { ra: 190.4, dec: -1.4, magnitude: 2.7, constellation: "Virgo" },
+        "Minelauva": { ra: 195.5, dec: 3.4, magnitude: 3.4, constellation: "Virgo" },
+
+        // Aquila - The Eagle
+        "Altair": { ra: 297.7, dec: 8.9, magnitude: 0.8, constellation: "Aquila" },
+        "Tarazed": { ra: 296.6, dec: 10.6, magnitude: 2.7, constellation: "Aquila" },
+        "Alshain": { ra: 298.9, dec: 6.4, magnitude: 3.7, constellation: "Aquila" },
+
+        // Andromeda - The Princess
+        "Alpheratz": { ra: 2.1, dec: 29.1, magnitude: 2.1, constellation: "Andromeda" },
+        "Mirach": { ra: 17.4, dec: 35.6, magnitude: 2.1, constellation: "Andromeda" },
+        "Almach": { ra: 30.9, dec: 42.3, magnitude: 2.3, constellation: "Andromeda" },
+        "Delta_And": { ra: 8.4, dec: 30.9, magnitude: 3.3, constellation: "Andromeda" },
+
+        // Perseus - The Hero
+        "Mirfak": { ra: 51.1, dec: 49.9, magnitude: 1.8, constellation: "Perseus" },
+        "Algol": { ra: 47.0, dec: 40.9, magnitude: 2.1, constellation: "Perseus" },
+        "Atik": { ra: 55.9, dec: 31.9, magnitude: 2.8, constellation: "Perseus" },
+        "Menkib": { ra: 59.7, dec: 35.8, magnitude: 4.0, constellation: "Perseus" },
+        "Miram": { ra: 39.3, dec: 50.7, magnitude: 3.8, constellation: "Perseus" },
+
+        // Draco - The Dragon
+        "Thuban": { ra: 211.1, dec: 64.4, magnitude: 3.7, constellation: "Draco" },
+        "Eltanin": { ra: 269.2, dec: 51.5, magnitude: 2.2, constellation: "Draco" },
+        "Rastaban": { ra: 262.6, dec: 52.3, magnitude: 2.8, constellation: "Draco" },
+        "Altais": { ra: 285.0, dec: 67.7, magnitude: 3.2, constellation: "Draco" },
+        "Edasich": { ra: 239.7, dec: 58.0, magnitude: 3.2, constellation: "Draco" },
+        "Aldhibah": { ra: 230.2, dec: 58.6, magnitude: 3.1, constellation: "Draco" },
+
+        // Lyra - The Harp
+        "Vega": { ra: 279.2, dec: 38.8, magnitude: 0.0, constellation: "Lyra" },
+        "Sheliak": { ra: 284.7, dec: 33.4, magnitude: 3.5, constellation: "Lyra" },
+        "Sulafat": { ra: 284.0, dec: 32.7, magnitude: 3.2, constellation: "Lyra" },
+        "Delta_Lyr": { ra: 286.6, dec: 36.9, magnitude: 4.3, constellation: "Lyra" },
+
+        // Boötes - The Herdsman
+        "Arcturus": { ra: 213.9, dec: 19.2, magnitude: -0.1, constellation: "Bootes" },
+        "Nekkar": { ra: 225.5, dec: 40.4, magnitude: 3.5, constellation: "Bootes" },
+        "Seginus": { ra: 221.2, dec: 38.3, magnitude: 3.0, constellation: "Bootes" },
+        "Izar": { ra: 210.9, dec: 27.1, magnitude: 2.4, constellation: "Bootes" },
+        "Muphrid": { ra: 206.9, dec: 18.4, magnitude: 2.7, constellation: "Bootes" },
+
+        // Corona Borealis - The Northern Crown
+        "Alphecca": { ra: 233.7, dec: 26.7, magnitude: 2.2, constellation: "CoronaBorealis" },
+        "Nusakan": { ra: 240.1, dec: 29.1, magnitude: 3.7, constellation: "CoronaBorealis" },
+        "Theta_CrB": { ra: 229.3, dec: 31.4, magnitude: 4.1, constellation: "CoronaBorealis" },
+        "Gamma_CrB": { ra: 231.9, dec: 26.3, magnitude: 3.8, constellation: "CoronaBorealis" },
+        "Delta_CrB": { ra: 234.0, dec: 26.1, magnitude: 4.6, constellation: "CoronaBorealis" },
+
+        // Gemini - The Twins
+        "Castor": { ra: 113.6, dec: 31.9, magnitude: 1.6, constellation: "Gemini" },
+        "Pollux": { ra: 116.3, dec: 28.0, magnitude: 1.1, constellation: "Gemini" },
+        "Alhena": { ra: 99.4, dec: 16.4, magnitude: 1.9, constellation: "Gemini" },
+        "Wasat": { ra: 109.8, dec: 22.0, magnitude: 3.5, constellation: "Gemini" },
+        "Mebsuta": { ra: 95.7, dec: 25.1, magnitude: 3.0, constellation: "Gemini" },
+        "Tejat": { ra: 93.7, dec: 22.5, magnitude: 2.9, constellation: "Gemini" },
+
+        // Taurus - The Bull
+        "Aldebaran": { ra: 68.9, dec: 16.5, magnitude: 0.9, constellation: "Taurus" },
+        "Elnath": { ra: 81.6, dec: 28.6, magnitude: 1.7, constellation: "Taurus" },
+        "Alcyone": { ra: 56.9, dec: 24.1, magnitude: 2.9, constellation: "Taurus" },
+        "Maia": { ra: 56.5, dec: 24.4, magnitude: 3.9, constellation: "Taurus" },
+        "Merope": { ra: 57.3, dec: 23.9, magnitude: 4.2, constellation: "Taurus" },
+        "Taygeta": { ra: 57.1, dec: 24.5, magnitude: 4.3, constellation: "Taurus" }
+    },
+
+    // Constellation line connections - pairs of star names that form the recognizable shapes
+    connections: {
+        "Orion": [
+            ["Betelgeuse", "Bellatrix"],
+            ["Betelgeuse", "Mintaka"],
+            ["Bellatrix", "Alnitak"],
+            ["Mintaka", "Alnilam"],
+            ["Alnilam", "Alnitak"],
+            ["Mintaka", "Saiph"],
+            ["Alnitak", "Rigel"],
+            ["Saiph", "Rigel"]
+        ],
+        "UrsaMajor": [
+            ["Dubhe", "Merak"],
+            ["Merak", "Phecda"],
+            ["Phecda", "Megrez"],
+            ["Megrez", "Alioth"],
+            ["Alioth", "Mizar"],
+            ["Mizar", "Alkaid"],
+            ["Megrez", "Dubhe"]
+        ],
+        "Cassiopeia": [
+            ["Caph", "Schedar"],
+            ["Schedar", "Gamma_Cas"],
+            ["Gamma_Cas", "Ruchbah"],
+            ["Ruchbah", "Segin"]
+        ],
+        "Leo": [
+            ["Regulus", "Algieba"],
+            ["Algieba", "Zosma"],
+            ["Zosma", "Chertan"],
+            ["Chertan", "Denebola"],
+            ["Regulus", "Chertan"]
+        ],
+        "Cygnus": [
+            ["Deneb", "Sadr"],
+            ["Sadr", "Albireo"],
+            ["Sadr", "Delta_Cyg"],
+            ["Sadr", "Gienah"]
+        ],
+        "Libra": [
+            ["Zubeneschamali", "Zubenelgenubi"],
+            ["Zubenelgenubi", "Brachium"]
+        ],
+        "Virgo": [
+            ["Spica", "Zavijava"],
+            ["Zavijava", "Porrima"],
+            ["Porrima", "Minelauva"]
+        ],
+        "Aquila": [
+            ["Tarazed", "Altair"],
+            ["Altair", "Alshain"]
+        ],
+        "Andromeda": [
+            ["Alpheratz", "Delta_And"],
+            ["Delta_And", "Mirach"],
+            ["Mirach", "Almach"]
+        ],
+        "Perseus": [
+            ["Mirfak", "Algol"],
+            ["Algol", "Atik"],
+            ["Atik", "Menkib"],
+            ["Mirfak", "Miram"]
+        ],
+        "Draco": [
+            ["Thuban", "Edasich"],
+            ["Edasich", "Aldhibah"],
+            ["Aldhibah", "Eltanin"],
+            ["Eltanin", "Rastaban"],
+            ["Rastaban", "Altais"]
+        ],
+        "Lyra": [
+            ["Vega", "Sheliak"],
+            ["Sheliak", "Sulafat"],
+            ["Vega", "Delta_Lyr"]
+        ],
+        "Bootes": [
+            ["Arcturus", "Muphrid"],
+            ["Arcturus", "Izar"],
+            ["Izar", "Seginus"],
+            ["Seginus", "Nekkar"]
+        ],
+        "CoronaBorealis": [
+            ["Theta_CrB", "Alphecca"],
+            ["Alphecca", "Nusakan"],
+            ["Gamma_CrB", "Alphecca"],
+            ["Alphecca", "Delta_CrB"]
+        ],
+        "Gemini": [
+            ["Castor", "Pollux"],
+            ["Castor", "Alhena"],
+            ["Pollux", "Wasat"],
+            ["Tejat", "Mebsuta"],
+            ["Mebsuta", "Alhena"]
+        ],
+        "Taurus": [
+            ["Aldebaran", "Elnath"],
+            ["Alcyone", "Maia"],
+            ["Maia", "Merope"],
+            ["Merope", "Taygeta"],
+            ["Aldebaran", "Alcyone"]
+        ]
+    }
+};
+
+// Skill to Real Constellation Mapping - Unique Constellations for Each Skill
+const skillToConstellationMap = {
+    // Financial/Analyst skills - Associated with precision, balance, and guidance
+    'Financial Reporting': 'Virgo',           // The Maiden - precision and attention to detail
+    'Risk Management': 'Libra',              // The Scales - balance and weighing decisions
+    'Trade Reconciliation': 'Taurus',        // The Bull - steady, reliable market forces
+    'Data-Driven Analysis': 'Aquila',        // The Eagle - seeing the big picture from above
+    'Futures Settlement': 'Cassiopeia',      // The Queen - royal oversight and control
+    'Operational Efficiency': 'UrsaMajor',   // The Great Bear - strength and reliability
+    'Regulatory Compliance': 'CoronaBorealis', // The Crown - authority and governance
+    'Financial System Integrity': 'Leo',     // The Lion - strength and leadership
+
+    // Developer/Technical skills - Associated with building, hunting, and navigation
+    'Python Process Automation': 'Orion',    // The Hunter - actively pursuing solutions
+    'AI/ML Frameworks': 'Cygnus',           // The Swan - graceful flight through complex data
+    'API Integration': 'Perseus',            // The Hero - connecting and rescuing systems
+    'Data Pipeline Architecture': 'Draco',   // The Dragon - long, winding data flows
+    'Alteryx Development': 'Bootes',        // The Herdsman - guiding and managing data
+    'System Integration': 'Andromeda',      // The Princess - elegant system connections
+    'Interactive Dashboards': 'Lyra',       // The Harp - harmonious data presentation
+    'User Empowerment Focus': 'Gemini'      // The Twins - dual focus on user and system
+};
+
+// Constellation verification - each skill now has a unique constellation
+console.log('Constellation mapping verification:');
+Object.entries(skillToConstellationMap).forEach(([skill, constellation]) => {
+    console.log(`${skill} → ${constellation}`);
+});
+
+// Verify uniqueness
+const constellationCounts = {};
+Object.values(skillToConstellationMap).forEach(constellation => {
+    constellationCounts[constellation] = (constellationCounts[constellation] || 0) + 1;
+});
+
+const duplicates = Object.entries(constellationCounts).filter(([_, count]) => count > 1);
+if (duplicates.length > 0) {
+    console.warn('Duplicate constellation assignments found:', duplicates);
+} else {
+    console.log('✅ All 16 skills have unique constellations');
+}
+
+// Coordinate transformation: Convert celestial coordinates (RA, Dec) to screen coordinates (x, y)
+function celestialToScreen(ra, dec) {
+    // Simple linear mapping that spreads stars across the canvas
+    // RA (Right Ascension) ranges from 0-360 degrees
+    // Dec (Declination) ranges from -90 to +90 degrees
+
+    // Map RA to canvas width (with some padding)
+    const x = (ra / 360) * (canvas.width * 0.8) + (canvas.width * 0.1);
+
+    // Map Dec to canvas height (inverted, with padding)
+    // Higher declination (northern stars) appear higher on screen
+    const y = ((90 - dec) / 180) * (canvas.height * 0.8) + (canvas.height * 0.1);
+
+    return { x, y };
+}
+
+// Build the celestial canvas with real star positions and rich background
+function buildCelestialCanvas() {
+    constellationStars = [];
+    backgroundStars = [];
+    screenStars = [];
+
+    // Process constellation stars from our atlas
+    Object.entries(constellationAtlas.stars).forEach(([starName, starData]) => {
+        const screenPos = celestialToScreen(starData.ra, starData.dec);
+
+        // Calculate star size based on magnitude (brighter stars = lower magnitude = larger size)
+        const baseRadius = 1.2;
+        const magnitudeRadius = Math.max(0.8, baseRadius + (3 - starData.magnitude) * 0.4);
+
+        // Calculate opacity based on magnitude
+        const baseOpacity = 0.7;
+        const magnitudeOpacity = Math.max(0.4, baseOpacity + (3 - starData.magnitude) * 0.15);
+
+        const constellationStar = {
+            name: starName,
+            x: screenPos.x,
+            y: screenPos.y,
+            radius: magnitudeRadius,
+            opacity: magnitudeOpacity,
+            magnitude: starData.magnitude,
+            constellation: starData.constellation,
+            isConstellation: true,
+            isHighlighted: false
+        };
+
+        constellationStars.push(constellationStar);
+        screenStars.push(constellationStar);
+    });
+
+    // Generate additional background stars for rich night sky effect
+    const backgroundStarCount = isMobile ? 200 : 300;
+
+    for (let i = 0; i < backgroundStarCount; i++) {
+        // Ensure background stars don't overlap with constellation stars
+        let x, y, tooClose;
+        let attempts = 0;
+
+        do {
+            tooClose = false;
+            x = Math.random() * canvas.width;
+            y = Math.random() * canvas.height;
+
+            // Check distance from constellation stars
+            for (const constellationStar of constellationStars) {
+                const distance = Math.sqrt(
+                    Math.pow(constellationStar.x - x, 2) +
+                    Math.pow(constellationStar.y - y, 2)
+                );
+                if (distance < 30) { // Minimum 30px separation
+                    tooClose = true;
+                    break;
+                }
+            }
+
+            attempts++;
+        } while (tooClose && attempts < 50); // Prevent infinite loops
+
+        const backgroundStar = {
+            name: `bg_star_${i}`,
+            x: x,
+            y: y,
+            radius: 0.5 + Math.random() * 0.5, // 0.5-1px radius
+            opacity: 0.3 + Math.random() * 0.2, // 30-50% opacity
+            isConstellation: false,
+            isBackground: true
+        };
+
+        backgroundStars.push(backgroundStar);
+        screenStars.push(backgroundStar);
+    }
+
+    // Log constellation statistics
+    const constellationCounts = {};
+    constellationStars.forEach(star => {
+        constellationCounts[star.constellation] = (constellationCounts[star.constellation] || 0) + 1;
+    });
+
+    console.log(`Celestial canvas built: ${constellationStars.length} constellation stars, ${backgroundStars.length} background stars`);
+    console.log('Constellation star counts:', constellationCounts);
+    console.log(`Total constellations available: ${Object.keys(constellationCounts).length}`);
+
+    // Verify all mapped constellations exist
+    const missingConstellations = [];
+    Object.values(skillToConstellationMap).forEach(constellation => {
+        if (!constellationCounts[constellation]) {
+            missingConstellations.push(constellation);
+        }
+    });
+
+    if (missingConstellations.length > 0) {
+        console.error('Missing constellation data for:', missingConstellations);
+    } else {
+        console.log('✅ All mapped constellations have star data');
+    }
+}
+
+// Map skills to real constellations - no longer needed as we use direct mapping
+// Skills now directly reference constellation names from the atlas
+
+// Easing functions for smooth animations
+const easing = {
+    easeOutCubic: t => 1 - Math.pow(1 - t, 3),
+    easeInOutCubic: t => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2,
+    easeOutElastic: t => {
+        const c4 = (2 * Math.PI) / 3;
+        return t === 0 ? 0 : t === 1 ? 1 : Math.pow(2, -10 * t) * Math.sin((t * 10 - 0.75) * c4) + 1;
+    },
+    easeOutBack: t => {
+        const c1 = 1.70158;
+        const c3 = c1 + 1;
+        return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
+    }
+};
 
 // Function to create and place skill nodes
 
@@ -1064,8 +1516,10 @@ node.style.top = `${y}%`;
 
 container.appendChild(node);
 
+// Add click event listener for constellation effect
+node.addEventListener('click', () => activateConstellation(skill, node));
 
-const nodeData = { element: node, x, y, side: containerId.split('-')[0] };
+const nodeData = { element: node, x, y, side: containerId.split('-')[0], skill: skill };
 
 nodeArray.push(nodeData);
 
@@ -1103,7 +1557,369 @@ allNodes.push(cardData);
 
 }
 
+// Activate constellation effect - simplified direct interaction
+function activateConstellation(skill, nodeElement) {
+    // Immediate visual feedback - no delay
+    nodeElement.style.transform = 'translate(-50%, -50%) scale(1.1)';
+    setTimeout(() => {
+        nodeElement.style.transform = 'translate(-50%, -50%) scale(1)';
+    }, 150);
 
+    // Clear any existing constellation timeout and remove previous active class
+    if (constellationTimeout) {
+        clearTimeout(constellationTimeout);
+    }
+
+    // Remove active class from all skill nodes
+    document.querySelectorAll('.skill-node').forEach(node => {
+        node.classList.remove('constellation-active');
+    });
+
+    // Add active class to clicked node immediately
+    nodeElement.classList.add('constellation-active');
+
+    // Get node position for ripple effect
+    const rect = nodeElement.getBoundingClientRect();
+    const nodePosition = {
+        x: rect.left + rect.width / 2,
+        y: rect.top + rect.height / 2
+    };
+
+    // Create ripple effect at click point
+    rippleEffects.push({
+        x: nodePosition.x,
+        y: nodePosition.y,
+        startTime: Date.now(),
+        maxRadius: 100,
+        duration: 1000
+    });
+
+    // Get the constellation name for this skill
+    const constellationName = skillToConstellationMap[skill.name];
+    if (!constellationName) {
+        console.warn(`No constellation mapped for skill: ${skill.name}`);
+        return;
+    }
+
+    // Verify constellation exists in atlas
+    if (!constellationAtlas.connections[constellationName]) {
+        console.warn(`Constellation ${constellationName} not found in atlas for skill: ${skill.name}`);
+        console.log('Available constellations:', Object.keys(constellationAtlas.connections));
+        return;
+    }
+
+    // Verify constellation has stars
+    const constellationStarsCount = constellationStars.filter(star => star.constellation === constellationName).length;
+    if (constellationStarsCount === 0) {
+        console.warn(`No stars found for constellation ${constellationName}`);
+        return;
+    }
+
+    // Set active constellation with enhanced animation data
+    activeConstellation = {
+        name: constellationName,
+        skill: skill,
+        nodeElement: nodeElement,
+        nodePosition: nodePosition,
+        startTime: Date.now(),
+        fadeOutStart: null
+    };
+
+    console.log(`✅ Activated constellation: ${constellationName} for skill: ${skill.name} (${constellationStarsCount} stars, ${constellationAtlas.connections[constellationName].length} connections)`);
+
+    // Enhanced 4-second display then smooth fade out
+    constellationTimeout = setTimeout(() => {
+        if (activeConstellation && activeConstellation.name === constellationName) {
+            activeConstellation.fadeOutStart = Date.now();
+
+            // Complete fade out after 1.5 seconds
+            setTimeout(() => {
+                activeConstellation = null;
+                nodeElement.classList.remove('constellation-active');
+            }, 1500);
+        }
+    }, 4000);
+}
+
+// Project connection functions removed - keeping only direct skill-to-constellation interaction
+
+// Render ripple effects with enhanced visual polish
+function renderRippleEffects() {
+    rippleEffects = rippleEffects.filter(ripple => {
+        const elapsed = Date.now() - ripple.startTime;
+        const progress = elapsed / ripple.duration;
+
+        if (progress >= 1) return false; // Remove completed ripples
+
+        const easedProgress = easing.easeOutCubic(progress);
+        const currentRadius = easedProgress * ripple.maxRadius;
+        const opacity = (1 - progress) * 0.8;
+
+        // Draw main ripple with enhanced glow
+        ctx.save();
+        ctx.globalAlpha = opacity;
+        ctx.strokeStyle = '#67e97b';
+        ctx.lineWidth = 4;
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = '#67e97b';
+        ctx.beginPath();
+        ctx.arc(ripple.x, ripple.y, currentRadius, 0, Math.PI * 2);
+        ctx.stroke();
+
+        // Inner ripple with white core
+        ctx.globalAlpha = opacity * 0.6;
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 2;
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = '#ffffff';
+        ctx.beginPath();
+        ctx.arc(ripple.x, ripple.y, currentRadius * 0.7, 0, Math.PI * 2);
+        ctx.stroke();
+
+        // Outer subtle ripple
+        ctx.globalAlpha = opacity * 0.3;
+        ctx.strokeStyle = '#67e97b';
+        ctx.lineWidth = 1;
+        ctx.shadowBlur = 5;
+        ctx.shadowColor = '#67e97b';
+        ctx.beginPath();
+        ctx.arc(ripple.x, ripple.y, currentRadius * 1.3, 0, Math.PI * 2);
+        ctx.stroke();
+
+        ctx.restore();
+
+        return true; // Keep ripple
+    });
+}
+
+// Render the static celestial background with rich star field
+function renderCelestialBackground() {
+    // Render background stars first (dimmer, smaller)
+    backgroundStars.forEach(star => {
+        ctx.save();
+        ctx.globalAlpha = star.opacity;
+        ctx.fillStyle = '#ffffff';
+        ctx.shadowBlur = 1;
+        ctx.shadowColor = '#ffffff';
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+    });
+
+    // Render constellation stars on top (brighter, larger)
+    constellationStars.forEach(star => {
+        ctx.save();
+        ctx.globalAlpha = star.opacity;
+        ctx.fillStyle = '#ffffff';
+        ctx.shadowBlur = 3;
+        ctx.shadowColor = '#ffffff';
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+    });
+}
+
+// Render active constellation with smooth progressive animations
+function renderActiveConstellation() {
+    if (!activeConstellation) return;
+
+    const { name: constellationName, nodePosition, startTime, fadeOutStart } = activeConstellation;
+    const connections = constellationAtlas.connections[constellationName];
+
+    if (!connections) return;
+
+    // Get all stars in this constellation
+    const activeConstellationStars = constellationStars.filter(star => star.constellation === constellationName);
+    if (activeConstellationStars.length === 0) return;
+
+    // Calculate animation timing
+    const elapsed = (Date.now() - startTime) / 1000;
+    let globalOpacity = 1;
+
+    // Handle fade out if started
+    if (fadeOutStart) {
+        const fadeElapsed = (Date.now() - fadeOutStart) / 1000;
+        globalOpacity = Math.max(0, 1 - easing.easeInOutCubic(fadeElapsed / 1.5));
+    }
+
+    // 1. Render constellation stars with staggered fade-in
+    activeConstellationStars.forEach((star, index) => {
+        const starDelay = index * 0.1; // 0.1 second stagger
+        const starProgress = Math.max(0, Math.min(1, (elapsed - starDelay) / 0.8)); // 0.8 second fade-in
+        const starOpacity = easing.easeOutCubic(starProgress) * globalOpacity;
+
+        if (starOpacity > 0) {
+            ctx.save();
+            ctx.globalAlpha = starOpacity;
+
+            // Outer glow with enhanced size during fade-in
+            const glowMultiplier = 1 + (1 - starProgress) * 0.5; // Slightly larger during fade-in
+            ctx.fillStyle = '#58a6ff';
+            ctx.shadowBlur = 25;
+            ctx.shadowColor = '#58a6ff';
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.radius * 3.5 * glowMultiplier, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Bright white core
+            ctx.fillStyle = '#ffffff';
+            ctx.shadowBlur = 12;
+            ctx.shadowColor = '#ffffff';
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.radius * 1.8, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.restore();
+        }
+    });
+
+    // 2. Find closest star to skill node for connection ordering
+    let closestStar = activeConstellationStars[0];
+    let minDistance = Infinity;
+
+    activeConstellationStars.forEach(star => {
+        const distance = Math.sqrt(
+            Math.pow(star.x - nodePosition.x, 2) +
+            Math.pow(star.y - nodePosition.y, 2)
+        );
+        if (distance < minDistance) {
+            minDistance = distance;
+            closestStar = star;
+        }
+    });
+
+    // 3. Progressive line drawing starting from closest star
+    const lineStartTime = 0.3; // Start after star fade-in begins
+    if (elapsed > lineStartTime) {
+        const lineElapsed = elapsed - lineStartTime;
+        const totalConnections = connections.length;
+
+        ctx.save();
+        ctx.globalAlpha = globalOpacity;
+        ctx.strokeStyle = '#58a6ff';
+        ctx.lineWidth = 2.5;
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = '#58a6ff';
+
+        // Draw connections progressively
+        connections.forEach((connection, index) => {
+            const connectionDelay = index * 0.1; // Stagger line drawing
+            const connectionProgress = Math.max(0, Math.min(1, (lineElapsed - connectionDelay) / 0.4));
+
+            if (connectionProgress > 0) {
+                const [star1Name, star2Name] = connection;
+                const star1 = activeConstellationStars.find(s => s.name === star1Name);
+                const star2 = activeConstellationStars.find(s => s.name === star2Name);
+
+                if (star1 && star2) {
+                    const smoothProgress = easing.easeInOutCubic(connectionProgress);
+                    const endX = star1.x + (star2.x - star1.x) * smoothProgress;
+                    const endY = star1.y + (star2.y - star1.y) * smoothProgress;
+
+                    // Main line
+                    ctx.beginPath();
+                    ctx.moveTo(star1.x, star1.y);
+                    ctx.lineTo(endX, endY);
+                    ctx.stroke();
+
+                    // Bright core line
+                    ctx.save();
+                    ctx.strokeStyle = '#ffffff';
+                    ctx.lineWidth = 1;
+                    ctx.shadowBlur = 6;
+                    ctx.shadowColor = '#ffffff';
+                    ctx.beginPath();
+                    ctx.moveTo(star1.x, star1.y);
+                    ctx.lineTo(endX, endY);
+                    ctx.stroke();
+                    ctx.restore();
+                }
+            }
+        });
+
+        ctx.restore();
+    }
+
+    // 4. Skill node to constellation connection
+    if (elapsed > 0.1) {
+        const connectionProgress = Math.max(0, Math.min(1, (elapsed - 0.1) / 0.6)); // 0.6 second draw
+        const smoothProgress = easing.easeOutCubic(connectionProgress);
+
+        // Calculate connection endpoint
+        const endX = nodePosition.x + (closestStar.x - nodePosition.x) * smoothProgress;
+        const endY = nodePosition.y + (closestStar.y - nodePosition.y) * smoothProgress;
+
+        ctx.save();
+        ctx.globalAlpha = globalOpacity;
+
+        // Flowing particles along connection line
+        const particleCount = 8;
+        for (let i = 0; i < particleCount; i++) {
+            const particleOffset = (animationTime * 2 + i / particleCount) % 1;
+            const particleProgress = (connectionProgress + particleOffset) % 1;
+
+            if (particleProgress > 0 && connectionProgress > 0.2) {
+                const particleX = nodePosition.x + (closestStar.x - nodePosition.x) * particleProgress;
+                const particleY = nodePosition.y + (closestStar.y - nodePosition.y) * particleProgress;
+
+                ctx.fillStyle = '#67e97b';
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = '#67e97b';
+                ctx.beginPath();
+                ctx.arc(particleX, particleY, 2.5, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        // Main connection line (green)
+        ctx.strokeStyle = '#67e97b';
+        ctx.lineWidth = 3;
+        ctx.shadowBlur = 18;
+        ctx.shadowColor = '#67e97b';
+        ctx.beginPath();
+        ctx.moveTo(nodePosition.x, nodePosition.y);
+        ctx.lineTo(endX, endY);
+        ctx.stroke();
+
+        // Bright core line
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 1.5;
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = '#ffffff';
+        ctx.beginPath();
+        ctx.moveTo(nodePosition.x, nodePosition.y);
+        ctx.lineTo(endX, endY);
+        ctx.stroke();
+
+        // Pulsing glow at connection points
+        const pulseOpacity = (0.4 + 0.3 * Math.sin(animationTime * 3)) * globalOpacity;
+
+        // Pulse at skill node
+        ctx.globalAlpha = pulseOpacity;
+        ctx.fillStyle = '#67e97b';
+        ctx.shadowBlur = 20;
+        ctx.shadowColor = '#67e97b';
+        ctx.beginPath();
+        ctx.arc(nodePosition.x, nodePosition.y, 8, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Pulse at constellation connection point
+        if (connectionProgress > 0.8) {
+            ctx.fillStyle = '#58a6ff';
+            ctx.shadowBlur = 20;
+            ctx.shadowColor = '#58a6ff';
+            ctx.beginPath();
+            ctx.arc(closestStar.x, closestStar.y, 10, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        ctx.restore();
+    }
+}
+
+// Project connection rendering removed - keeping only direct constellation effects
 
 // Canvas Animation
 
@@ -1114,6 +1930,17 @@ ctx.clearRect(0, 0, canvas.width, canvas.height);
 const mouseSide = (mouse.x < window.innerWidth / 2) ? 'analyst' : 'developer';
 
 animationTime += 0.02;
+
+// Render the static celestial background
+renderCelestialBackground();
+
+// Render ripple effects
+renderRippleEffects();
+
+// Render active constellation if exists
+if (activeConstellation) {
+    renderActiveConstellation();
+}
 
 
 
@@ -1349,6 +2176,8 @@ canvas.height = window.innerHeight;
 
 detectMobile();
 
+// Build the celestial canvas with real star data
+buildCelestialCanvas();
 
 createSkillNodes('analyst-skills', analystSkills);
 
@@ -1397,6 +2226,9 @@ canvas.height = window.innerHeight;
 // Re-detect mobile on resize
 
 detectMobile();
+
+// Rebuild celestial canvas for new canvas size
+buildCelestialCanvas();
 
 });
 
