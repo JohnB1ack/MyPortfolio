@@ -68,6 +68,16 @@ color: var(--color-text-main);
 
 overflow-x: hidden;
 
+/* Mobile optimizations */
+
+-webkit-font-smoothing: antialiased;
+
+-moz-osx-font-smoothing: grayscale;
+
+-webkit-text-size-adjust: 100%;
+
+-ms-text-size-adjust: 100%;
+
 }
 
 
@@ -224,6 +234,14 @@ transition: color 0.3s ease, text-shadow 0.3s ease;
 
 z-index: 2; /* Below heading */
 
+/* Mobile touch improvements */
+
+-webkit-tap-highlight-color: transparent;
+
+user-select: none;
+
+-webkit-user-select: none;
+
 }
 
 
@@ -353,6 +371,14 @@ backdrop-filter: blur(12px);
 -webkit-backdrop-filter: blur(12px);
 
 box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+
+/* Touch-friendly improvements */
+
+-webkit-tap-highlight-color: rgba(88, 166, 255, 0.1);
+
+touch-action: manipulation;
+
+cursor: pointer;
 
 }
 
@@ -559,13 +585,243 @@ padding: 1rem;
 
 @media (max-width: 768px) {
 
-#project-grid {
+#wrapper {
 
-padding: 3rem 0;
+padding: 1rem;
 
 }
 
-#profile-image { width: 120px; height: 120px; }
+#mindset-container {
+
+padding-top: 1rem;
+
+}
+
+.mindset-side {
+
+height: 30vh;
+
+padding: 0.5rem;
+
+}
+
+#profile-center {
+
+margin-top: 2rem;
+
+margin-bottom: 2rem;
+
+}
+
+#profile-image {
+
+width: 120px;
+
+height: 120px;
+
+}
+
+#project-grid {
+
+padding: 2rem 0;
+
+gap: 1.5rem;
+
+grid-template-columns: 1fr;
+
+}
+
+.project-card {
+
+padding: 2rem;
+
+margin: 0 auto;
+
+max-width: 400px;
+
+}
+
+.card-icon {
+
+font-size: 2rem;
+
+margin-bottom: 1rem;
+
+}
+
+.card-title {
+
+font-size: 1.1rem;
+
+}
+
+.card-description {
+
+font-size: 0.9rem;
+
+}
+
+}
+
+
+
+@media (max-width: 480px) {
+
+#wrapper {
+
+padding: 0.5rem;
+
+}
+
+.mindset-side {
+
+height: 25vh;
+
+padding: 0.25rem;
+
+}
+
+.skill-node {
+
+font-size: 0.7rem;
+
+padding: 6px 12px;
+
+}
+
+#profile-center h1 {
+
+font-size: 1.8rem;
+
+}
+
+#profile-center p {
+
+font-size: 0.85rem;
+
+padding: 0 1rem;
+
+}
+
+#project-grid {
+
+gap: 1rem;
+
+padding: 1.5rem 0;
+
+}
+
+.project-card {
+
+padding: 1.5rem;
+
+border-radius: 12px;
+
+}
+
+.card-icon {
+
+font-size: 1.8rem;
+
+}
+
+.card-title {
+
+font-size: 1rem;
+
+}
+
+.card-description {
+
+font-size: 0.85rem;
+
+line-height: 1.5;
+
+}
+
+}
+
+
+
+@media (max-width: 360px) {
+
+.mindset-side {
+
+height: 20vh;
+
+}
+
+.skill-node {
+
+font-size: 0.6rem;
+
+padding: 4px 8px;
+
+}
+
+#profile-image {
+
+width: 100px;
+
+height: 100px;
+
+}
+
+#profile-center h1 {
+
+font-size: 1.6rem;
+
+}
+
+.project-card {
+
+padding: 1.25rem;
+
+}
+
+}
+
+
+
+/* Mobile-specific enhancements */
+
+@media (hover: none) and (pointer: coarse) {
+
+/* Touch device specific styles */
+
+.project-card:active {
+
+transform: translateY(-5px) scale(0.98);
+
+border-color: rgba(88, 166, 255, 0.5);
+
+}
+
+.skill-node {
+
+pointer-events: none; /* Prevent accidental touches on skill nodes */
+
+}
+
+}
+
+
+
+/* Reduce motion for users who prefer it */
+
+@media (prefers-reduced-motion: reduce) {
+
+.project-card,
+
+.skill-node,
+
+.card-icon,
+
+.card-title {
+
+transition: none;
+
+}
 
 }
 
@@ -759,6 +1015,10 @@ const projectCards = [];
 
 let animationTime = 0;
 
+let isMobile = false;
+
+let isTouch = false;
+
 
 
 // Function to create and place skill nodes
@@ -770,8 +1030,22 @@ const container = document.getElementById(containerId);
 const nodeArray = [];
 
 
+// Reduce number of skills on very small screens for better performance
 
-skills.forEach(skill => {
+let skillsToShow = skills;
+
+if (window.innerWidth <= 480) {
+
+skillsToShow = skills.slice(0, 6); // Show only first 6 skills on very small screens
+
+} else if (window.innerWidth <= 768) {
+
+skillsToShow = skills.slice(0, 7); // Show 7 skills on small screens
+
+}
+
+
+skillsToShow.forEach(skill => {
 
 const node = document.createElement('div');
 
@@ -890,7 +1164,11 @@ const dist = Math.sqrt(Math.pow(nodeCenterX - mouse.x, 2) + Math.pow(nodeCenterY
 
 if (node.type !== 'project-card') {
 
-if (node.side === mouseSide && dist < 400) {
+// Adjust interaction range for mobile
+
+const skillRange = isMobile ? 200 : 400;
+
+if (node.side === mouseSide && dist < skillRange) {
 
 node.element.classList.add('active');
 
@@ -900,11 +1178,11 @@ ctx.moveTo(mouse.x, mouse.y);
 
 ctx.lineTo(nodeCenterX, nodeCenterY);
 
-const opacity = 0.5 * (1 - dist / 400);
+const opacity = (isMobile ? 0.7 : 0.5) * (1 - dist / skillRange);
 
 ctx.strokeStyle = (node.side === 'analyst') ? `rgba(88, 166, 255, ${opacity})` : `rgba(67, 233, 123, ${opacity})`;
 
-ctx.lineWidth = 1;
+ctx.lineWidth = isMobile ? 2 : 1;
 
 ctx.stroke();
 
@@ -920,7 +1198,11 @@ node.element.classList.remove('active');
 
 else {
 
-if (dist < 300) {
+// Adjust interaction range for mobile
+
+const cardRange = isMobile ? 150 : 300;
+
+if (dist < cardRange) {
 
 node.element.classList.add('active');
 
@@ -930,9 +1212,9 @@ ctx.moveTo(mouse.x, mouse.y);
 
 ctx.lineTo(nodeCenterX, nodeCenterY);
 
-const baseOpacity = 0.4 * (1 - dist / 300);
+const baseOpacity = (isMobile ? 0.6 : 0.4) * (1 - dist / cardRange);
 
-const pulseEffect = 0.8 + 0.2 * Math.sin(animationTime * 3);
+const pulseEffect = isMobile ? 1 : (0.8 + 0.2 * Math.sin(animationTime * 3));
 
 const opacity = baseOpacity * pulseEffect;
 
@@ -1020,6 +1302,68 @@ requestAnimationFrame(animate);
 
 
 
+// Mobile and touch detection
+
+function detectMobile() {
+
+isMobile = window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+return isMobile;
+
+}
+
+
+
+// Touch event handlers
+
+function handleTouchStart(e) {
+
+if (e.touches && e.touches.length > 0) {
+
+mouse.x = e.touches[0].clientX;
+
+mouse.y = e.touches[0].clientY;
+
+}
+
+}
+
+
+
+function handleTouchMove(e) {
+
+if (e.touches && e.touches.length > 0) {
+
+mouse.x = e.touches[0].clientX;
+
+mouse.y = e.touches[0].clientY;
+
+e.preventDefault(); // Prevent scrolling while touching
+
+}
+
+}
+
+
+
+function handleTouchEnd(e) {
+
+// Keep the last position for a moment, then fade out
+
+setTimeout(() => {
+
+mouse.x = null;
+
+mouse.y = null;
+
+}, 500);
+
+}
+
+
+
 // Initialization
 
 function init() {
@@ -1027,6 +1371,11 @@ function init() {
 canvas.width = window.innerWidth;
 
 canvas.height = window.innerHeight;
+
+
+// Detect mobile and touch capabilities
+
+detectMobile();
 
 
 createSkillNodes('analyst-skills', analystSkills);
@@ -1037,13 +1386,33 @@ initializeProjectCards();
 
 
 
+// Mouse events for desktop
+
 window.addEventListener('mousemove', e => {
+
+if (!isTouch) { // Only use mouse events if not a touch device
 
 mouse.x = e.clientX;
 
 mouse.y = e.clientY;
 
+}
+
 });
+
+
+
+// Touch events for mobile
+
+if (isTouch) {
+
+canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
+
+canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
+
+canvas.addEventListener('touchend', handleTouchEnd, { passive: true });
+
+}
 
 
 
@@ -1053,13 +1422,43 @@ canvas.width = window.innerWidth;
 
 canvas.height = window.innerHeight;
 
-// No need to re-create nodes, their positions are % based.
+// Re-detect mobile on resize
+
+detectMobile();
 
 });
 
 
 
+// Start animation with mobile optimization
+
+if (isMobile) {
+
+// Reduce animation frequency on mobile for better performance
+
+let mobileAnimationFrame = 0;
+
+function mobileAnimate() {
+
+mobileAnimationFrame++;
+
+if (mobileAnimationFrame % 2 === 0) { // Run at 30fps instead of 60fps
+
 animate();
+
+}
+
+requestAnimationFrame(mobileAnimate);
+
+}
+
+mobileAnimate();
+
+} else {
+
+animate();
+
+}
 
 }
 
