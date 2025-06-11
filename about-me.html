@@ -15,7 +15,8 @@
 :root {
 --color-background: #0D1117;
 --color-text-main: #E6EDF3;
---color-text-secondary: #8B949E;
+--color-text-secondary: #B8C5D1;
+--color-text-tertiary: #9CA3AF;
 --color-border: rgba(255, 255, 255, 0.1);
 --font-main: 'Inter', sans-serif;
 --glow-analyst: rgba(88, 166, 255, 0.2);
@@ -235,10 +236,11 @@ color: var(--color-text-main);
 
 .center-profile .title {
 font-size: 12px;
-opacity: 0.9;
+opacity: 0.95;
 line-height: 1.4;
 padding: 0 20px;
-color: var(--color-text-secondary);
+color: var(--color-text-main);
+text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 /* Orbital Paths */
@@ -289,6 +291,7 @@ cursor: pointer;
 z-index: 20;
 pointer-events: auto;
 transform-style: preserve-3d;
+text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
 }
 
 /* Keep items upright */
@@ -327,11 +330,10 @@ z-index: 30;
 }
 
 /* Position items evenly around orbits */
-/* Skills orbit - 4 items */
+/* Skills orbit - 3 items */
 .orbit-skills .item-1 { top: 0; left: 50%; }
-.orbit-skills .item-2 { top: 50%; right: 0; }
-.orbit-skills .item-3 { bottom: 0; left: 50%; }
-.orbit-skills .item-4 { top: 50%; left: 0; }
+.orbit-skills .item-2 { bottom: 25%; right: 6.7%; }
+.orbit-skills .item-3 { bottom: 25%; left: 6.7%; }
 
 /* Attributes orbit - 4 items */
 .orbit-attributes .item-1 { top: 0; left: 50%; }
@@ -354,9 +356,10 @@ font-size: 11px;
 text-transform: uppercase;
 letter-spacing: 2px;
 color: var(--color-text-secondary);
-font-weight: 500;
+font-weight: 600;
 z-index: 15;
 pointer-events: none;
+text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
 }
 
 .orbit-skills .orbit-label {
@@ -610,9 +613,8 @@ AI Automation Architect
 <div class="orbit orbit-skills">
 <span class="orbit-label">Core Skills</span>
 <div class="orbital-item skill-core item-1">Python Expert</div>
-<div class="orbital-item skill-core item-2">Process Automation</div>
-<div class="orbital-item skill-core item-3">Data Engineering</div>
-<div class="orbital-item skill-core item-4">Problem Solving</div>
+<div class="orbital-item skill-core item-2">Data Engineering</div>
+<div class="orbital-item skill-core item-3">Problem Solving</div>
 </div>
 
 <!-- Personal Attributes Orbit (Middle) -->
