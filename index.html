@@ -330,7 +330,7 @@ padding: 5rem 0;
 
 .project-card {
 
-background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0));
+background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
 
 border: 1px solid var(--color-border);
 
@@ -346,9 +346,37 @@ position: relative;
 
 overflow: hidden;
 
-transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+transition: all 0.4s ease;
 
-backdrop-filter: blur(8px);
+backdrop-filter: blur(12px);
+
+-webkit-backdrop-filter: blur(12px);
+
+box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+
+}
+
+.project-card::before {
+
+content: '';
+
+position: absolute;
+
+top: 0;
+
+left: 0;
+
+right: 0;
+
+bottom: 0;
+
+background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+
+opacity: 0;
+
+transition: opacity 0.3s ease;
+
+pointer-events: none;
 
 }
 
@@ -356,17 +384,74 @@ backdrop-filter: blur(8px);
 
 transform: translateY(-10px);
 
-border-color: rgba(255, 255, 255, 0.2);
+border-color: rgba(255, 255, 255, 0.3);
 
-box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2), 0 0 20px rgba(255, 255, 255, 0.1);
 
 }
 
-.card-icon { font-size: 2.5rem; margin-bottom: 1.5rem; color: #58A6FF;}
+.project-card:hover::before {
 
-.card-title { font-size: 1.25rem; font-weight: 700; color: var(--color-text-main); margin-bottom: 0.75rem;}
+opacity: 1;
 
-.card-description { font-size: 0.95rem; color: var(--color-text-secondary); line-height: 1.7; }
+}
+
+.project-card.active {
+
+border-color: rgba(88, 166, 255, 0.4);
+
+box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2), 0 0 30px rgba(88, 166, 255, 0.2);
+
+}
+
+.project-card.active::before {
+
+background: linear-gradient(135deg, rgba(88, 166, 255, 0.1), rgba(67, 233, 123, 0.05));
+
+opacity: 1;
+
+}
+
+.project-card.active .card-icon {
+
+color: #58A6FF;
+
+text-shadow: 0 0 15px rgba(88, 166, 255, 0.5);
+
+transform: scale(1.1);
+
+transition: all 0.3s ease;
+
+}
+
+.project-card.active .card-title {
+
+color: #58A6FF;
+
+text-shadow: 0 0 10px rgba(88, 166, 255, 0.3);
+
+}
+
+.card-icon {
+font-size: 2.5rem;
+margin-bottom: 1.5rem;
+color: #58A6FF;
+transition: all 0.3s ease;
+}
+
+.card-title {
+font-size: 1.25rem;
+font-weight: 700;
+color: var(--color-text-main);
+margin-bottom: 0.75rem;
+transition: all 0.3s ease;
+}
+
+.card-description {
+font-size: 0.95rem;
+color: var(--color-text-secondary);
+line-height: 1.7;
+}
 
 /* Message Card Special Styling */
 .message-card {
@@ -412,6 +497,23 @@ background-clip: text;
 .message-card .card-description {
 color: var(--color-text-main) !important;
 font-weight: 500;
+}
+
+.message-card.active {
+border-color: rgba(67, 233, 123, 0.6) !important;
+box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2), 0 0 40px rgba(67, 233, 123, 0.3) !important;
+}
+
+.message-card.active .card-icon {
+color: #43E97B !important;
+text-shadow: 0 0 20px rgba(67, 233, 123, 0.6) !important;
+}
+
+.message-card.active .card-title {
+background: linear-gradient(135deg, #43E97B, #58A6FF) !important;
+-webkit-background-clip: text !important;
+-webkit-text-fill-color: transparent !important;
+background-clip: text !important;
 }
 
 
@@ -653,6 +755,10 @@ let mouse = { x: null, y: null };
 
 const allNodes = [];
 
+const projectCards = [];
+
+let animationTime = 0;
+
 
 
 // Function to create and place skill nodes
@@ -725,6 +831,34 @@ allNodes.push(nodeData);
 
 
 
+// Function to initialize project cards for line connections
+
+function initializeProjectCards() {
+
+const cards = document.querySelectorAll('.project-card');
+
+cards.forEach(card => {
+
+const cardData = {
+
+element: card,
+
+type: 'project-card',
+
+side: 'project' // Different side identifier for project cards
+
+};
+
+projectCards.push(cardData);
+
+allNodes.push(cardData);
+
+});
+
+}
+
+
+
 // Canvas Animation
 
 function animate() {
@@ -732,6 +866,8 @@ function animate() {
 ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 const mouseSide = (mouse.x < window.innerWidth / 2) ? 'analyst' : 'developer';
+
+animationTime += 0.02;
 
 
 
@@ -750,6 +886,9 @@ if (mouse.x === null) return;
 const dist = Math.sqrt(Math.pow(nodeCenterX - mouse.x, 2) + Math.pow(nodeCenterY - mouse.y, 2));
 
 
+// Handle skill nodes (original logic)
+
+if (node.type !== 'project-card') {
 
 if (node.side === mouseSide && dist < 400) {
 
@@ -775,6 +914,102 @@ node.element.classList.remove('active');
 
 }
 
+}
+
+// Handle project cards
+
+else {
+
+if (dist < 300) {
+
+node.element.classList.add('active');
+
+ctx.beginPath();
+
+ctx.moveTo(mouse.x, mouse.y);
+
+ctx.lineTo(nodeCenterX, nodeCenterY);
+
+const baseOpacity = 0.4 * (1 - dist / 300);
+
+const pulseEffect = 0.8 + 0.2 * Math.sin(animationTime * 3);
+
+const opacity = baseOpacity * pulseEffect;
+
+// Special styling for message card
+
+if (node.element.classList.contains('message-card')) {
+
+// Primary line with green glow
+
+ctx.strokeStyle = `rgba(67, 233, 123, ${opacity})`;
+
+ctx.lineWidth = 3;
+
+ctx.stroke();
+
+// Secondary line with blue accent
+
+ctx.beginPath();
+
+ctx.moveTo(mouse.x, mouse.y);
+
+ctx.lineTo(nodeCenterX, nodeCenterY);
+
+ctx.strokeStyle = `rgba(88, 166, 255, ${opacity * 0.5})`;
+
+ctx.lineWidth = 1;
+
+ctx.stroke();
+
+// Add glow effect
+
+ctx.beginPath();
+
+ctx.moveTo(mouse.x, mouse.y);
+
+ctx.lineTo(nodeCenterX, nodeCenterY);
+
+ctx.strokeStyle = `rgba(67, 233, 123, ${opacity * 0.3})`;
+
+ctx.lineWidth = 6;
+
+ctx.stroke();
+
+} else {
+
+// Regular project cards with blue theme
+
+ctx.strokeStyle = `rgba(88, 166, 255, ${opacity})`;
+
+ctx.lineWidth = 2;
+
+ctx.stroke();
+
+// Add subtle glow
+
+ctx.beginPath();
+
+ctx.moveTo(mouse.x, mouse.y);
+
+ctx.lineTo(nodeCenterX, nodeCenterY);
+
+ctx.strokeStyle = `rgba(88, 166, 255, ${opacity * 0.2})`;
+
+ctx.lineWidth = 4;
+
+ctx.stroke();
+
+}
+
+} else {
+
+node.element.classList.remove('active');
+
+}
+
+}
+
 });
 
 
@@ -797,6 +1032,8 @@ canvas.height = window.innerHeight;
 createSkillNodes('analyst-skills', analystSkills);
 
 createSkillNodes('developer-skills', developerSkills);
+
+initializeProjectCards();
 
 
 
