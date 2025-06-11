@@ -1,134 +1,556 @@
 <!DOCTYPE HTML>
-<!--
-	Massively by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
-	<head>
-		<title>Interest Rate Calculation Automation - John Black</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
+<head>
+<title>Automation Engine - John C. Black</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+<!-- Google Fonts & Font Awesome -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-				<!-- Header -->
-					<header id="header">
-						<a href="index.html" class="logo">Portfolio</a>
-					</header>
+<style>
+:root {
+--color-background: #0D1117;
+--color-text-main: #E6EDF3;
+--color-text-secondary: #8B949E;
+--color-border: rgba(255, 255, 255, 0.1);
+--font-main: 'Inter', sans-serif;
+--glow-analyst: rgba(88, 166, 255, 0.2);
+--glow-developer: rgba(67, 233, 123, 0.2);
+}
 
-				<!-- Nav -->
-					<nav id="nav">
-						<ul class="links">
-							<li><a href="index.html">Portfolio</a></li>
-							<li><a href="about-me.html">About Me</a></li>
-							<li><a href="streamlit-report-generator.html">Streamlit Report Generator</a></li>
-							<li class="active"><a href="interest-rate-automation.html">Interest Rate Automation</a></li>
-							<li><a href="xtp-data-integration.html">XTP Data Integration</a></li>
-							<li><a href="generic.html">SQL & SAS Project</a></li>
-						</ul>
-						<ul class="icons">
-							<li><a href="https://www.linkedin.com/in/john-black-532677194/" class="icon brands alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
-							<li><a href="https://www.instagram.com/jcblack1/" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
-							<li><a href="https://github.com/JohnB1ack" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
-						</ul>
-					</nav>
+*, *::before, *::after {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
 
-				<!-- Main -->
-					<div id="main">
+body {
+background-color: var(--color-background);
+font-family: var(--font-main);
+color: var(--color-text-main);
+overflow-x: hidden;
+}
 
-						<!-- Post -->
-							<section class="post">
-								<header class="major">
-									<span class="date">November 2023 - Present</span>
-									<h1>Interest Rate Calculation Engine</h1>
-									<p>When the head of clearing reached out after seeing my initial automation work, Marex faced a critical challenge: no way to calculate interest on options for EOD and ITD reporting. With client money at stake and IT estimating over a year for delivery, this demonstrated the speed advantage of citizen development - delivering a working solution in hours vs. traditional IT timelines.</p>
-								</header>
-								<div class="image main"><img src="images/interest_options_alteryx.JPG" alt="Alteryx workflow automating interest rate calculations at Marex" /></div>
+#canvas-background {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+z-index: 1;
+background-color: var(--color-background);
+background-image:
+radial-gradient(ellipse at 15% 80%, var(--glow-analyst), transparent 50%),
+radial-gradient(ellipse at 85% 80%, var(--glow-developer), transparent 50%);
+}
 
-								<h2>Challenge & Solution</h2>
-								<p>As a futures brokerage analyst, my initial automation work gained attention across departments. The head of clearing reached out when Marex had no way to calculate interest on options for EOD and ITD reporting. With client money at stake and IT estimating over a year for delivery, I developed a Python script solution in hours, demonstrating citizen development's speed advantage.</p>
+#wrapper {
+position: relative;
+z-index: 2;
+width: 100%;
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 2rem 1rem;
+}
 
-								<p>The solution evolved through three phases: immediate Python fix → enhanced validation and business rules → enterprise Alteryx integration with full compliance and audit capabilities.</p>
+/* Page Header */
+.page-header {
+width: 100%;
+max-width: 1200px;
+margin-bottom: 3rem;
+padding: 1.5rem 0;
+border-bottom: 1px solid var(--color-border);
+}
 
-								<h2>Technical Implementation</h2>
-								<ul>
-									<li><strong>Multiple calculation formulas</strong> based on instrument type with automated parameter selection</li>
-									<li><strong>Comprehensive validation</strong> against historical data and market benchmarks</li>
-									<li><strong>Automated reporting</strong> with stakeholder distribution and full audit trails</li>
-									<li><strong>Enterprise integration</strong> through Alteryx for compliance requirements</li>
-								</ul>
+.page-header h1 {
+font-size: 2.5rem;
+font-weight: 700;
+margin: 0;
+}
 
-								<div class="image main"><img src="images/validation_dashboard.png" alt="Validation dashboard showing quality checks" /></div>
+.page-header h1 a {
+color: var(--color-text-main);
+text-decoration: none;
+transition: color 0.3s ease;
+}
 
-								<h2>Results & Impact</h2>
-								<ul>
-									<li><strong>Speed:</strong> Delivered in hours vs. IT's 1+ year timeline</li>
-									<li><strong>Efficiency:</strong> Reduced daily processing from 4 hours to 15 minutes</li>
-									<li><strong>Accuracy:</strong> Eliminated manual calculation errors (100% accuracy)</li>
-									<li><strong>Compliance:</strong> Met regulatory requirements with full audit trails</li>
-									<li><strong>Scalability:</strong> Handles 10x more calculations without additional resources</li>
-								</ul>
+.page-header h1 a:hover {
+color: var(--glow-analyst);
+}
 
-								<div class="image main"><img src="images/technical_architecture.png" alt="Technical architecture diagram" /></div>
+/* Main Content */
+.page-content {
+width: 100%;
+max-width: 1200px;
+background: rgba(255, 255, 255, 0.02);
+backdrop-filter: blur(8px);
+border: 1px solid var(--color-border);
+border-radius: 16px;
+padding: 3rem;
+}
 
-								<h2>Enterprise Value Proposition</h2>
-								<p>This project demonstrates how citizen development provides crucial options for rapid problem-solving in large enterprises. By delivering solutions in hours vs. years, it showcases the speed advantage over traditional IT while maintaining enterprise standards through collaboration with IT governance rather than replacement.</p>
+.page-content h1 {
+font-size: 3rem;
+font-weight: 700;
+margin-bottom: 1rem;
+background: linear-gradient(135deg, var(--glow-analyst), var(--glow-developer));
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+}
 
-								<p>The solution evolved from immediate Python fix to enterprise-grade Alteryx integration, proving that citizen development can start small and scale to meet compliance and audit requirements. This approach creates options that bypass traditional red tape restrictions while ensuring regulatory compliance and operational excellence.</p>
+.page-content h2 {
+font-size: 2rem;
+font-weight: 600;
+margin: 2.5rem 0 1rem 0;
+color: var(--color-text-main);
+}
 
-				</section>
+.page-content h3 {
+font-size: 1.5rem;
+font-weight: 600;
+margin: 2rem 0 1rem 0;
+color: var(--color-text-main);
+}
 
-			</div>
+.page-content p {
+font-size: 1.1rem;
+line-height: 1.7;
+margin-bottom: 1.5rem;
+color: var(--color-text-secondary);
+}
 
-		<!-- Footer -->
-			<footer id="footer">
-				
-				<section class="split contact">
-					<section class="alt">
-						<h3>Current Position</h3>
-						<p>Citizen Developer at Marex<br />
-						</p>
-					</section>
-					<section>
-						<h3>Phone</h3>
-						<p><a href="#">630-880-5149</a></p>
-					</section>
-					<section>
-						<h3>Email</h3>
-						<p><a href="#">johncharlesblack7@gmail.com</a></p>
-					</section>
-					<section>
-						<h3>Social</h3>
-						<ul class="icons alt">
-							<li><a href="https://www.linkedin.com/in/john-black-532677194/" class="icon brands alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
-							<li><a href="https://www.instagram.com/jcblack1/" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
-							<li><a href="https://github.com/JohnB1ack" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
-					</ul>
-					</section>
-				</section>
-			</footer>
+.page-content ul {
+margin: 1rem 0 1.5rem 2rem;
+}
 
-		<!-- Copyright -->
-			<div id="copyright">
-				<ul><li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
-			</div>
+.page-content li {
+font-size: 1.1rem;
+line-height: 1.7;
+margin-bottom: 0.5rem;
+color: var(--color-text-secondary);
+}
 
-		</div>
+.page-content a {
+color: var(--glow-analyst);
+text-decoration: none;
+transition: color 0.3s ease;
+}
 
-	<!-- Scripts -->
-		<script src="assets/js/jquery.min.js"></script>
-		<script src="assets/js/jquery.scrollex.min.js"></script>
-		<script src="assets/js/jquery.scrolly.min.js"></script>
-		<script src="assets/js/browser.min.js"></script>
-		<script src="assets/js/breakpoints.min.js"></script>
-		<script src="assets/js/util.js"></script>
-		<script src="assets/js/main.js"></script>
+.page-content a:hover {
+color: var(--glow-developer);
+}
 
-	</body>
+.subtitle {
+font-size: 1.3rem;
+color: var(--color-text-secondary);
+margin-bottom: 2rem;
+font-weight: 500;
+}
+
+/* Visual Showcase */
+.visual-showcase {
+background: rgba(255, 255, 255, 0.02);
+backdrop-filter: blur(8px);
+border: 1px solid var(--color-border);
+border-radius: 12px;
+padding: 2rem;
+margin: 2rem 0;
+}
+
+.visual-showcase img {
+width: 100%;
+border-radius: 8px;
+margin-bottom: 1rem;
+}
+
+.visual-showcase:last-child img {
+margin-bottom: 0;
+}
+
+/* Hide old template elements */
+#main, #header, #nav, #intro, #footer, #copyright { display: none !important; }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+#wrapper {
+padding: 1rem 0.5rem;
+}
+
+.page-content {
+padding: 2rem 1.5rem;
+}
+
+.page-content h1 {
+font-size: 2.5rem;
+}
+
+.page-content h2 {
+font-size: 1.7rem;
+}
+
+.page-content h3 {
+font-size: 1.3rem;
+}
+
+.page-content p, .page-content li {
+font-size: 1rem;
+}
+
+.visual-showcase {
+padding: 1.5rem;
+}
+}
+
+/* Pull Quote Styling */
+.pull-quote {
+background: linear-gradient(135deg, rgba(88, 166, 255, 0.1), rgba(67, 233, 123, 0.1));
+border-left: 4px solid var(--glow-analyst);
+padding: 1.5rem 2rem;
+margin: 2rem 0;
+border-radius: 8px;
+font-size: 1.2rem;
+font-weight: 600;
+font-style: italic;
+color: var(--color-text-main);
+backdrop-filter: blur(8px);
+}
+
+/* Metric Cards */
+.metrics-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+gap: 1.5rem;
+margin: 2rem 0;
+}
+
+.metric-card {
+background: rgba(255, 255, 255, 0.03);
+backdrop-filter: blur(8px);
+border: 1px solid var(--color-border);
+border-radius: 12px;
+padding: 1.5rem;
+text-align: center;
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.metric-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 10px 30px rgba(88, 166, 255, 0.2);
+}
+
+.metric-number {
+font-size: 2rem;
+font-weight: 700;
+background: linear-gradient(135deg, var(--glow-analyst), var(--glow-developer));
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+display: block;
+margin-bottom: 0.5rem;
+}
+
+.metric-label {
+font-size: 0.9rem;
+color: var(--color-text-secondary);
+font-weight: 500;
+}
+
+/* Before/After Comparison */
+.comparison-container {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 2rem;
+margin: 2rem 0;
+}
+
+.comparison-card {
+background: rgba(255, 255, 255, 0.03);
+backdrop-filter: blur(8px);
+border: 1px solid var(--color-border);
+border-radius: 12px;
+padding: 2rem;
+text-align: center;
+}
+
+.comparison-card.before {
+border-left: 4px solid #ff6b6b;
+}
+
+.comparison-card.after {
+border-left: 4px solid var(--glow-developer);
+}
+
+.comparison-number {
+font-size: 3rem;
+font-weight: 700;
+margin-bottom: 0.5rem;
+}
+
+.comparison-card.before .comparison-number {
+color: #ff6b6b;
+}
+
+.comparison-card.after .comparison-number {
+color: var(--glow-developer);
+}
+
+/* Tech Stack Cards */
+.tech-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+gap: 1rem;
+margin: 1.5rem 0;
+}
+
+.tech-card {
+background: rgba(255, 255, 255, 0.03);
+backdrop-filter: blur(8px);
+border: 1px solid var(--color-border);
+border-radius: 8px;
+padding: 1rem;
+display: flex;
+align-items: center;
+gap: 0.75rem;
+transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.tech-card:hover {
+transform: translateY(-2px);
+border-color: var(--glow-analyst);
+}
+
+.tech-icon {
+font-size: 1.5rem;
+color: var(--glow-analyst);
+min-width: 24px;
+}
+
+.tech-info h4 {
+margin: 0 0 0.25rem 0;
+font-size: 0.9rem;
+font-weight: 600;
+color: var(--color-text-main);
+}
+
+.tech-info p {
+margin: 0;
+font-size: 0.75rem;
+color: var(--color-text-secondary);
+line-height: 1.3;
+}
+
+/* Bullet Point Styling */
+.highlight-list {
+list-style: none;
+padding: 0;
+margin: 1rem 0;
+}
+
+.highlight-list li {
+position: relative;
+padding-left: 2rem;
+margin-bottom: 0.75rem;
+color: var(--color-text-secondary);
+line-height: 1.6;
+}
+
+.highlight-list li::before {
+content: "▶";
+position: absolute;
+left: 0;
+color: var(--glow-analyst);
+font-weight: bold;
+}
+
+/* Problem-Solution-Result Layout */
+.psr-container {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+gap: 2rem;
+margin: 2rem 0;
+}
+
+.psr-card {
+background: rgba(255, 255, 255, 0.03);
+backdrop-filter: blur(8px);
+border: 1px solid var(--color-border);
+border-radius: 12px;
+padding: 2rem;
+}
+
+.psr-card h3 {
+margin: 0 0 1rem 0;
+font-size: 1.5rem;
+color: var(--color-text-main);
+}
+
+.psr-card.problem {
+border-left: 4px solid #ff6b6b;
+}
+
+.psr-card.solution {
+border-left: 4px solid var(--glow-analyst);
+}
+
+.psr-card.result {
+border-left: 4px solid var(--glow-developer);
+}
+
+</style>
+</head>
+<body>
+
+<canvas id="canvas-background"></canvas>
+
+<div id="wrapper">
+
+<!-- Page Header -->
+<header class="page-header">
+<h1><a href="index.html">John C. Black</a></h1>
+</header>
+
+<!-- Main Content -->
+<main class="page-content">
+<h1>Automation Engine</h1>
+<p class="subtitle">Critical financial automation reducing daily processing from 4 hours to 15 minutes - showcasing finance expertise and citizen development speed advantage.</p>
+
+<div class="comparison-container">
+<div class="comparison-card before">
+<div class="comparison-number">4 Hours</div>
+<div class="metric-label">Manual Processing Daily</div>
+</div>
+<div class="comparison-card after">
+<div class="comparison-number">15 Min</div>
+<div class="metric-label">Automated Processing</div>
+</div>
+</div>
+
+<div class="metrics-grid">
+<div class="metric-card">
+<span class="metric-number">95%</span>
+<span class="metric-label">Time Reduction</span>
+</div>
+<div class="metric-card">
+<span class="metric-number">Hours</span>
+<span class="metric-label">vs IT's 1+ Year</span>
+</div>
+<div class="metric-card">
+<span class="metric-number">100%</span>
+<span class="metric-label">Accuracy Rate</span>
+</div>
+<div class="metric-card">
+<span class="metric-number">Client $</span>
+<span class="metric-label">Protected</span>
+</div>
+</div>
+
+<div class="pull-quote">
+"No way to calculate interest on options for EOD and ITD reporting. With client money at stake and IT estimating over a year for delivery, I delivered a Python script in hours."
+</div>
+
+<div class="visual-showcase">
+<img src="images/interest_options_alteryx.JPG" alt="Alteryx workflow automating interest rate calculations at Marex" />
+</div>
+
+<div class="psr-container">
+<div class="psr-card problem">
+<h3>🚨 Critical Challenge</h3>
+<ul class="highlight-list">
+<li><strong>Financial Risk:</strong> No way to calculate interest on options for EOD/ITD reporting</li>
+<li><strong>Client Money at Stake:</strong> Accurate interest calculations required for regulatory compliance</li>
+<li><strong>Time Pressure:</strong> IT estimated over a year for delivery</li>
+<li><strong>Manual Errors:</strong> Risk of calculation mistakes in critical financial operations</li>
+<li><strong>Business Urgency:</strong> Head of clearing needed immediate solution</li>
+</ul>
+</div>
+
+<div class="psr-card solution">
+<h3>⚡ Finance-Driven Solution</h3>
+<ul class="highlight-list">
+<li><strong>Python Script in Hours:</strong> Leveraged finance domain knowledge for rapid development</li>
+<li><strong>Three-Phase Evolution:</strong> Python fix → validation → enterprise Alteryx integration</li>
+<li><strong>Financial Expertise:</strong> Applied futures brokerage knowledge to calculation logic</li>
+<li><strong>Compliance Focus:</strong> Built-in audit trails and regulatory requirements</li>
+<li><strong>Scalable Architecture:</strong> Designed for enterprise requirements from day one</li>
+</ul>
+</div>
+
+<div class="psr-card result">
+<h3>🎯 Dramatic Impact</h3>
+<ul class="highlight-list">
+<li><strong>95% Time Reduction:</strong> 4 hours to 15 minutes daily processing</li>
+<li><strong>Perfect Accuracy:</strong> Eliminated manual calculation errors</li>
+<li><strong>Client Protection:</strong> Ensured accurate interest calculations</li>
+<li><strong>Regulatory Compliance:</strong> Full audit trails and compliance capabilities</li>
+<li><strong>10x Scalability:</strong> Handles more calculations without additional resources</li>
+</ul>
+</div>
+</div>
+
+<h2>Technology Evolution</h2>
+<div class="tech-grid">
+<div class="tech-card">
+<i class="tech-icon fab fa-python"></i>
+<div class="tech-info">
+<h4>Python Automation</h4>
+<p>Initial rapid solution for immediate business needs</p>
+</div>
+</div>
+<div class="tech-card">
+<i class="tech-icon fas fa-project-diagram"></i>
+<div class="tech-info">
+<h4>Alteryx Enterprise</h4>
+<p>Scalable workflow with compliance capabilities</p>
+</div>
+</div>
+<div class="tech-card">
+<i class="tech-icon fas fa-calculator"></i>
+<div class="tech-info">
+<h4>Financial Formulas</h4>
+<p>Multiple calculations based on instrument type</p>
+</div>
+</div>
+<div class="tech-card">
+<i class="tech-icon fas fa-check-double"></i>
+<div class="tech-info">
+<h4>Validation Engine</h4>
+<p>Against historical data and market benchmarks</p>
+</div>
+</div>
+<div class="tech-card">
+<i class="tech-icon fas fa-file-contract"></i>
+<div class="tech-info">
+<h4>Audit Trails</h4>
+<p>Automated reporting with full compliance</p>
+</div>
+</div>
+</div>
+
+<h2>Enterprise Value</h2>
+
+<div class="pull-quote">
+"Citizen development provides crucial options for rapid problem-solving when traditional IT timelines move too slowly."
+</div>
+
+<ul class="highlight-list">
+<li><strong>Speed Advantage:</strong> Hours vs. years delivery timeline demonstrates citizen development value</li>
+<li><strong>Financial Domain Expertise:</strong> Futures brokerage knowledge enabled rapid, accurate solution</li>
+<li><strong>Scalable Evolution:</strong> Python fix → enterprise Alteryx integration with full compliance</li>
+<li><strong>Complement IT Processes:</strong> Create options rather than replacement for formal IT</li>
+<li><strong>Regulatory Excellence:</strong> Meet compliance and audit requirements while maintaining agility</li>
+<li><strong>Client Protection:</strong> Ensure accurate financial calculations when money is at stake</li>
+</ul>
+
+</main>
+
+</div>
+
+</body>
 </html>

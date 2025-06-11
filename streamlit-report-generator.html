@@ -1,135 +1,507 @@
 <!DOCTYPE HTML>
-<!--
-	Massively by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
-	<head>
-		<title>Streamlit Report Generator - John Black</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
+<head>
+<title>Reporting Platform - John C. Black</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+<!-- Google Fonts & Font Awesome -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-				<!-- Header -->
-					<header id="header">
-						<a href="index.html" class="logo">Portfolio</a>
-					</header>
+<style>
+:root {
+--color-background: #0D1117;
+--color-text-main: #E6EDF3;
+--color-text-secondary: #8B949E;
+--color-border: rgba(255, 255, 255, 0.1);
+--font-main: 'Inter', sans-serif;
+--glow-analyst: rgba(88, 166, 255, 0.2);
+--glow-developer: rgba(67, 233, 123, 0.2);
+}
 
-				<!-- Nav -->
-					<nav id="nav">
-						<ul class="links">
-							<li><a href="index.html">Portfolio</a></li>
-							<li><a href="about-me.html">About Me</a></li>
-							<li class="active"><a href="streamlit-report-generator.html">Streamlit Report Generator</a></li>
-							<li><a href="interest-rate-automation.html">Interest Rate Automation</a></li>
-							<li><a href="xtp-data-integration.html">XTP Data Integration</a></li>
-							<li><a href="generic.html">SQL & SAS Project</a></li>
-						</ul>
-						<ul class="icons">
-							<li><a href="https://www.linkedin.com/in/john-black-532677194/" class="icon brands alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
-							<li><a href="https://www.instagram.com/jcblack1/" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
-							<li><a href="https://github.com/JohnB1ack" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
-						</ul>
-					</nav>
+*, *::before, *::after {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
 
-				<!-- Main -->
-					<div id="main">
+body {
+background-color: var(--color-background);
+font-family: var(--font-main);
+color: var(--color-text-main);
+overflow-x: hidden;
+}
 
-						<!-- Post -->
-							<section class="post">
-								<header class="major">
-									<span class="date">September 2023 - Present</span>
-									<h1>Comprehensive Reporting Platform</h1>
-									<p>After colleagues across different departments saw my initial automation work, they began reaching out with similar reporting challenges. This organic growth led to expanding my web application into a comprehensive reporting platform that serves multiple departments as a centralized hub, demonstrating how citizen development can scale from individual solutions to enterprise-wide tools.</p>
-								</header>
-								<div class="image main"><img src="images/streamlit1.PNG" alt="Streamlit application main interface for automated report generation at Marex" /></div>
+#canvas-background {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+z-index: 1;
+background-color: var(--color-background);
+background-image:
+radial-gradient(ellipse at 15% 80%, var(--glow-analyst), transparent 50%),
+radial-gradient(ellipse at 85% 80%, var(--glow-developer), transparent 50%);
+}
 
-								<h2>Challenge & Solution</h2>
-								<p>Multiple departments were spending significant time on manual report generation tasks, each working in isolation and creating redundant effort. I expanded my web application to include multiple reporting solutions, creating a unified platform that serves various business needs across departments.</p>
+#wrapper {
+position: relative;
+z-index: 2;
+width: 100%;
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 2rem 1rem;
+}
 
-								<h2>Technical Implementation</h2>
-								<ul>
-									<li><strong>Streamlit-based web interface</strong> for intuitive user experience across all departments</li>
-									<li><strong>Modular report generators</strong> for different business needs (operations, accounting, compliance)</li>
-									<li><strong>Real-time data validation</strong> with immediate feedback and error handling</li>
-									<li><strong>Multiple output formats</strong> (PDF, Excel, CSV) based on departmental requirements</li>
-									<li><strong>Automated data transformation</strong> applying department-specific business rules</li>
-								</ul>
+/* Page Header */
+.page-header {
+width: 100%;
+max-width: 1200px;
+margin-bottom: 3rem;
+padding: 1.5rem 0;
+border-bottom: 1px solid var(--color-border);
+}
 
-								<div class="image main"><img src="images/streamlit2.PNG" alt="Streamlit drag and drop file upload interface showing user-friendly data input" /></div>
+.page-header h1 {
+font-size: 2.5rem;
+font-weight: 700;
+margin: 0;
+}
 
-								<div class="image main"><img src="images/data_validation_process.png" alt="Automated data validation and error handling" /></div>
+.page-header h1 a {
+color: var(--color-text-main);
+text-decoration: none;
+transition: color 0.3s ease;
+}
 
-								<div class="image main"><img src="images/streamlit3.PNG" alt="Streamlit report customization and generation interface showing professional output options" /></div>
+.page-header h1 a:hover {
+color: var(--glow-analyst);
+}
 
-								<h2>Results & Impact</h2>
-								<ul>
-									<li><strong>Scalability:</strong> Multiple departments using the same platform, breaking down organizational silos</li>
-									<li><strong>Standardization:</strong> Consistent reporting formats across teams</li>
-									<li><strong>Efficiency:</strong> Teams focus on analysis rather than report formatting</li>
-									<li><strong>Self-Service:</strong> Reduced dependency on IT for routine reporting needs</li>
-									<li><strong>Speed:</strong> Solutions delivered in days/weeks vs. months/years through traditional IT</li>
-								</ul>
+/* Main Content */
+.page-content {
+width: 100%;
+max-width: 1200px;
+background: rgba(255, 255, 255, 0.02);
+backdrop-filter: blur(8px);
+border: 1px solid var(--color-border);
+border-radius: 16px;
+padding: 3rem;
+}
 
-								<h2>Enterprise Value Proposition</h2>
-								<p>This comprehensive reporting platform demonstrates how citizen development can scale from individual solutions to enterprise-wide tools. By creating a centralized hub that serves multiple departments, it showcases the ability to break down silos while maintaining the agility that formal IT processes often lack.</p>
+.page-content h1 {
+font-size: 3rem;
+font-weight: 700;
+margin-bottom: 1rem;
+background: linear-gradient(135deg, var(--glow-analyst), var(--glow-developer));
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+}
 
-								<p>The platform provides rapid deployment and iterative improvement based on user feedback, with cross-departmental collaboration occurring without formal project overhead. This approach creates options for problem-solving that complement IT processes rather than replace them.</p>
+.page-content h2 {
+font-size: 2rem;
+font-weight: 600;
+margin: 2.5rem 0 1rem 0;
+color: var(--color-text-main);
+}
 
-				</section>
+.page-content h3 {
+font-size: 1.5rem;
+font-weight: 600;
+margin: 2rem 0 1rem 0;
+color: var(--color-text-main);
+}
 
-			</div>
+.page-content p {
+font-size: 1.1rem;
+line-height: 1.7;
+margin-bottom: 1.5rem;
+color: var(--color-text-secondary);
+}
 
-		<!-- Footer -->
-			<footer id="footer">
-				
-				<section class="split contact">
-					<section class="alt">
-						<h3>Current Position</h3>
-						<p>Citizen Developer at Marex<br />
-						</p>
-					</section>
-					<section>
-						<h3>Phone</h3>
-						<p><a href="#">630-880-5149</a></p>
-					</section>
-					<section>
-						<h3>Email</h3>
-						<p><a href="#">johncharlesblack7@gmail.com</a></p>
-					</section>
-					<section>
-						<h3>Social</h3>
-						<ul class="icons alt">
-							<li><a href="https://www.linkedin.com/in/john-black-532677194/" class="icon brands alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
-							<li><a href="https://www.instagram.com/jcblack1/" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
-							<li><a href="https://github.com/JohnB1ack" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
-					</ul>
-					</section>
-				</section>
-			</footer>
+.page-content ul {
+margin: 1rem 0 1.5rem 2rem;
+}
 
-		<!-- Copyright -->
-			<div id="copyright">
-				<ul><li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
-			</div>
+.page-content li {
+font-size: 1.1rem;
+line-height: 1.7;
+margin-bottom: 0.5rem;
+color: var(--color-text-secondary);
+}
 
-		</div>
+.page-content a {
+color: var(--glow-analyst);
+text-decoration: none;
+transition: color 0.3s ease;
+}
 
-	<!-- Scripts -->
-		<script src="assets/js/jquery.min.js"></script>
-		<script src="assets/js/jquery.scrollex.min.js"></script>
-		<script src="assets/js/jquery.scrolly.min.js"></script>
-		<script src="assets/js/browser.min.js"></script>
-		<script src="assets/js/breakpoints.min.js"></script>
-		<script src="assets/js/util.js"></script>
-		<script src="assets/js/main.js"></script>
+.page-content a:hover {
+color: var(--glow-developer);
+}
 
-	</body>
+.subtitle {
+font-size: 1.3rem;
+color: var(--color-text-secondary);
+margin-bottom: 2rem;
+font-weight: 500;
+}
+
+/* Visual Showcase */
+.visual-showcase {
+background: rgba(255, 255, 255, 0.02);
+backdrop-filter: blur(8px);
+border: 1px solid var(--color-border);
+border-radius: 12px;
+padding: 2rem;
+margin: 2rem 0;
+}
+
+.visual-showcase img {
+width: 100%;
+border-radius: 8px;
+margin-bottom: 1rem;
+}
+
+.visual-showcase:last-child img {
+margin-bottom: 0;
+}
+
+/* Hide old template elements */
+#main, #header, #nav, #intro, #footer, #copyright { display: none !important; }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+#wrapper {
+padding: 1rem 0.5rem;
+}
+
+.page-content {
+padding: 2rem 1.5rem;
+}
+
+.page-content h1 {
+font-size: 2.5rem;
+}
+
+.page-content h2 {
+font-size: 1.7rem;
+}
+
+.page-content h3 {
+font-size: 1.3rem;
+}
+
+.page-content p, .page-content li {
+font-size: 1rem;
+}
+
+.visual-showcase {
+padding: 1.5rem;
+}
+}
+
+/* Pull Quote Styling */
+.pull-quote {
+background: linear-gradient(135deg, rgba(88, 166, 255, 0.1), rgba(67, 233, 123, 0.1));
+border-left: 4px solid var(--glow-analyst);
+padding: 1.5rem 2rem;
+margin: 2rem 0;
+border-radius: 8px;
+font-size: 1.2rem;
+font-weight: 600;
+font-style: italic;
+color: var(--color-text-main);
+backdrop-filter: blur(8px);
+}
+
+/* Metric Cards */
+.metrics-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+gap: 1.5rem;
+margin: 2rem 0;
+}
+
+.metric-card {
+background: rgba(255, 255, 255, 0.03);
+backdrop-filter: blur(8px);
+border: 1px solid var(--color-border);
+border-radius: 12px;
+padding: 1.5rem;
+text-align: center;
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.metric-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 10px 30px rgba(88, 166, 255, 0.2);
+}
+
+.metric-number {
+font-size: 2rem;
+font-weight: 700;
+background: linear-gradient(135deg, var(--glow-analyst), var(--glow-developer));
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+display: block;
+margin-bottom: 0.5rem;
+}
+
+.metric-label {
+font-size: 0.9rem;
+color: var(--color-text-secondary);
+font-weight: 500;
+}
+
+/* Tech Stack Cards */
+.tech-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+gap: 1rem;
+margin: 1.5rem 0;
+}
+
+.tech-card {
+background: rgba(255, 255, 255, 0.03);
+backdrop-filter: blur(8px);
+border: 1px solid var(--color-border);
+border-radius: 8px;
+padding: 1rem;
+display: flex;
+align-items: center;
+gap: 0.75rem;
+transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.tech-card:hover {
+transform: translateY(-2px);
+border-color: var(--glow-analyst);
+}
+
+.tech-icon {
+font-size: 1.5rem;
+color: var(--glow-analyst);
+min-width: 24px;
+}
+
+.tech-info h4 {
+margin: 0 0 0.25rem 0;
+font-size: 0.9rem;
+font-weight: 600;
+color: var(--color-text-main);
+}
+
+.tech-info p {
+margin: 0;
+font-size: 0.75rem;
+color: var(--color-text-secondary);
+line-height: 1.3;
+}
+
+/* Bullet Point Styling */
+.highlight-list {
+list-style: none;
+padding: 0;
+margin: 1rem 0;
+}
+
+.highlight-list li {
+position: relative;
+padding-left: 2rem;
+margin-bottom: 0.75rem;
+color: var(--color-text-secondary);
+line-height: 1.6;
+}
+
+.highlight-list li::before {
+content: "▶";
+position: absolute;
+left: 0;
+color: var(--glow-analyst);
+font-weight: bold;
+}
+
+/* Problem-Solution-Result Layout */
+.psr-container {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+gap: 2rem;
+margin: 2rem 0;
+}
+
+.psr-card {
+background: rgba(255, 255, 255, 0.03);
+backdrop-filter: blur(8px);
+border: 1px solid var(--color-border);
+border-radius: 12px;
+padding: 2rem;
+}
+
+.psr-card h3 {
+margin: 0 0 1rem 0;
+font-size: 1.5rem;
+color: var(--color-text-main);
+}
+
+.psr-card.problem {
+border-left: 4px solid #ff6b6b;
+}
+
+.psr-card.solution {
+border-left: 4px solid var(--glow-analyst);
+}
+
+.psr-card.result {
+border-left: 4px solid var(--glow-developer);
+}
+
+</style>
+</head>
+<body>
+
+<canvas id="canvas-background"></canvas>
+
+<div id="wrapper">
+
+<!-- Page Header -->
+<header class="page-header">
+<h1><a href="index.html">John C. Black</a></h1>
+</header>
+
+<!-- Main Content -->
+<main class="page-content">
+<h1>Reporting Platform</h1>
+<p class="subtitle">Unified platform serving multiple departments - scaling citizen development from individual solutions to enterprise-wide tools.</p>
+
+<div class="metrics-grid">
+<div class="metric-card">
+<span class="metric-number">Hours→Minutes</span>
+<span class="metric-label">Report Generation Time</span>
+</div>
+<div class="metric-card">
+<span class="metric-number">Multi-Dept</span>
+<span class="metric-label">Enterprise Adoption</span>
+</div>
+<div class="metric-card">
+<span class="metric-number">Self-Service</span>
+<span class="metric-label">User Empowerment</span>
+</div>
+<div class="metric-card">
+<span class="metric-number">Days/Weeks</span>
+<span class="metric-label">vs IT's Months/Years</span>
+</div>
+</div>
+
+<div class="pull-quote">
+"After colleagues saw my automation work, they reached out with similar reporting challenges."
+</div>
+
+<div class="visual-showcase">
+<img src="images/streamlit1.PNG" alt="Streamlit application main interface for automated report generation at Marex" />
+</div>
+
+<div class="psr-container">
+<div class="psr-card problem">
+<h3>🚨 Problem</h3>
+<ul class="highlight-list">
+<li>Multiple departments spending hours on manual report generation</li>
+<li>Isolated work creating redundant effort across teams</li>
+<li>Business users needed simple way to generate complex reports</li>
+<li>Required technical knowledge for manual processing</li>
+<li>Data governance standards needed to be maintained</li>
+</ul>
+</div>
+
+<div class="psr-card solution">
+<h3>⚡ Solution</h3>
+<ul class="highlight-list">
+<li>Expanded web application to include multiple reporting solutions</li>
+<li>Created unified platform serving various business needs</li>
+<li>Intuitive Streamlit interface for file upload and parameter selection</li>
+<li>Professional reports generated instantly with data governance</li>
+<li>Modular architecture for operations, accounting, and compliance</li>
+</ul>
+</div>
+
+<div class="psr-card result">
+<h3>🎯 Result</h3>
+<ul class="highlight-list">
+<li>Report generation reduced from hours to minutes</li>
+<li>Business users generate reports independently</li>
+<li>Multiple departments using same platform</li>
+<li>Consistent reporting formats across teams</li>
+<li>Reduced dependency on IT for routine reporting</li>
+</ul>
+</div>
+</div>
+
+<h2>Technology Stack</h2>
+<div class="tech-grid">
+<div class="tech-card">
+<i class="tech-icon fab fa-python"></i>
+<div class="tech-info">
+<h4>Python & Streamlit</h4>
+<p>Core framework for intuitive web interface</p>
+</div>
+</div>
+<div class="tech-card">
+<i class="tech-icon fas fa-table"></i>
+<div class="tech-info">
+<h4>Pandas & Data Processing</h4>
+<p>Automated transformation and validation</p>
+</div>
+</div>
+<div class="tech-card">
+<i class="tech-icon fas fa-cubes"></i>
+<div class="tech-info">
+<h4>Modular Architecture</h4>
+<p>Separate generators for each department</p>
+</div>
+</div>
+<div class="tech-card">
+<i class="tech-icon fas fa-file-export"></i>
+<div class="tech-info">
+<h4>Multiple Output Formats</h4>
+<p>PDF, Excel, CSV based on requirements</p>
+</div>
+</div>
+<div class="tech-card">
+<i class="tech-icon fas fa-check-circle"></i>
+<div class="tech-info">
+<h4>Real-time Validation</h4>
+<p>Immediate feedback and error handling</p>
+</div>
+</div>
+</div>
+
+
+
+<h2>Business Impact</h2>
+
+<div class="pull-quote">
+"Organic growth across departments - breaking down organizational silos through citizen development."
+</div>
+
+<ul class="highlight-list">
+<li><strong>Rapid Deployment:</strong> Solutions delivered in days/weeks vs. months/years through traditional IT</li>
+<li><strong>Cross-Departmental Collaboration:</strong> Multiple departments using same platform without formal project overhead</li>
+<li><strong>Iterative Improvement:</strong> Based on user feedback and real-world usage</li>
+<li><strong>Complement IT Processes:</strong> Create options for problem-solving rather than replacement</li>
+<li><strong>Enterprise Scaling:</strong> Individual solutions evolved into enterprise-wide tools</li>
+</ul>
+
+</main>
+
+</div>
+
+</body>
 </html>

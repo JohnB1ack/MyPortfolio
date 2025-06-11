@@ -1,115 +1,307 @@
 <!DOCTYPE HTML>
-<!--
-	Massively by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
-	<head>
-		<title>SQL & SAS Project</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
+<head>
+<title>Foundational Skills - John C. Black</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+<!-- Google Fonts & Font Awesome -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-				<!-- Header -->
-					<header id="header">
-						<a href="index.html" class="logo">Portfolio</a>
-					</header>
+<style>
+:root {
+--color-background: #0D1117;
+--color-text-main: #E6EDF3;
+--color-text-secondary: #8B949E;
+--color-border: rgba(255, 255, 255, 0.1);
+--font-main: 'Inter', sans-serif;
+--glow-analyst: rgba(88, 166, 255, 0.2);
+--glow-developer: rgba(67, 233, 123, 0.2);
+}
 
-				<!-- Nav -->
-					<nav id="nav">
-						<ul class="links">
-							<li><a href="index.html">Portfolio</a></li>
-							<li><a href="about-me.html">About Me</a></li>
-							<li><a href="streamlit-report-generator.html">Streamlit Report Generator</a></li>
-							<li><a href="interest-rate-automation.html">Interest Rate Automation</a></li>
-							<li><a href="xtp-data-integration.html">XTP Data Integration</a></li>
-							<li class="active"><a href="generic.html">SQL & SAS Project</a></li>
-						</ul>
-						<ul class="icons">
-							<li><a href="https://www.linkedin.com/in/john-black-532677194/" class="icon brands alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
-							<li><a href="https://www.instagram.com/jcblack1/" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
-							<li><a href="https://github.com/JohnB1ack" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
-						</ul>
-					</nav>
+*, *::before, *::after {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
 
-				<!-- Main -->
-					<div id="main">
+body {
+background-color: var(--color-background);
+font-family: var(--font-main);
+color: var(--color-text-main);
+overflow-x: hidden;
+}
 
-						<!-- Post -->
-							<section class="post">
-								<header class="major">
-									<span class="date">May, 2023</span>
-									<h1>Data Cleaning<br />
-										in SQL & SAS</h1>
-									<p>I was assigned this problem in my statistical programming class, where we had a large amount of data about individual movies and a lot of metrics on those movies. However my professor wanted to look further into the metrics of the genres the movies belonged to, rather than the specific movies. Knowing this started to look into how I was going to clean and extract this raw movie data. <br />
-									<br />
-									</p>
-								</header>
-								<div class="image main"><img src="images\Screenshot 2023-06-01 114320.png" alt="" /></div>
-								<p>This is an example of the CSV file that I was working with. As you can see one of the main issues was that much of the data was in JSON format making it slightly more difficult to extract. Another problem is that the movies have multiple genres they belong to. My professor wanted to be able to look at rating metrics of whatever genre in a simple way. My solution was to create a macro to call where the user can input any genre and the code will return the statistics on that movie genre. </p>
-								<a href="https://github.com/JohnB1ack/PortfolioProjects/blob/main/JohnBlackFinalProject%20(1).sas" class="image fit"><img src="images\sascode.jpg" alt="" /></a>
-								<p>This code extracts the genres from each movie and puts them into seperate rows. Click on the image of the code above to view all of the code. The resulting code allows users to specify a list of genres that they'd like to compare, and then produces visualizations for the user. In the below example visuals the genres Adventure, Action, and Foreign are used in the macro.</p>
-								<div class="image main"><img src="images\Screenshot 2023-06-05 105719.jpg" alt="" /></div>
-								<p>In order to make this scatter plot, I used an SQL statement so that the extracted genre data could be related to the original data with the each movies runtime. This is the code I wrote to accomplish this.</p>
-								<div class="image main"><img src="images\SQL.jpg" alt="" /></div>
-								<p>Each of these charts below are to show the user the rankings and popularity of the selected genres.</p>
-								<div class="image main"><img src="images\SasBar.jpg" alt="" /></div>
-								<div class="image main"><img src="images\SasBar2.jpg" alt="" /></div>
-								<div class="image main"><img src="images\SasScatter.jpg" alt="" /></div>
-							</section>
+#canvas-background {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+z-index: 1;
+background-color: var(--color-background);
+background-image:
+radial-gradient(ellipse at 15% 80%, var(--glow-analyst), transparent 50%),
+radial-gradient(ellipse at 85% 80%, var(--glow-developer), transparent 50%);
+}
 
-					</div>
+#wrapper {
+position: relative;
+z-index: 2;
+width: 100%;
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 2rem 1rem;
+}
 
-				<!-- Footer -->
-					<footer id="footer">
+/* Page Header */
+.page-header {
+width: 100%;
+max-width: 1200px;
+margin-bottom: 3rem;
+padding: 1.5rem 0;
+border-bottom: 1px solid var(--color-border);
+}
 
-						<section class="split contact">
-							<section class="alt">
-								<h3>Got a Puzzle?</h3>
-								<p>I Love Puzzles<br />
-								Citizen Developer at Marex</p>
-							</section>
-							<section>
-								<h3>Let's Solve Something Together</h3>
-								<p><a href="#">630-880-5149</a></p>
-							</section>
-							<section>
-								<h3>Share Your Challenge</h3>
-								<p><a href="#">johncharlesblack7@gmail.com</a></p>
-							</section>
-							<section>
-								<h3>Connect & Collaborate</h3>
-								<ul class="icons alt">
-									<li><a href="https://www.linkedin.com/in/john-black-532677194/" class="icon brands alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
-									<li><a href="https://www.instagram.com/jcblack1/" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
-									<li><a href="https://github.com/JohnB1ack" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
-						</ul>
-							</section>
-						</section>
-					</footer>
+.page-header h1 {
+font-size: 2.5rem;
+font-weight: 700;
+margin: 0;
+}
 
-				<!-- Copyright -->
-					<div id="copyright">
-						<ul><li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
-					</div>
+.page-header h1 a {
+color: var(--color-text-main);
+text-decoration: none;
+transition: color 0.3s ease;
+}
 
-			</div>
+.page-header h1 a:hover {
+color: var(--glow-analyst);
+}
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+/* Main Content */
+.page-content {
+width: 100%;
+max-width: 1200px;
+background: rgba(255, 255, 255, 0.02);
+backdrop-filter: blur(8px);
+border: 1px solid var(--color-border);
+border-radius: 16px;
+padding: 3rem;
+}
 
-	</body>
+.page-content h1 {
+font-size: 3rem;
+font-weight: 700;
+margin-bottom: 1rem;
+background: linear-gradient(135deg, var(--glow-analyst), var(--glow-developer));
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+}
+
+.page-content h2 {
+font-size: 2rem;
+font-weight: 600;
+margin: 2.5rem 0 1rem 0;
+color: var(--color-text-main);
+}
+
+.page-content h3 {
+font-size: 1.5rem;
+font-weight: 600;
+margin: 2rem 0 1rem 0;
+color: var(--color-text-main);
+}
+
+.page-content p {
+font-size: 1.1rem;
+line-height: 1.7;
+margin-bottom: 1.5rem;
+color: var(--color-text-secondary);
+}
+
+.page-content ul {
+margin: 1rem 0 1.5rem 2rem;
+}
+
+.page-content li {
+font-size: 1.1rem;
+line-height: 1.7;
+margin-bottom: 0.5rem;
+color: var(--color-text-secondary);
+}
+
+.page-content a {
+color: var(--glow-analyst);
+text-decoration: none;
+transition: color 0.3s ease;
+}
+
+.page-content a:hover {
+color: var(--glow-developer);
+}
+
+.subtitle {
+font-size: 1.3rem;
+color: var(--color-text-secondary);
+margin-bottom: 2rem;
+font-weight: 500;
+}
+
+/* Visual Showcase */
+.visual-showcase {
+background: rgba(255, 255, 255, 0.02);
+backdrop-filter: blur(8px);
+border: 1px solid var(--color-border);
+border-radius: 12px;
+padding: 2rem;
+margin: 2rem 0;
+}
+
+.visual-showcase img {
+width: 100%;
+border-radius: 8px;
+margin-bottom: 1rem;
+}
+
+.visual-showcase:last-child img {
+margin-bottom: 0;
+}
+
+/* Code Showcase */
+.code-showcase {
+background: rgba(255, 255, 255, 0.02);
+backdrop-filter: blur(8px);
+border: 1px solid var(--color-border);
+border-radius: 12px;
+padding: 2rem;
+margin: 2rem 0;
+}
+
+.code-showcase a {
+display: block;
+}
+
+.code-showcase img {
+width: 100%;
+border-radius: 8px;
+transition: transform 0.3s ease;
+}
+
+.code-showcase img:hover {
+transform: scale(1.02);
+}
+
+/* Hide old template elements */
+#main, #header, #nav, #intro, #footer, #copyright { display: none !important; }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+#wrapper {
+padding: 1rem 0.5rem;
+}
+
+.page-content {
+padding: 2rem 1.5rem;
+}
+
+.page-content h1 {
+font-size: 2.5rem;
+}
+
+.page-content h2 {
+font-size: 1.7rem;
+}
+
+.page-content h3 {
+font-size: 1.3rem;
+}
+
+.page-content p, .page-content li {
+font-size: 1rem;
+}
+
+.visual-showcase, .code-showcase {
+padding: 1.5rem;
+}
+}
+
+</style>
+</head>
+<body>
+
+<canvas id="canvas-background"></canvas>
+
+<div id="wrapper">
+
+<!-- Page Header -->
+<header class="page-header">
+<h1><a href="index.html">John C. Black</a></h1>
+</header>
+
+<!-- Main Content -->
+<main class="page-content">
+<h1>Foundational Skills</h1>
+<p class="subtitle">Where it all began: SQL & SAS taught me patience and the mission to make data work for people - demonstrating the analytical foundation that drives my approach to citizen development.</p>
+
+<h2>The Academic Challenge</h2>
+<p>During my statistical programming class at Miami University, I was assigned a complex data analysis problem involving a large dataset of movies with extensive metrics. The challenge wasn't just about the individual movies - my professor wanted to analyze the metrics of the genres the movies belonged to, rather than the specific films themselves.</p>
+
+<p>This required transforming raw movie data where much of the information was stored in JSON format, making extraction more complex. Additionally, movies belonged to multiple genres, requiring careful data restructuring to enable meaningful analysis.</p>
+
+<div class="visual-showcase">
+<img src="images/Screenshot 2023-06-01 114320.png" alt="Raw movie dataset showing JSON format and multiple genre assignments" />
+</div>
+<h2>My Solution</h2>
+<p>I developed a comprehensive SAS macro solution that could extract genres from each movie and restructure them into separate rows for analysis. The solution allows users to input any genre and receive detailed statistics and visualizations for that movie genre, creating a flexible analytical tool.</p>
+
+<p>The approach involved creating a macro that users could call with specific genre parameters, which would then return comprehensive statistics and visualizations. This demonstrated early problem-solving skills that would later become central to my citizen development approach.</p>
+
+<div class="code-showcase">
+<a href="https://github.com/JohnB1ack/PortfolioProjects/blob/main/JohnBlackFinalProject%20(1).sas" target="_blank">
+<img src="images/sascode.jpg" alt="SAS code showing macro development for genre extraction and analysis" />
+</a>
+</div>
+
+<h2>Technical Implementation</h2>
+<p>The solution required both SAS and SQL integration to achieve the desired analytical capabilities. I used SQL statements to relate the extracted genre data back to the original dataset, enabling complex analysis like runtime correlations.</p>
+
+<div class="visual-showcase">
+<img src="images/Screenshot 2023-06-05 105719.jpg" alt="Example visualization output showing Adventure, Action, and Foreign genre analysis" />
+</div>
+
+<div class="code-showcase">
+<img src="images/SQL.jpg" alt="SQL code for relating genre data to movie runtime information" />
+</div>
+
+<h2>Results & Visualizations</h2>
+<p>The final solution produced comprehensive visualizations showing rankings and popularity metrics for selected genres. These charts demonstrate the analytical capabilities that would later inform my approach to business intelligence and data visualization in enterprise environments.</p>
+
+<div class="visual-showcase">
+<img src="images/SasBar.jpg" alt="Bar chart showing genre rankings and metrics" />
+</div>
+
+<div class="visual-showcase">
+<img src="images/SasBar2.jpg" alt="Additional bar chart visualization for genre comparison" />
+</div>
+
+<div class="visual-showcase">
+<img src="images/SasScatter.jpg" alt="Scatter plot showing genre relationships and correlations" />
+</div>
+
+<h2>Foundation for Future Development</h2>
+<p>This academic project established the analytical foundation and problem-solving methodology that drives my current approach to citizen development. The patience required to work with complex data structures and the mission to make data accessible and meaningful to users became core principles in my professional work.</p>
+
+<p>The skills developed here - data extraction, transformation, macro development, and user-focused design - directly translate to the enterprise automation solutions I create today. This project taught me that the most important aspect isn't just having technical answers, but understanding the problem deeply enough that the right solution reveals itself.</p>
+</main>
+
+</div>
+
+</body>
 </html>

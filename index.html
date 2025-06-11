@@ -1,387 +1,839 @@
 <!DOCTYPE HTML>
-<!--
-	Massively by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
+
 <html>
-	<head>
-		<title>John Black - Solving Puzzles Together at Marex</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-		<style>
-			/* FINAL ORBITAL WIDGET - ATTRIBUTE-FOCUSED VERSION */
 
-			.orbital-widget-container {
-				position: relative;
-				width: 100%;
-				max-width: 650px; /* Slightly larger to accommodate more text */
-				aspect-ratio: 1 / 1;
-				margin: 40px auto;
-				background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
-				border-radius: 20px;
-				color: white;
-				font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				overflow: hidden;
-				box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-			}
+<head>
 
-			.orbital-widget-container .profile-center {
-				width: 200px;
-				height: 200px;
-				background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-				border-radius: 50%;
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				justify-content: center;
-				text-align: center;
-				box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-				z-index: 10;
-				padding: 20px;
-			}
+<title>John C. Black - Analyst & Developer</title>
 
-			.orbital-widget-container .profile-center h3 {
-				font-size: 24px;
-				margin: 0 0 8px 0;
-				font-weight: 600;
-			}
+<meta charset="utf-8" />
 
-			.orbital-widget-container .profile-center .subtitle {
-				font-size: 13px;
-				opacity: 0.9;
-				line-height: 1.4;
-			}
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 
-			.orbital-widget-container .profile-center .motto {
-				font-size: 12px;
-				margin-top: 12px;
-				color: #ffd700;
-				font-weight: bold;
-				font-style: italic;
-			}
 
-			.orbital-widget-container .skill-orbit {
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				border: 2px dashed rgba(255, 255, 255, 0.15);
-				border-radius: 50%;
-				animation: orbital-rotate 60s linear infinite;
-			}
 
-			.orbital-widget-container .orbit-1 { width: 60%; height: 60%; animation-duration: 50s; }
-			.orbital-widget-container .orbit-2 { width: 80%; height: 80%; animation-duration: 70s; animation-direction: reverse; }
-			.orbital-widget-container .orbit-3 { width: 100%; height: 100%; animation-duration: 90s; }
+<!-- Google Fonts & Font Awesome -->
 
-			@keyframes orbital-rotate {
-				from { transform: translate(-50%, -50%) rotate(0deg); }
-				to { transform: translate(-50%, -50%) rotate(360deg); }
-			}
+<link rel="preconnect" href="https://fonts.googleapis.com">
 
-			.orbital-widget-container .skill-node {
-				position: absolute;
-				background: rgba(255, 255, 255, 0.1);
-				backdrop-filter: blur(8px);
-				padding: 8px 16px;
-				border-radius: 20px;
-				border: 1px solid rgba(255, 255, 255, 0.2);
-				white-space: nowrap;
-				font-size: 13px;
-				font-weight: 500;
-				transform: translate(-50%, -50%);
-				animation: orbital-counter-rotate 50s linear infinite;
-			}
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-			.orbital-widget-container .orbit-1 .skill-node { animation-duration: 50s; }
-			.orbital-widget-container .orbit-2 .skill-node { animation-duration: 70s; animation-direction: reverse; }
-			.orbital-widget-container .orbit-3 .skill-node { animation-duration: 90s; }
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-			@keyframes orbital-counter-rotate {
-				from { transform: translate(-50%, -50%) rotate(0deg); }
-				to { transform: translate(-50%, -50%) rotate(-360deg); }
-			}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-			/* Thematic coloring for skill types */
-			.orbital-widget-container .skill-node.core-tech {
-				background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-				font-weight: 600;
-				color: #111;
-			}
 
-			.orbital-widget-container .skill-node.applied-concept {
-				background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-				font-weight: 600;
-			}
 
-			.orbital-widget-container .skill-node.attribute {
-				background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-				color: #111;
-			}
+<style>
 
-			/* Positioning for nodes */
-			.orbital-widget-container .node-1 { top: 0; left: 50%; }
-			.orbital-widget-container .node-2 { top: 50%; right: 0; }
-			.orbital-widget-container .node-3 { bottom: 0; left: 50%; }
-			.orbital-widget-container .node-4 { top: 50%; left: 0; }
-			/* Extra positions for orbits with more nodes */
-			.orbital-widget-container .node-5 { top: 15%; right: 15%; }
-			.orbital-widget-container .node-6 { bottom: 15%; right: 15%; }
-			.orbital-widget-container .node-7 { bottom: 15%; left: 15%; }
-			.orbital-widget-container .node-8 { top: 15%; left: 15%; }
+:root {
 
-			@media (max-width: 600px) {
-				.orbital-widget-container .skill-node {
-					font-size: 11px;
-					padding: 5px 10px;
-					backdrop-filter: blur(4px);
-				}
-				.orbital-widget-container .profile-center {
-					width: 140px;
-					height: 140px;
-				}
-				.orbital-widget-container .profile-center h3 {
-					font-size: 18px;
-				}
-			}
-		</style>
-	</head>
-	<body class="is-preload">
+--color-background: #0D1117;
 
-		<!-- Wrapper -->
-			<div id="wrapper" class="fade-in">
+--color-text-main: #E6EDF3;
 
-				<!-- Intro -->
-				<div id="intro">
-					<h1>John Black Portfolio<br />
-					</h1>
-					<p>Futures Brokerage Analyst | Citizen Developer</p>
-					<ul class="actions">
-						<li><a href="about-me.html" class="button icon solid solo fa-user scrolly">Read More About Me</a></li>
-					</ul>
-				</div>
+--color-text-secondary: #8B949E;
 
-				<!-- Header -->
-					<header id="header">
-						<a href="index.html" class="logo">Portfolio</a>
-					</header>
+--color-border: rgba(255, 255, 255, 0.1);
 
-				<!-- Nav -->
-					<nav id="nav">
-						<ul class="links">
-							<li class="active"><a href="index.html">Portfolio</a></li>
-							<li><a href="about-me.html">About Me</a></li>
-							<li><a href="streamlit-report-generator.html">Streamlit Report Generator</a></li>
-							<li><a href="interest-rate-automation.html">Interest Rate Automation</a></li>
-							<li><a href="xtp-data-integration.html">XTP Data Integration</a></li>
-							<li><a href="generic.html">SQL & SAS Project</a></li>
-						</ul>
-						<ul class="icons">
-							<li><a href="https://www.linkedin.com/in/john-black-532677194/" class="icon brands alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
-									<li><a href="https://www.instagram.com/jcblack1/" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
-									<li><a href="https://github.com/JohnB1ack" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
-						</ul>
-					</nav>
+--font-main: 'Inter', sans-serif;
 
-				<!-- Main -->
-					<div id="main">
+--glow-analyst: rgba(88, 166, 255, 0.2);
 
-						<!-- Featured Post -->
-						<article class="post featured">
-							<header class="major">
+--glow-developer: rgba(67, 233, 123, 0.2);
 
-								<span class="date">My Professional Journey</span>
-								<h2><a href="about-me.html">About Me<br />
-								</a></h2>
-								<p>I'm a Futures Brokerage Analyst and Citizen Developer at Marex, bridging the gap between business needs and technical solutions. My journey from finance analyst to citizen developer demonstrates how formal education, continuous learning, and hands-on enterprise experience create the foundation for solving complex business challenges through technology.</p>
-							</header>
-							<!-- Orbital Skills Widget -->
-							<div class="orbital-widget-container">
-								<!-- Center Profile: Your Core Identity -->
-								<div class="profile-center">
-									<h3>John Black</h3>
-									<div class="subtitle">Technical Problem Solver</div>
-									<div class="motto">"Driven by Curiosity"</div>
-								</div>
+}
 
-								<!-- Inner Orbit: Core Tools -->
-								<div class="skill-orbit orbit-1">
-									<div class="skill-node core-tech node-1">Advanced Python</div>
-									<div class="skill-node core-tech node-2">Alteryx Automation</div>
-									<div class="skill-node core-tech node-3">SQL & Databases</div>
-									<div class="skill-node core-tech node-4">API Integration</div>
-								</div>
 
-								<!-- Middle Orbit: Applied Concepts -->
-								<div class="skill-orbit orbit-2">
-									<div class="skill-node applied-concept node-1">System Architecture</div>
-									<div class="skill-node applied-concept node-5">Process Automation</div>
-									<div class="skill-node applied-concept node-3">Data Visualization</div>
-									<div class="skill-node applied-concept node-6">Machine Learning</div>
-									<div class="skill-node applied-concept node-7">Full-Stack Development</div>
-									<div class="skill-node applied-concept node-8">Risk Management</div>
-								</div>
 
-								<!-- Outer Orbit: Mindset & Drive -->
-								<div class="skill-orbit orbit-3">
-									<div class="skill-node attribute node-1">Extremely Driven</div>
-									<div class="skill-node attribute node-3">Rapid Self-Learner</div>
-									<div class="skill-node attribute node-5">Loves a Challenge</div>
-									<div class="skill-node attribute node-7">Future-Focused</div>
-								</div>
-							</div>
-							<p><strong>Educational Foundation:</strong> Bachelor of Science in Finance with Minor in Data Science from Miami University's Farmer School of Business, plus Google Advanced Data Analytics Certificate specializing in Python Programming, Machine Learning, and Data Science.<br /><br />
-							<strong>Career Evolution:</strong> What started as automating my own operational tasks evolved into enterprise-wide solutions when colleagues across departments began reaching out after seeing the value. This organic growth showcases the power of citizen development in providing agile problem-solving options that complement formal IT processes.<br /><br />
-							<strong>Technical Expertise:</strong> Advanced proficiency in Python, SQL, Alteryx, and emerging AI technologies, combined with deep understanding of financial systems and enterprise data processing. Currently researching next-generation AI applications including multi-agent systems for financial services.</p>
-							<ul class="actions special">
-								<li><a href="about-me.html" class="button large">Learn More About Me</a></li>
-							</ul>
-							</article>
+*, *::before, *::after {
 
-						<!-- Posts -->
-							<section class="posts">
-								<article>
-									<header>
-										<span class="date">September 2023 - Present</span>
-										<h2><a href="streamlit-report-generator.html">Comprehensive Reporting Platform<br />
-										</a></h2>
-									</header>
-									<a href="streamlit-report-generator.html" class="image fit"><img src="images\streamlit1.PNG" alt="Streamlit application main interface for automated report generation at Marex" /></a>
-									<p>After colleagues saw my initial automation work, multiple departments began reaching out with similar reporting challenges. What started as solving individual problems evolved into a comprehensive reporting platform - demonstrating how citizen development can scale from personal solutions to enterprise-wide tools.<br /><br />
-									This unified platform now serves as a centralized hub for various reporting needs across departments, allowing users to upload data and generate professional reports while maintaining the agility that formal IT processes often lack. It's about creating options for rapid problem-solving in large enterprises.</p>
-									<ul class="actions special">
-										<li><a href="streamlit-report-generator.html" class="button">View Details</a></li>
-									</ul>
-								</article>
-								<article>
-									<header>
-										<span class="date">November 2023 - Present</span>
-										<h2><a href="interest-rate-automation.html">Interest Rate Calculation Engine<br />
-										</a></h2>
-									</header>
-									<a href="interest-rate-automation.html" class="image fit"><img src="images\interest_options_alteryx.JPG" alt="Alteryx workflow automating interest rate calculations at Marex" /></a>
-									<p><strong>The Challenge:</strong> The head of clearing reached out after seeing my initial automation work. Marex had no way to calculate interest on options for EOD and ITD reporting. Client money was at stake, compliance deadlines were approaching, and IT estimated over a year to deliver a solution.<br /><br />
-									<strong>The Speed Advantage:</strong> I developed a Python script that solved the problem in hours - demonstrating the speed advantage of citizen development over traditional IT processes. This evolved through phases: immediate Python fix → enhanced validation → enterprise Alteryx integration → full automation with audit trails.<br /><br />
-									<strong>The Enterprise Value:</strong> Delivered in hours vs. IT's 1+ year timeline, reduced daily processing from 4 hours to 15 minutes, eliminated manual errors, and met regulatory requirements with full compliance. This showcased how citizen development bypasses red tape while maintaining enterprise standards.<br /><br />
-									<em>"This project demonstrated that in large enterprises, having options to solve problems quickly is crucial - especially when traditional IT red tape restricts solution delivery speed."</em></p>
-									<ul class="actions special">
-										<li><a href="interest-rate-automation.html" class="button">Read The Full Story</a></li>
-									</ul>
-								</article>
-								<article>
-									<header>
-										<span class="date">October 2023 - Present</span>
-										<h2><a href="xtp-data-integration.html">Data Processing and Democratization Pipeline<br />
-										</a></h2>
-									</header>
-									<a href="xtp-data-integration.html" class="image fit"><img src="images\XTP_alteryx.JPG" alt="Alteryx workflow for automated XTP data integration at Marex" /></a>
-									<p><strong>The Data Democratization Challenge:</strong> Multiple departments were manually extracting the same data, creating bottlenecks and inconsistencies. Raw data from various sources needed transformation into digestible, structured formats for Finance and other teams.<br /><br />
-									<strong>The Collaborative Solution:</strong> Working directly with our data team, I implemented Alteryx-based data processing workflows that automated transformation of raw data into analysis-ready formats. This created standardized data pipelines feeding multiple downstream users.<br /><br />
-									<strong>The Enterprise Impact:</strong> Finance and other teams now have direct access to structured data through automated scheduling and quality assurance frameworks. This enhanced partnership between business users and the data team while ensuring data integrity and consistency.<br /><br />
-									<em>"This project showed how citizen development can enhance collaboration with IT and data teams rather than replace them - creating enterprise-grade solutions with business user agility."</em></p>
-									<ul class="actions special">
-										<li><a href="xtp-data-integration.html" class="button">Read The Full Story</a></li>
-									</ul>
-								</article>
+box-sizing: border-box;
 
-								<article>
-									<header>
-										<span class="date">June 2023</span>
-										<h2><a href="generic.html">Where It All Began<br />
-										</a></h2>
-									</header>
-									<a href="generic.html" class="image fit"><img src="images\Screenshot 2023-06-05 105719.jpg" alt="SQL and SAS data cleaning project showing movie data analysis" /></a>
-									<p><strong>The Foundation:</strong> Every journey has a beginning. This academic project was where I first discovered my love for turning messy data into meaningful insights. Working with a massive movie dataset, I learned that data cleaning isn't just about code - it's about understanding the story the data wants to tell.<br /><br />
-									<strong>The Learning:</strong> Through SQL and SAS, I discovered that the most beautiful visualizations mean nothing if the underlying data isn't clean. This project taught me patience, attention to detail, and the importance of questioning every assumption.<br /><br />
-									<strong>The Connection:</strong> Looking back, this is where my passion for helping others with data challenges first sparked. Every manual process I see at Marex reminds me of those late nights cleaning movie data - and how much better it feels when the process is automated.<br /><br />
-									<em>"This project planted the seed that grew into my mission: making data work for people, not the other way around."</em></p>
-									<ul class="actions special">
-										<li><a href="generic.html" class="button">See The Foundation</a></li>
-									</ul>
-								</article>
+margin: 0;
 
-							</section>
+padding: 0;
 
-						<!-- Two Roles Section -->
-						<section>
-							<header class="major">
-								<h2>Citizen Development in Enterprise: The Value Proposition</h2>
-							</header>
-							<p>My journey at Marex demonstrates the unique value of citizen development in large enterprises - providing agile problem-solving options that complement traditional IT processes.</p>
+}
 
-							<h3>Speed and Agility</h3>
-							<p>Solutions delivered in hours/days vs. months/years through traditional IT. When the head of clearing needed interest calculations and IT estimated over a year, I delivered a working Python script in hours. This rapid prototyping and iterative improvement eliminates communication gaps through direct business user involvement.</p>
 
-							<h3>Problem-Solving Flexibility</h3>
-							<p>Multiple technology platforms (Python, Alteryx, Streamlit) based on optimal fit for each challenge. The ability to address immediate needs while building toward enterprise solutions, with cross-departmental collaboration without formal project overhead.</p>
 
-							<h3>Enterprise Integration</h3>
-							<p>Solutions that start small but scale to enterprise requirements. My projects include compliance and audit trail capabilities when needed, and demonstrate collaboration with IT and data teams rather than replacement.</p>
+body {
 
-							<h3>Organizational Impact</h3>
-							<p>Breaking down silos between departments through shared solutions. Demonstrating the value of empowering business users with technical capabilities. Creating options for problem-solving that bypass traditional red tape restrictions while maintaining enterprise standards.</p>
+background-color: var(--color-background);
 
-							<h3>Technical Foundation</h3>
-							<p><strong>Programming & Development:</strong> Python (Advanced), SQL, R, JavaScript, HTML/CSS, Alteryx<br />
-							<strong>Data & Analytics:</strong> Power BI, Tableau, Excel (Advanced), SAS, Statistical Analysis, Machine Learning<br />
-							<strong>Financial Systems:</strong> Atlantis, GPS, ERECS, PeopleSoft, FIA Tech Atlantis API<br />
-							<strong>Emerging Technologies:</strong> N8N, Langchain, CrewAI, MCP Development, AI/ML Frameworks</p>
+font-family: var(--font-main);
 
-							<div style="text-align: center; margin: 2em 0;">
-								<h3 style="color: #f56565; font-style: italic;">"In large enterprises, having options to solve problems quickly and efficiently is crucial - especially when traditional IT red tape restricts solution delivery speed."</h3>
-							</div>
-						</section>
+color: var(--color-text-main);
 
-					</div>
+overflow-x: hidden;
 
-				<!-- Footer -->
-					<footer id="footer">
-						
-						<section class="split contact">
-							<section class="alt">
-								<h3>Got a Puzzle?</h3>
-								<p>I Love Puzzles<br />
-								Citizen Developer at Marex</p>
-							</section>
-							<section>
-								<h3>Let's Solve Something Together</h3>
-								<p><a href="#">630-880-5149</a></p>
-							</section>
-							<section>
-								<h3>Share Your Challenge</h3>
-								<p><a href="#">johncharlesblack7@gmail.com</a></p>
-							</section>
-							<section>
-								<h3>Connect & Collaborate</h3>
-								<ul class="icons alt">
-									<li><a href="https://www.linkedin.com/in/john-black-532677194/" class="icon brands alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
-									<li><a href="https://www.instagram.com/jcblack1/" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
-									<li><a href="https://github.com/JohnB1ack" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
-						</ul>
-							</section>
-						</section>
-					</footer>
+}
 
-				<!-- Copyright -->
-					<div id="copyright">
-						<ul><li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
-					</div>
 
-			</div>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+#canvas-background {
 
-	</body>
+position: fixed;
+
+top: 0;
+
+left: 0;
+
+width: 100%;
+
+height: 100%;
+
+z-index: 1;
+
+background-color: var(--color-background);
+
+background-image:
+
+radial-gradient(ellipse at 15% 80%, var(--glow-analyst), transparent 50%),
+
+radial-gradient(ellipse at 85% 80%, var(--glow-developer), transparent 50%);
+
+}
+
+
+
+#wrapper {
+
+position: relative;
+
+z-index: 2;
+
+width: 100%;
+
+min-height: 100vh;
+
+display: flex;
+
+flex-direction: column;
+
+align-items: center;
+
+padding: 2rem;
+
+}
+
+
+/* Main hero layout */
+
+#mindset-container {
+
+display: flex;
+
+justify-content: center;
+
+align-items: flex-start; /* Align to top */
+
+width: 100%;
+
+max-width: 1400px;
+
+min-height: 70vh;
+
+padding-top: 5vh;
+
+}
+
+
+
+.mindset-side {
+
+flex: 1;
+
+padding: 2rem;
+
+height: 60vh;
+
+position: relative;
+
+}
+
+
+
+.mindset-side h2 {
+
+font-size: clamp(1.5rem, 4vw, 2rem);
+
+font-weight: 700;
+
+color: var(--color-text-secondary);
+
+text-align: center;
+
+margin-bottom: 2rem;
+
+position: relative;
+
+z-index: 3;
+
+}
+
+#analyst-side h2 { text-align: right; }
+
+#developer-side h2 { text-align: left; }
+
+
+
+.skills-cloud {
+
+position: absolute;
+
+top: 0;
+
+left: 0;
+
+width: 100%;
+
+height: 100%;
+
+}
+
+
+.skill-node {
+
+position: absolute;
+
+font-size: clamp(0.8rem, 1.5vw, 1rem);
+
+font-weight: 500;
+
+padding: 8px 16px;
+
+background-color: rgba(13, 17, 23, 0.6);
+
+border: 1px solid var(--color-border);
+
+border-radius: 20px;
+
+backdrop-filter: blur(8px);
+
+-webkit-backdrop-filter: blur(8px);
+
+color: var(--color-text-secondary);
+
+white-space: nowrap;
+
+transform: translate(-50%, -50%);
+
+transition: color 0.3s ease, text-shadow 0.3s ease;
+
+z-index: 2; /* Below heading */
+
+}
+
+
+.skill-node.active {
+
+color: var(--color-text-main);
+
+text-shadow: 0 0 10px currentColor;
+
+}
+
+
+#analyst-side .skill-node.active { color: #80bfff; }
+
+#developer-side .skill-node.active { color: #72f7b1; }
+
+
+#profile-center {
+
+flex: 0 0 auto; /* Don't grow or shrink */
+
+width: 300px;
+
+text-align: center;
+
+padding: 0 1rem;
+
+margin-top: 4rem;
+
+position: relative;
+
+z-index: 10;
+
+}
+
+
+
+#profile-image {
+
+width: 160px;
+
+height: 160px;
+
+border-radius: 50%;
+
+object-fit: cover;
+
+margin: 0 auto 1.5rem auto;
+
+border: 3px solid rgba(255,255,255,0.2);
+
+box-shadow: 0 0 30px rgba(180, 210, 255, 0.3);
+
+}
+
+
+
+#profile-center h1 {
+
+font-size: clamp(1.75rem, 5vw, 2.5rem);
+
+font-weight: 700;
+
+color: var(--color-text-main);
+
+margin-bottom: 0.5rem;
+
+}
+
+
+#profile-center p {
+
+font-size: 0.95rem;
+
+line-height: 1.6;
+
+color: var(--color-text-secondary);
+
+max-width: 400px;
+
+margin: 0 auto;
+
+}
+
+
+
+/* Project Cards Section (copied from previous good design) */
+
+#project-grid {
+
+display: grid;
+
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+gap: 2rem;
+
+width: 100%;
+
+max-width: 1200px;
+
+padding: 5rem 0;
+
+}
+
+.project-card {
+
+background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0));
+
+border: 1px solid var(--color-border);
+
+border-radius: 16px;
+
+padding: 2.5rem;
+
+text-decoration: none;
+
+color: inherit;
+
+position: relative;
+
+overflow: hidden;
+
+transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+
+backdrop-filter: blur(8px);
+
+}
+
+.project-card:hover {
+
+transform: translateY(-10px);
+
+border-color: rgba(255, 255, 255, 0.2);
+
+box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+
+}
+
+.card-icon { font-size: 2.5rem; margin-bottom: 1.5rem; color: #58A6FF;}
+
+.card-title { font-size: 1.25rem; font-weight: 700; color: var(--color-text-main); margin-bottom: 0.75rem;}
+
+.card-description { font-size: 0.95rem; color: var(--color-text-secondary); line-height: 1.7; }
+
+/* Message Card Special Styling */
+.message-card {
+background: linear-gradient(135deg, rgba(88, 166, 255, 0.1), rgba(67, 233, 123, 0.1)) !important;
+border: 2px solid rgba(88, 166, 255, 0.3) !important;
+position: relative;
+overflow: hidden;
+}
+
+.message-card::before {
+content: '';
+position: absolute;
+top: 0;
+left: -100%;
+width: 100%;
+height: 100%;
+background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+transition: left 0.5s ease;
+}
+
+.message-card:hover::before {
+left: 100%;
+}
+
+.message-card:hover {
+transform: translateY(-8px) !important;
+box-shadow: 0 15px 40px rgba(88, 166, 255, 0.3) !important;
+border-color: rgba(88, 166, 255, 0.6) !important;
+}
+
+.message-card .card-icon {
+color: var(--glow-analyst) !important;
+font-size: 3rem !important;
+}
+
+.message-card .card-title {
+background: linear-gradient(135deg, var(--glow-analyst), var(--glow-developer));
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+}
+
+.message-card .card-description {
+color: var(--color-text-main) !important;
+font-weight: 500;
+}
+
+
+/* Responsive adjustments */
+
+@media (max-width: 1024px) {
+
+#mindset-container {
+
+flex-direction: column;
+
+align-items: center;
+
+min-height: unset;
+
+padding-top: 2rem;
+
+}
+
+.mindset-side {
+
+width: 100%;
+
+max-width: 600px;
+
+height: 40vh; /* Adjust height for mobile */
+
+padding: 1rem;
+
+}
+
+#analyst-side { order: 2; }
+
+#profile-center { order: 1; margin-top: 0; }
+
+#developer-side { order: 3; }
+
+#analyst-side h2, #developer-side h2 { text-align: center; }
+
+}
+
+
+
+@media (max-width: 768px) {
+
+#project-grid {
+
+padding: 3rem 0;
+
+}
+
+#profile-image { width: 120px; height: 120px; }
+
+}
+
+
+/* Hide original theme elements to prevent conflicts */
+
+#main, #header, #nav, #intro { display: none !important; }
+
+#wrapper { display: flex !important; }
+
+
+
+</style>
+
+</head>
+
+<body>
+
+
+
+<canvas id="canvas-background"></canvas>
+
+
+<div id="wrapper">
+
+<section id="mindset-container">
+
+
+
+<div id="analyst-side" class="mindset-side">
+
+<h2>Futures Brokerage Analyst</h2>
+
+<div id="analyst-skills" class="skills-cloud"></div>
+
+</div>
+
+
+
+<div id="profile-center">
+
+<!-- !!! IMPORTANT: REPLACE THIS URL WITH YOUR OWN IMAGE !!! -->
+
+<img src="https://i.ibb.co/3cYsK9b/Screenshot-2024-05-20-at-12-10-18-PM.png" alt="Portrait of John C. Black" id="profile-image"/>
+
+<h1>John C. Black</h1>
+
+<p>A builder at the intersection of finance and technology, transforming complex problems into elegant automation solutions.</p>
+
+</div>
+
+
+<div id="developer-side" class="mindset-side">
+
+<h2>Citizen Developer</h2>
+
+<div id="developer-skills" class="skills-cloud"></div>
+
+</div>
+
+
+
+</section>
+
+
+
+<section id="project-grid">
+
+<a href="about-me.html" class="project-card">
+
+<i class="card-icon fas fa-user-astronaut"></i>
+
+<h3 class="card-title">About Me</h3>
+
+<p class="card-description">Learn about my journey from operations to innovation and my approach to solving complex challenges.</p>
+
+</a>
+
+
+
+<a href="streamlit-report-generator.html" class="project-card">
+
+<i class="card-icon fas fa-chart-line"></i>
+
+<h3 class="card-title">Reporting Platform</h3>
+
+<p class="card-description">A unified platform serving as a centralized hub for reporting needs across departments.</p>
+
+</a>
+
+
+
+<a href="interest-rate-automation.html" class="project-card">
+
+<i class="card-icon fas fa-cogs"></i>
+
+<h3 class="card-title">Automation Engine</h3>
+
+<p class="card-description">Discover how a custom solution reduced daily processing from 4 hours to 15 minutes.</p>
+
+</a>
+
+
+
+<a href="xtp-data-integration.html" class="project-card">
+
+<i class="card-icon fas fa-database"></i>
+
+<h3 class="card-title">Data Processing</h3>
+
+<p class="card-description">Enhanced collaboration through Alteryx workflows, empowering teams with direct data access.</p>
+
+</a>
+
+
+
+<a href="generic.html" class="project-card">
+
+<i class="card-icon fas fa-code"></i>
+
+<h3 class="card-title">Foundational Skills</h3>
+
+<p class="card-description">Where it all began: SQL & SAS taught me patience and the mission to make data work for people.</p>
+
+</a>
+
+
+
+<a href="https://www.linkedin.com/in/john-black-532677194/" target="_blank" class="project-card message-card">
+
+<i class="card-icon fas fa-envelope"></i>
+
+<h3 class="card-title">Message Me</h3>
+
+<p class="card-description">Ready to discuss automation opportunities? Let's connect and explore how citizen development can transform your processes.</p>
+
+</a>
+
+</section>
+
+</div>
+
+
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function() {
+
+
+// --- CONFIGURATION: EDIT YOUR SKILLS AND QUALITIES HERE ---
+
+const analystSkills = [
+
+{ name: 'Financial Reporting' }, { name: 'Risk Management' },
+
+{ name: 'Trade Reconciliation' }, { name: 'Data-Driven Analysis' },
+
+{ name: 'Futures Settlement' }, { name: 'Operational Efficiency' },
+
+{ name: 'Regulatory Compliance' }, { name: 'Financial System Integrity' }
+
+];
+
+
+
+const developerSkills = [
+
+{ name: 'Python Process Automation' }, { name: 'AI/ML Frameworks' },
+
+{ name: 'API Integration' }, { name: 'Data Pipeline Architecture' },
+
+{ name: 'Alteryx Development' }, { name: 'System Integration' },
+
+{ name: 'Interactive Dashboards' }, { name: 'User Empowerment Focus' }
+
+];
+
+
+
+// --- SCRIPT LOGIC ---
+
+const canvas = document.getElementById('canvas-background');
+
+const ctx = canvas.getContext('2d');
+
+let mouse = { x: null, y: null };
+
+const allNodes = [];
+
+
+
+// Function to create and place skill nodes
+
+function createSkillNodes(containerId, skills) {
+
+const container = document.getElementById(containerId);
+
+const nodeArray = [];
+
+
+
+skills.forEach(skill => {
+
+const node = document.createElement('div');
+
+node.className = 'skill-node';
+
+node.textContent = skill.name;
+
+
+// Place nodes randomly within the container
+
+let x, y, tooClose;
+
+do {
+
+tooClose = false;
+
+x = 10 + Math.random() * 80; // % from left (10-90)
+
+y = 15 + Math.random() * 70; // % from top (15-85)
+
+// Check distance from other nodes to prevent overlap
+
+for (const existingNode of nodeArray) {
+
+const dist = Math.sqrt(Math.pow(existingNode.x - x, 2) + Math.pow(existingNode.y - y, 2));
+
+if (dist < 20) {
+
+tooClose = true;
+
+break;
+
+}
+
+}
+
+} while (tooClose);
+
+
+
+node.style.left = `${x}%`;
+
+node.style.top = `${y}%`;
+
+container.appendChild(node);
+
+
+const nodeData = { element: node, x, y, side: containerId.split('-')[0] };
+
+nodeArray.push(nodeData);
+
+allNodes.push(nodeData);
+
+});
+
+}
+
+
+
+// Canvas Animation
+
+function animate() {
+
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+const mouseSide = (mouse.x < window.innerWidth / 2) ? 'analyst' : 'developer';
+
+
+
+allNodes.forEach(node => {
+
+const rect = node.element.getBoundingClientRect();
+
+const nodeCenterX = rect.left + rect.width / 2;
+
+const nodeCenterY = rect.top + rect.height / 2;
+
+
+if (mouse.x === null) return;
+
+
+const dist = Math.sqrt(Math.pow(nodeCenterX - mouse.x, 2) + Math.pow(nodeCenterY - mouse.y, 2));
+
+
+
+if (node.side === mouseSide && dist < 400) {
+
+node.element.classList.add('active');
+
+ctx.beginPath();
+
+ctx.moveTo(mouse.x, mouse.y);
+
+ctx.lineTo(nodeCenterX, nodeCenterY);
+
+const opacity = 0.5 * (1 - dist / 400);
+
+ctx.strokeStyle = (node.side === 'analyst') ? `rgba(88, 166, 255, ${opacity})` : `rgba(67, 233, 123, ${opacity})`;
+
+ctx.lineWidth = 1;
+
+ctx.stroke();
+
+} else {
+
+node.element.classList.remove('active');
+
+}
+
+});
+
+
+
+requestAnimationFrame(animate);
+
+}
+
+
+
+// Initialization
+
+function init() {
+
+canvas.width = window.innerWidth;
+
+canvas.height = window.innerHeight;
+
+
+createSkillNodes('analyst-skills', analystSkills);
+
+createSkillNodes('developer-skills', developerSkills);
+
+
+
+window.addEventListener('mousemove', e => {
+
+mouse.x = e.clientX;
+
+mouse.y = e.clientY;
+
+});
+
+
+
+window.addEventListener('resize', () => {
+
+canvas.width = window.innerWidth;
+
+canvas.height = window.innerHeight;
+
+// No need to re-create nodes, their positions are % based.
+
+});
+
+
+
+animate();
+
+}
+
+
+
+init();
+
+});
+
+</script>
+
+</body>
+
 </html>
