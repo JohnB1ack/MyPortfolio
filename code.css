@@ -193,7 +193,6 @@ body {
 
 /* Click to expand indicator */
 .marex-main-card::after {
-    content: 'Click to explore';
     position: absolute;
     bottom: 0.5rem;
     left: 50%;
