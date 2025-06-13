@@ -66,134 +66,38 @@ align-items: center;
 padding: 2rem;
 }
 
-/* Main hero layout */
-#mindset-container {
+/* Profile section layout */
+#profile-section {
 display: flex;
 justify-content: center;
-align-items: flex-start;
+align-items: center;
 width: 100%;
 max-width: 1400px;
-min-height: 70vh;
-padding-top: 5vh;
+min-height: 40vh;
+padding: 5vh 2rem 2rem;
 }
-
-.mindset-side {
-flex: 1;
-padding: 2rem;
-height: 60vh;
-position: relative;
-}
-
-.mindset-side h2 {
-font-size: clamp(1.5rem, 4vw, 2rem);
-font-weight: 700;
-color: var(--color-text-secondary);
-text-align: center;
-margin-bottom: 2rem;
-position: relative;
-z-index: 3;
-/* Glassmorphism for headers */
-background: var(--glass-bg);
-backdrop-filter: blur(10px);
--webkit-backdrop-filter: blur(10px);
-border: 1px solid var(--glass-border);
-border-radius: 16px;
-padding: 1rem 1.5rem;
-box-shadow: var(--glass-shadow);
-}
-
-#analyst-side h2 { text-align: right; }
-#developer-side h2 { text-align: left; }
-
-.skills-cloud {
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-}
-
-.skill-node {
-position: absolute;
-font-size: clamp(0.8rem, 1.5vw, 1rem);
-font-weight: 500;
-padding: 8px 16px;
-/* Enhanced glassmorphism */
-background: var(--glass-bg);
-backdrop-filter: blur(10px);
--webkit-backdrop-filter: blur(10px);
-border: 1px solid var(--glass-border);
-border-radius: 20px;
-color: var(--color-text-secondary);
-white-space: nowrap;
-transform: translate(-50%, -50%);
-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-z-index: 2;
-cursor: pointer;
--webkit-tap-highlight-color: transparent;
-user-select: none;
--webkit-user-select: none;
-box-shadow: var(--glass-shadow);
-}
-
-.skill-node:hover {
-border-color: var(--glow-analyst);
-background: rgba(255, 255, 255, 0.08);
-transform: translate(-50%, -50%) scale(1.05);
-box-shadow: 0 0 20px rgba(88, 166, 255, 0.3), var(--glass-shadow);
-}
-
-.skill-node:active {
-transform: translate(-50%, -50%) scale(0.95);
-}
-
-.skill-node.constellation-active {
-border-color: #58a6ff;
-background: rgba(88, 166, 255, 0.15);
-color: #58a6ff;
-text-shadow: 0 0 15px rgba(88, 166, 255, 0.8);
-box-shadow:
-    0 0 30px rgba(88, 166, 255, 0.5),
-    inset 0 0 20px rgba(88, 166, 255, 0.1);
-animation: constellation-pulse 2s ease-in-out infinite;
-}
-
-@keyframes constellation-pulse {
-0%, 100% {
-    box-shadow:
-        0 0 30px rgba(88, 166, 255, 0.5),
-        inset 0 0 20px rgba(88, 166, 255, 0.1);
-}
-50% {
-    box-shadow:
-        0 0 40px rgba(88, 166, 255, 0.8),
-        inset 0 0 25px rgba(88, 166, 255, 0.2);
-}
-}
-
-.skill-node.active {
-color: var(--color-text-main);
-text-shadow: 0 0 10px currentColor;
-}
-
-#analyst-side .skill-node.active { color: #80bfff; }
-#developer-side .skill-node.active { color: #72f7b1; }
 
 #profile-center {
-flex: 0 0 auto;
-width: 300px;
+width: 100%;
+max-width: 600px;
 text-align: center;
-padding: 2rem 1rem;
-margin-top: 4rem;
+padding: 3rem 2rem;
 position: relative;
 z-index: 10;
-/* Glassmorphism for profile */
+/* Enhanced glassmorphism for standalone profile */
 background: var(--glass-bg);
-backdrop-filter: blur(10px);
--webkit-backdrop-filter: blur(10px);
+backdrop-filter: blur(15px);
+-webkit-backdrop-filter: blur(15px);
 border: 1px solid var(--glass-border);
 border-radius: 24px;
 box-shadow: var(--glass-shadow);
+transition: all 0.3s ease;
+}
+
+#profile-center:hover {
+transform: translateY(-5px);
+box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15), 0 0 20px rgba(255, 255, 255, 0.1);
+border-color: rgba(255, 255, 255, 0.2);
 }
 
 #profile-center h1 {
@@ -373,74 +277,165 @@ background: linear-gradient(135deg, #43E97B, #58A6FF) !important;
 background-clip: text !important;
 }
 
-/* Mobile-specific structured layout */
-@media (max-width: 1024px) {
-#mindset-container {
-flex-direction: column;
-align-items: center;
-min-height: unset;
-padding-top: 2rem;
+/* Marex Hub Card Styles */
+.marex-hub-card {
+position: relative;
+overflow: visible !important;
+cursor: pointer;
+transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+/* Special styling to indicate it's expandable */
+background: linear-gradient(135deg, var(--glass-bg), rgba(88, 166, 255, 0.03)) !important;
+border: 1px solid rgba(88, 166, 255, 0.2) !important;
 }
 
-.mindset-side {
-width: 100%;
-max-width: 600px;
-height: auto;
-padding: 1rem;
-margin-bottom: 2rem;
-/* Glass card for mobile */
-background: var(--glass-bg);
+.marex-main-card {
+position: relative;
+z-index: 2;
+}
+
+.marex-main-card .card-title {
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+
+.expand-indicator {
+font-size: 0.8rem;
+transition: transform 0.3s ease;
+color: var(--color-text-secondary);
+}
+
+.marex-hub-card.expanded .expand-indicator {
+transform: rotate(180deg);
+color: #58A6FF;
+}
+
+.project-count-badge {
+position: absolute;
+top: 1rem;
+right: 1rem;
+background: linear-gradient(135deg, rgba(88, 166, 255, 0.2), rgba(67, 233, 123, 0.2));
+border: 1px solid rgba(88, 166, 255, 0.3);
+border-radius: 12px;
+padding: 0.25rem 0.75rem;
+font-size: 0.75rem;
+font-weight: 600;
+color: #58A6FF;
 backdrop-filter: blur(10px);
 -webkit-backdrop-filter: blur(10px);
-border: 1px solid var(--glass-border);
-border-radius: 24px;
-box-shadow: var(--glass-shadow);
 }
 
-.mindset-side h2 {
-margin-bottom: 1.5rem;
-text-align: center !important;
-background: none;
-border: none;
-box-shadow: none;
-padding: 0;
-}
-
-.skills-cloud {
-position: relative;
+.marex-sub-cards {
+position: absolute;
+top: 100%;
+left: 0;
+right: 0;
+z-index: 1;
+opacity: 0;
+visibility: hidden;
+transform: translateY(-20px);
+transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 display: grid;
 grid-template-columns: repeat(2, 1fr);
 gap: 1rem;
 padding: 1rem;
+margin-top: 0.5rem;
+background: var(--glass-bg);
+backdrop-filter: blur(15px);
+-webkit-backdrop-filter: blur(15px);
+border: 1px solid var(--glass-border);
+border-radius: 16px;
+box-shadow: var(--glass-shadow);
 }
 
-.skill-node {
-position: relative !important;
-left: auto !important;
-top: auto !important;
-transform: none !important;
-width: 100%;
-text-align: center;
-padding: 12px 16px;
+.marex-hub-card.expanded .marex-sub-cards {
+opacity: 1;
+visibility: visible;
+transform: translateY(0);
 }
 
-.skill-node:hover {
-transform: scale(1.02) !important;
+.sub-card {
+/* Enhanced glassmorphism for sub-cards */
+background: rgba(255, 255, 255, 0.03);
+backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
+border: 1px solid rgba(255, 255, 255, 0.1);
+border-radius: 12px;
+padding: 1.5rem;
+text-decoration: none;
+color: inherit;
+position: relative;
+overflow: hidden;
+transition: all 0.3s ease;
+cursor: pointer;
+display: block;
 }
 
-.skill-node:active {
-transform: scale(0.98) !important;
+.sub-card::before {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), transparent);
+opacity: 0;
+transition: opacity 0.3s ease;
+pointer-events: none;
 }
 
-#analyst-side { order: 2; }
-#profile-center { 
-order: 1; 
-margin-top: 0;
-margin-bottom: 2rem;
-width: 100%;
+.sub-card:hover {
+transform: translateY(-5px);
+border-color: rgba(88, 166, 255, 0.3);
+background: rgba(255, 255, 255, 0.06);
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15), 0 0 15px rgba(88, 166, 255, 0.1);
+}
+
+.sub-card:hover::before {
+opacity: 1;
+}
+
+.sub-card-icon {
+font-size: 1.5rem;
+margin-bottom: 0.75rem;
+color: #58A6FF;
+transition: all 0.3s ease;
+}
+
+.sub-card:hover .sub-card-icon {
+color: #67e97b;
+transform: scale(1.1);
+}
+
+.sub-card-title {
+font-size: 1rem;
+font-weight: 600;
+color: var(--color-text-main);
+margin-bottom: 0.5rem;
+transition: all 0.3s ease;
+}
+
+.sub-card:hover .sub-card-title {
+color: #58A6FF;
+}
+
+.sub-card-description {
+font-size: 0.85rem;
+color: var(--color-text-secondary);
+line-height: 1.5;
+}
+
+/* Mobile-specific layout */
+@media (max-width: 1024px) {
+#profile-section {
+padding: 3rem 1rem 2rem;
+min-height: 30vh;
+}
+
+#profile-center {
 max-width: 500px;
+padding: 2rem 1.5rem;
 }
-#developer-side { order: 3; }
 }
 
 @media (max-width: 768px) {
@@ -448,23 +443,14 @@ max-width: 500px;
 padding: 1rem;
 }
 
-#mindset-container {
-padding-top: 1rem;
-}
-
-.mindset-side {
-padding: 1rem;
-margin-bottom: 1.5rem;
-}
-
-.skills-cloud {
-grid-template-columns: 1fr;
-gap: 0.75rem;
+#profile-section {
+padding: 2rem 1rem 1.5rem;
+min-height: 25vh;
 }
 
 #profile-center {
 padding: 1.5rem;
-margin-bottom: 1.5rem;
+max-width: 450px;
 }
 
 #profile-center h1 {
@@ -499,6 +485,35 @@ font-size: 1.1rem;
 .card-description {
 font-size: 0.9rem;
 }
+
+/* Mobile Marex Hub Styles */
+.marex-sub-cards {
+grid-template-columns: 1fr;
+gap: 1rem;
+padding: 1rem;
+}
+
+.sub-card {
+padding: 1.25rem;
+}
+
+.sub-card-icon {
+font-size: 1.25rem;
+margin-bottom: 0.5rem;
+}
+
+.sub-card-title {
+font-size: 0.95rem;
+}
+
+.sub-card-description {
+font-size: 0.8rem;
+}
+
+.project-count-badge {
+font-size: 0.7rem;
+padding: 0.2rem 0.6rem;
+}
 }
 
 @media (max-width: 480px) {
@@ -506,28 +521,14 @@ font-size: 0.9rem;
 padding: 0.75rem;
 }
 
-.mindset-side {
-padding: 0.75rem;
-margin-bottom: 1rem;
-}
-
-.mindset-side h2 {
-font-size: 1.3rem;
-margin-bottom: 1rem;
-}
-
-.skills-cloud {
-gap: 0.5rem;
-padding: 0.5rem;
-}
-
-.skill-node {
-font-size: 0.8rem;
-padding: 10px 14px;
+#profile-section {
+padding: 1.5rem 0.75rem 1rem;
+min-height: 20vh;
 }
 
 #profile-center {
 padding: 1.25rem;
+max-width: 350px;
 }
 
 #profile-center h1 {
@@ -561,16 +562,41 @@ font-size: 1rem;
 font-size: 0.85rem;
 line-height: 1.5;
 }
+
+/* Mobile Marex Hub Adjustments */
+.marex-sub-cards {
+padding: 0.75rem;
+gap: 0.75rem;
+}
+
+.sub-card {
+padding: 1rem;
+}
+
+.sub-card-icon {
+font-size: 1.1rem;
+}
+
+.sub-card-title {
+font-size: 0.9rem;
+}
+
+.sub-card-description {
+font-size: 0.75rem;
+}
+
+.project-count-badge {
+font-size: 0.65rem;
+padding: 0.15rem 0.5rem;
+top: 0.75rem;
+right: 0.75rem;
+}
 }
 
 @media (max-width: 360px) {
-.mindset-side {
-padding: 0.5rem;
-}
-
-.skill-node {
-font-size: 0.75rem;
-padding: 8px 12px;
+#profile-center {
+padding: 1rem;
+max-width: 300px;
 }
 
 #profile-center h1 {
@@ -588,11 +614,6 @@ padding: 1.25rem;
 transform: translateY(-5px) scale(0.98);
 border-color: rgba(88, 166, 255, 0.5);
 }
-
-/* Enable skill node interactions on mobile */
-.skill-node {
-pointer-events: auto !important;
-}
 }
 
 /* Reduce motion for users who prefer it */
@@ -608,20 +629,6 @@ transition: none;
 /* Hide original theme elements to prevent conflicts */
 #main, #header, #nav, #intro { display: none !important; }
 #wrapper { display: flex !important; }
-
-/* Mobile collapse animation */
-.skills-cloud.collapsed {
-max-height: 0;
-overflow: hidden;
-opacity: 0;
-transition: all 0.3s ease;
-}
-
-.skills-cloud.expanded {
-max-height: 1000px;
-opacity: 1;
-transition: all 0.3s ease;
-}
 </style>
 </head>
 <body>
@@ -629,23 +636,11 @@ transition: all 0.3s ease;
 <canvas id="canvas-background"></canvas>
 
 <div id="wrapper">
-<section id="mindset-container">
-
-<div id="analyst-side" class="mindset-side">
-<h2>Futures Brokerage Analyst</h2>
-<div id="analyst-skills" class="skills-cloud expanded"></div>
-</div>
-
+<section id="profile-section">
 <div id="profile-center">
 <h1>John C. Black</h1>
 <p>A builder at the intersection of finance and technology, transforming complex problems into elegant automation solutions.</p>
 </div>
-
-<div id="developer-side" class="mindset-side">
-<h2>Citizen Developer</h2>
-<div id="developer-skills" class="skills-cloud expanded"></div>
-</div>
-
 </section>
 
 <section id="project-grid">
@@ -655,29 +650,34 @@ transition: all 0.3s ease;
 <p class="card-description">Learn about my journey from operations to innovation and my approach to solving complex challenges.</p>
 </a>
 
-<a href="streamlit-report-generator.html" class="project-card dashboard-development financial-analysis">
-<i class="card-icon fas fa-chart-line"></i>
-<h3 class="card-title">Reporting Platform</h3>
-<p class="card-description">A unified platform serving as a centralized hub for reporting needs across departments.</p>
+<div class="project-card marex-hub-card" id="marex-hub">
+<div class="marex-main-card">
+<i class="card-icon fas fa-building"></i>
+<h3 class="card-title">Marex Portfolio <i class="expand-indicator fas fa-chevron-down"></i></h3>
+<p class="card-description">Explore my comprehensive suite of automation solutions that transformed operations at Marex, from reporting platforms to data processing engines.</p>
+<div class="project-count-badge">3 Projects</div>
+</div>
+
+<div class="marex-sub-cards" id="marex-sub-cards">
+<a href="streamlit-report-generator.html" class="sub-card dashboard-development financial-analysis">
+<i class="sub-card-icon fas fa-chart-line"></i>
+<h4 class="sub-card-title">Reporting Platform</h4>
+<p class="sub-card-description">A unified platform serving as a centralized hub for reporting needs across departments.</p>
 </a>
 
-<a href="interest-rate-automation.html" class="project-card automation-platform risk-automation">
-<i class="card-icon fas fa-cogs"></i>
-<h3 class="card-title">Automation Engine</h3>
-<p class="card-description">Discover how a custom solution reduced daily processing from 4 hours to 15 minutes.</p>
+<a href="interest-rate-automation.html" class="sub-card automation-platform risk-automation">
+<i class="sub-card-icon fas fa-cogs"></i>
+<h4 class="sub-card-title">Automation Engine</h4>
+<p class="sub-card-description">Discover how a custom solution reduced daily processing from 4 hours to 15 minutes.</p>
 </a>
 
-<a href="xtp-data-integration.html" class="project-card data-platform system-integration">
-<i class="card-icon fas fa-database"></i>
-<h3 class="card-title">Data Processing</h3>
-<p class="card-description">Enhanced collaboration through Alteryx workflows, empowering teams with direct data access.</p>
+<a href="xtp-data-integration.html" class="sub-card data-platform system-integration">
+<i class="sub-card-icon fas fa-database"></i>
+<h4 class="sub-card-title">Data Processing</h4>
+<p class="sub-card-description">Enhanced collaboration through Alteryx workflows, empowering teams with direct data access.</p>
 </a>
-
-<a href="generic.html" class="project-card ai-development">
-<i class="card-icon fas fa-code"></i>
-<h3 class="card-title">Foundational Skills</h3>
-<p class="card-description">Where it all began: SQL & SAS taught me patience and the mission to make data work for people.</p>
-</a>
+</div>
+</div>
 
 <a href="https://www.linkedin.com/in/john-black-532677194/" target="_blank" class="project-card message-card">
 <i class="card-icon fas fa-envelope"></i>
@@ -690,28 +690,7 @@ transition: all 0.3s ease;
 <script>
 document.addEventListener('DOMContentLoaded', function() {
 
-// --- CONFIGURATION: EDIT YOUR SKILLS AND QUALITIES HERE ---
-const analystSkills = [
-{ name: 'Financial Reporting', constellationStars: [] },
-{ name: 'Risk Management', constellationStars: [] },
-{ name: 'Trade Reconciliation', constellationStars: [] },
-{ name: 'Data-Driven Analysis', constellationStars: [] },
-{ name: 'Futures Settlement', constellationStars: [] },
-{ name: 'Operational Efficiency', constellationStars: [] },
-{ name: 'Regulatory Compliance', constellationStars: [] },
-{ name: 'Financial System Integrity', constellationStars: [] }
-];
-
-const developerSkills = [
-{ name: 'Python Process Automation', constellationStars: [] },
-{ name: 'AI/ML Frameworks', constellationStars: [] },
-{ name: 'API Integration', constellationStars: [] },
-{ name: 'Data Pipeline Architecture', constellationStars: [] },
-{ name: 'Alteryx Development', constellationStars: [] },
-{ name: 'System Integration', constellationStars: [] },
-{ name: 'Interactive Dashboards', constellationStars: [] },
-{ name: 'User Empowerment Focus', constellationStars: [] }
-];
+// --- SIMPLIFIED CONFIGURATION ---
 
 // --- SCRIPT LOGIC ---
 const canvas = document.getElementById('canvas-background');
@@ -731,10 +710,16 @@ let mouseTrails = [];
 let connectionParticles = [];
 let glassShards = [];
 
-// Enhanced visual configuration
+// Realistic star colors based on stellar classification
 const starColors = [
-    '#ffffff', '#ffe9c4', '#c4e9ff', '#ffc4c4', '#c4ffc4', '#e9c4ff',
-    '#58a6ff', '#67e97b', '#ff6b6b', '#ffd93d', '#6bcf7f', '#c47eff'
+    '#ffffff',    // White (most common)
+    '#fff8f0',    // Warm white
+    '#fffaf5',    // Cool white
+    '#fff5e6',    // Slightly warm
+    '#f8f8ff',    // Blue-white (hot stars)
+    '#fff0e6',    // Warm yellow-white
+    '#ffeaa7',    // Yellow (sun-like)
+    '#ffcc99'     // Orange (cooler stars)
 ];
 
 // Create glass shard particles for mobile effects
@@ -787,36 +772,66 @@ function updateGlassShards() {
 function createEnhancedStarField() {
     stars = [];
     nebulaClouds = [];
-    
-    // Create main stars with varied properties
-    const starCount = isMobile ? 100 : 250;
+
+    // Create main stars with enhanced variety
+    const starCount = isMobile ? 150 : 300; // Increased density for better connections
     for (let i = 0; i < starCount; i++) {
+        const starType = Math.random();
+        let radius, opacity, twinkleSpeed, color, isSpecial;
+
+        if (starType < 0.8) {
+            // Regular white/dim stars (80%)
+            radius = Math.random() * 1.2 + 0.3;
+            opacity = Math.random() * 0.5 + 0.3;
+            twinkleSpeed = Math.random() * 0.012 + 0.005;
+            color = Math.random() < 0.9 ? '#ffffff' : starColors[Math.floor(Math.random() * 3)]; // Mostly white
+            isSpecial = false;
+        } else if (starType < 0.95) {
+            // Brighter stars with subtle color (15%)
+            radius = Math.random() * 2 + 0.8;
+            opacity = Math.random() * 0.4 + 0.6;
+            twinkleSpeed = Math.random() * 0.018 + 0.008;
+            color = starColors[Math.floor(Math.random() * 5)]; // Subtle natural colors
+            isSpecial = false;
+        } else {
+            // Rare bright stars (5%)
+            radius = Math.random() * 2.5 + 1.2;
+            opacity = Math.random() * 0.3 + 0.7;
+            twinkleSpeed = Math.random() * 0.02 + 0.01;
+            color = starColors[Math.floor(Math.random() * starColors.length)];
+            isSpecial = true;
+        }
+
         stars.push({
             x: Math.random() * canvas.width,
             y: Math.random() * canvas.height,
-            radius: Math.random() * 2 + 0.5,
-            opacity: Math.random() * 0.8 + 0.2,
-            twinkleSpeed: Math.random() * 0.02 + 0.01,
+            radius: radius,
+            baseOpacity: opacity,
+            opacity: opacity,
+            twinkleSpeed: twinkleSpeed,
             twinklePhase: Math.random() * Math.PI * 2,
-            color: starColors[Math.floor(Math.random() * starColors.length)],
-            pulseSpeed: Math.random() * 0.5 + 0.5,
-            isSpecial: Math.random() < 0.1, // 10% chance for special stars
-            z: Math.random() * 0.5 + 0.5 // depth for parallax
+            color: color,
+            pulseSpeed: Math.random() * 0.8 + 0.4,
+            isSpecial: isSpecial,
+            z: Math.random() * 0.5 + 0.5, // depth for parallax
+            connectionStrength: 0 // for mouse interaction feedback
         });
     }
-    
-    // Create nebula clouds for depth
-    const nebulaCount = isMobile ? 2 : 5;
+
+    // Create subtle nebula clouds for depth
+    const nebulaCount = isMobile ? 3 : 6;
     for (let i = 0; i < nebulaCount; i++) {
         nebulaClouds.push({
             x: Math.random() * canvas.width,
             y: Math.random() * canvas.height,
-            radius: Math.random() * 200 + 100,
-            color: Math.random() < 0.5 ? 'rgba(88, 166, 255, 0.03)' : 'rgba(67, 233, 123, 0.03)',
+            radius: Math.random() * 250 + 150,
+            color: Math.random() < 0.5 ? 'rgba(88, 166, 255, 0.02)' : 'rgba(173, 216, 255, 0.015)',
             drift: {
-                x: (Math.random() - 0.5) * 0.05,
-                y: (Math.random() - 0.5) * 0.05
-            }
+                x: (Math.random() - 0.5) * 0.03,
+                y: (Math.random() - 0.5) * 0.03
+            },
+            pulsePhase: Math.random() * Math.PI * 2,
+            pulseSpeed: Math.random() * 0.5 + 0.2
         });
     }
 }
@@ -855,101 +870,170 @@ function updateShootingStars() {
     });
 }
 
-// Create mouse trail particles
+// Create enhanced mouse trail particles
 function createMouseTrail() {
-    if (mouse.x && mouse.y && mouseTrails.length < 20) {
-        mouseTrails.push({
-            x: mouse.x,
-            y: mouse.y,
-            vx: (Math.random() - 0.5) * 1.5,
-            vy: (Math.random() - 0.5) * 1.5,
-            radius: Math.random() * 2 + 0.5,
-            opacity: 0.6,
-            color: Math.random() < 0.5 ? '#58a6ff' : '#67e97b'
-        });
+    if (mouse.x && mouse.y && mouseTrails.length < (isMobile ? 15 : 25)) {
+        // Calculate mouse velocity for dynamic trail
+        const currentTime = Date.now();
+        if (mouse.lastX !== undefined && mouse.lastY !== undefined && mouse.lastTime !== undefined) {
+            const deltaTime = currentTime - mouse.lastTime;
+            const deltaX = mouse.x - mouse.lastX;
+            const deltaY = mouse.y - mouse.lastY;
+            const velocity = Math.sqrt(deltaX * deltaX + deltaY * deltaY) / deltaTime;
+
+            // Create trail particles based on movement
+            if (velocity > 0.1) { // Only create trail when moving
+                mouseTrails.push({
+                    x: mouse.x + (Math.random() - 0.5) * 8,
+                    y: mouse.y + (Math.random() - 0.5) * 8,
+                    vx: (Math.random() - 0.5) * 0.8 - deltaX * 0.02,
+                    vy: (Math.random() - 0.5) * 0.8 - deltaY * 0.02,
+                    radius: Math.random() * 1.5 + 0.3,
+                    opacity: Math.min(0.6, velocity * 1.5),
+                    color: Math.random() < 0.8 ? '#ffffff' : '#f0f8ff',
+                    life: 1.0
+                });
+            }
+        }
+
+        // Store current position for next frame
+        mouse.lastX = mouse.x;
+        mouse.lastY = mouse.y;
+        mouse.lastTime = currentTime;
     }
 }
 
-// Update mouse trails
+// Update enhanced mouse trails
 function updateMouseTrails() {
     mouseTrails = mouseTrails.filter(trail => {
         trail.x += trail.vx;
         trail.y += trail.vy;
-        trail.opacity *= 0.95;
-        trail.radius *= 0.98;
-        return trail.opacity > 0.01;
+        trail.vx *= 0.98; // Slight deceleration
+        trail.vy *= 0.98;
+        trail.life *= 0.96; // Life-based fading
+        trail.opacity = trail.life * 0.8;
+        trail.radius *= 0.99; // Slower radius decay
+        return trail.life > 0.02;
     });
 }
 
 // Enhanced star rendering with twinkling and special effects
 function renderEnhancedStars() {
-    // Render nebula clouds first for background effect
+    // Render enhanced nebula clouds for atmospheric depth
     nebulaClouds.forEach(cloud => {
-        const gradient = ctx.createRadialGradient(cloud.x, cloud.y, 0, cloud.x, cloud.y, cloud.radius);
-        gradient.addColorStop(0, cloud.color);
+        // Dynamic pulsing effect
+        const pulse = Math.sin(animationTime * cloud.pulseSpeed + cloud.pulsePhase) * 0.3 + 0.7;
+        const effectiveRadius = cloud.radius * pulse;
+
+        // Create multi-layered gradient for depth
+        const gradient = ctx.createRadialGradient(cloud.x, cloud.y, 0, cloud.x, cloud.y, effectiveRadius);
+
+        // Enhanced color with subtle animation
+        const baseOpacity = 0.02 + Math.sin(animationTime * 0.5 + cloud.pulsePhase) * 0.005;
+        const colorWithPulse = cloud.color.replace(/[\d.]+\)$/, `${baseOpacity})`);
+
+        gradient.addColorStop(0, colorWithPulse);
+        gradient.addColorStop(0.4, colorWithPulse.replace(/[\d.]+\)$/, `${baseOpacity * 0.6})`));
         gradient.addColorStop(1, 'transparent');
-        
+
         ctx.save();
         ctx.fillStyle = gradient;
-        ctx.fillRect(cloud.x - cloud.radius, cloud.y - cloud.radius, cloud.radius * 2, cloud.radius * 2);
+        ctx.fillRect(cloud.x - effectiveRadius, cloud.y - effectiveRadius, effectiveRadius * 2, effectiveRadius * 2);
         ctx.restore();
-        
-        // Drift nebula
-        cloud.x += cloud.drift.x;
-        cloud.y += cloud.drift.y;
-        
-        // Wrap around screen
-        if (cloud.x < -cloud.radius) cloud.x = canvas.width + cloud.radius;
-        if (cloud.x > canvas.width + cloud.radius) cloud.x = -cloud.radius;
-        if (cloud.y < -cloud.radius) cloud.y = canvas.height + cloud.radius;
-        if (cloud.y > canvas.height + cloud.radius) cloud.y = -cloud.radius;
+
+        // Smooth drift with slight acceleration
+        cloud.x += cloud.drift.x * (1 + Math.sin(animationTime * 0.1) * 0.2);
+        cloud.y += cloud.drift.y * (1 + Math.cos(animationTime * 0.1) * 0.2);
+
+        // Wrap around screen with buffer
+        const buffer = cloud.radius * 0.5;
+        if (cloud.x < -buffer) cloud.x = canvas.width + buffer;
+        if (cloud.x > canvas.width + buffer) cloud.x = -buffer;
+        if (cloud.y < -buffer) cloud.y = canvas.height + buffer;
+        if (cloud.y > canvas.height + buffer) cloud.y = -buffer;
     });
     
-    // Render stars with enhanced effects
+    // Update star connection strength and render with enhanced effects
     stars.forEach(star => {
+        // Calculate mouse interaction
+        let connectionStrength = 0;
+        if (mouse.x && mouse.y) {
+            const dx = star.x - mouse.x;
+            const dy = star.y - mouse.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            const connectionRange = isMobile ? 150 : 200;
+
+            if (dist < connectionRange) {
+                connectionStrength = Math.pow(1 - dist / connectionRange, 2);
+            }
+        }
+
+        // Smooth connection strength transition
+        star.connectionStrength += (connectionStrength - star.connectionStrength) * 0.1;
+
+        // Enhanced twinkling with connection influence
         const twinkle = Math.sin(animationTime * star.twinkleSpeed + star.twinklePhase) * 0.5 + 0.5;
         const pulse = star.isSpecial ? Math.sin(animationTime * star.pulseSpeed) * 0.3 + 0.7 : 1;
-        
+        const connectionBoost = 1 + star.connectionStrength * 0.8;
+
         ctx.save();
-        ctx.globalAlpha = star.opacity * twinkle * pulse;
-        
+        ctx.globalAlpha = star.baseOpacity * twinkle * pulse * connectionBoost;
+
+        // Enhanced rendering based on connection strength
+        const effectiveRadius = star.radius * (1 + star.connectionStrength * 0.5);
+        const glowIntensity = star.connectionStrength * 0.6;
+
         // Special stars get extra effects
-        if (star.isSpecial) {
-            // Outer glow
-            const gradient = ctx.createRadialGradient(star.x, star.y, 0, star.x, star.y, star.radius * 6);
-            gradient.addColorStop(0, star.color);
-            gradient.addColorStop(0.3, star.color);
+        if (star.isSpecial || star.connectionStrength > 0.1) {
+            // Outer glow with connection enhancement
+            const glowRadius = star.radius * (6 + star.connectionStrength * 4);
+            const gradient = ctx.createRadialGradient(star.x, star.y, 0, star.x, star.y, glowRadius);
+
+            if (star.connectionStrength > 0.1) {
+                gradient.addColorStop(0, `rgba(255, 255, 255, ${glowIntensity * 0.6})`);
+                gradient.addColorStop(0.3, `rgba(240, 248, 255, ${glowIntensity * 0.4})`);
+                gradient.addColorStop(0.6, star.color);
+            } else {
+                gradient.addColorStop(0, star.color);
+                gradient.addColorStop(0.3, star.color);
+            }
             gradient.addColorStop(1, 'transparent');
-            
+
             ctx.fillStyle = gradient;
-            ctx.fillRect(star.x - star.radius * 6, star.y - star.radius * 6, star.radius * 12, star.radius * 12);
-            
+            ctx.fillRect(star.x - glowRadius, star.y - glowRadius, glowRadius * 2, glowRadius * 2);
+
             // Core with enhanced glow
-            ctx.shadowBlur = 10;
-            ctx.shadowColor = star.color;
+            ctx.shadowBlur = 8 + glowIntensity * 10;
+            ctx.shadowColor = star.connectionStrength > 0.1 ? 'rgba(240, 248, 255, 0.6)' : star.color;
         } else {
             ctx.shadowBlur = 3;
             ctx.shadowColor = star.color;
         }
-        
-        ctx.fillStyle = star.color;
+
+        // Main star body
+        ctx.fillStyle = star.connectionStrength > 0.1 ?
+            `rgba(255, 255, 255, ${0.8 + star.connectionStrength * 0.2})` :
+            star.color;
         ctx.beginPath();
-        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.arc(star.x, star.y, effectiveRadius, 0, Math.PI * 2);
         ctx.fill();
-        
-        // Add cross pattern for bright stars
-        if (star.radius > 1.5) {
-            ctx.globalAlpha *= 0.4;
-            ctx.strokeStyle = star.color;
-            ctx.lineWidth = 0.5;
+
+        // Add cross pattern for bright stars or connected stars
+        if (star.radius > 1.5 || star.connectionStrength > 0.2) {
+            ctx.globalAlpha *= 0.6;
+            ctx.strokeStyle = star.connectionStrength > 0.2 ?
+                'rgba(255, 255, 255, 0.6)' :
+                star.color;
+            ctx.lineWidth = 0.5 + star.connectionStrength;
             ctx.beginPath();
-            ctx.moveTo(star.x - star.radius * 2, star.y);
-            ctx.lineTo(star.x + star.radius * 2, star.y);
-            ctx.moveTo(star.x, star.y - star.radius * 2);
-            ctx.lineTo(star.x, star.y + star.radius * 2);
+            const crossSize = effectiveRadius * 2.5;
+            ctx.moveTo(star.x - crossSize, star.y);
+            ctx.lineTo(star.x + crossSize, star.y);
+            ctx.moveTo(star.x, star.y - crossSize);
+            ctx.lineTo(star.x, star.y + crossSize);
             ctx.stroke();
         }
-        
+
         ctx.restore();
     });
     
@@ -985,16 +1069,28 @@ function renderEnhancedStars() {
         ctx.restore();
     });
     
-    // Render mouse trails
+    // Render enhanced mouse trails
     mouseTrails.forEach(trail => {
         ctx.save();
+
+        // Create gradient for trail particle
+        const gradient = ctx.createRadialGradient(trail.x, trail.y, 0, trail.x, trail.y, trail.radius * 3);
+        gradient.addColorStop(0, `rgba(255, 255, 255, ${trail.opacity * 0.8})`);
+        gradient.addColorStop(0.4, trail.color.replace('rgb', 'rgba').replace(')', `, ${trail.opacity * 0.6})`));
+        gradient.addColorStop(1, 'transparent');
+
+        ctx.fillStyle = gradient;
+        ctx.fillRect(trail.x - trail.radius * 3, trail.y - trail.radius * 3, trail.radius * 6, trail.radius * 6);
+
+        // Core particle
         ctx.globalAlpha = trail.opacity;
         ctx.fillStyle = trail.color;
-        ctx.shadowBlur = 8;
+        ctx.shadowBlur = 6;
         ctx.shadowColor = trail.color;
         ctx.beginPath();
         ctx.arc(trail.x, trail.y, trail.radius, 0, Math.PI * 2);
         ctx.fill();
+
         ctx.restore();
     });
 }
@@ -1002,95 +1098,126 @@ function renderEnhancedStars() {
 // Enhanced mouse connection lines with particles and gradients
 function renderEnhancedConnections() {
     if (!mouse.x || !mouse.y) return;
-    
-    const mouseSide = (mouse.x < window.innerWidth / 2) ? 'analyst' : 'developer';
-    
+
+    // Enhanced mouse-to-star connection system
+    const starConnectionRange = isMobile ? 150 : 200;
+    const connectedStars = [];
+
+    // First pass: identify connected stars and sort by distance for performance
+    stars.forEach(star => {
+        const dx = star.x - mouse.x;
+        const dy = star.y - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < starConnectionRange) {
+            connectedStars.push({ star, dist, dx, dy });
+        }
+    });
+
+    // Sort by distance for layered rendering (furthest first)
+    connectedStars.sort((a, b) => b.dist - a.dist);
+
+    // Render connections with enhanced effects
+    connectedStars.forEach(({ star, dist, dx, dy }) => {
+        // Calculate opacity with smooth falloff
+        const normalizedDist = dist / starConnectionRange;
+        const opacity = Math.pow(1 - normalizedDist, 2) * 0.6; // Quadratic falloff for smoother fade
+
+        // Subtle realistic gradient
+        const gradient = ctx.createLinearGradient(mouse.x, mouse.y, star.x, star.y);
+        gradient.addColorStop(0, `rgba(255, 255, 255, ${opacity * 0.6})`);
+        gradient.addColorStop(0.3, `rgba(240, 248, 255, ${opacity * 0.8})`);
+        gradient.addColorStop(0.7, `rgba(220, 235, 255, ${opacity * 0.6})`);
+        gradient.addColorStop(1, `rgba(255, 255, 255, ${opacity * 0.2})`);
+
+        ctx.save();
+
+        // Main connection line with enhanced glow
+        ctx.strokeStyle = gradient;
+        ctx.lineWidth = isMobile ? 1.5 : 2;
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = `rgba(220, 235, 255, ${opacity * 0.5})`;
+        ctx.beginPath();
+        ctx.moveTo(mouse.x, mouse.y);
+        ctx.lineTo(star.x, star.y);
+        ctx.stroke();
+
+        // Add subtle secondary glow
+        ctx.strokeStyle = `rgba(255, 255, 255, ${opacity * 0.3})`;
+        ctx.lineWidth = isMobile ? 0.5 : 1;
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = `rgba(240, 248, 255, ${opacity * 0.4})`;
+        ctx.stroke();
+
+        // Subtle star enhancement when connected
+        const starGlow = ctx.createRadialGradient(star.x, star.y, 0, star.x, star.y, star.radius * 3);
+        starGlow.addColorStop(0, `rgba(255, 255, 255, ${opacity * 0.4})`);
+        starGlow.addColorStop(0.5, `rgba(240, 248, 255, ${opacity * 0.2})`);
+        starGlow.addColorStop(1, 'transparent');
+
+        ctx.fillStyle = starGlow;
+        ctx.fillRect(star.x - star.radius * 3, star.y - star.radius * 3, star.radius * 6, star.radius * 6);
+
+        ctx.restore();
+
+        // Add energy pulse along connection line for closest stars
+        if (dist < starConnectionRange * 0.5) {
+            const pulsePos = (animationTime * 2 + dist * 0.01) % 1;
+            const pulseX = mouse.x + (star.x - mouse.x) * pulsePos;
+            const pulseY = mouse.y + (star.y - mouse.y) * pulsePos;
+
+            ctx.save();
+            ctx.fillStyle = `rgba(255, 255, 255, ${opacity * 0.8})`;
+            ctx.shadowBlur = 8;
+            ctx.shadowColor = `rgba(88, 166, 255, ${opacity})`;
+            ctx.beginPath();
+            ctx.arc(pulseX, pulseY, 1.5, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+        }
+    });
+
+    // Enhanced mouse cursor with dynamic glow
+    if (connectedStars.length > 0) {
+        ctx.save();
+
+        // Calculate glow intensity based on connections
+        const maxConnections = Math.min(connectedStars.length, 8);
+        const glowIntensity = Math.min(maxConnections / 8, 1);
+        const glowRadius = 15 + glowIntensity * 25;
+
+        // Subtle cursor glow
+        const cursorGlow = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, glowRadius);
+        cursorGlow.addColorStop(0, `rgba(255, 255, 255, ${0.3 + glowIntensity * 0.3})`);
+        cursorGlow.addColorStop(0.3, `rgba(248, 252, 255, ${0.2 + glowIntensity * 0.2})`);
+        cursorGlow.addColorStop(0.6, `rgba(240, 248, 255, ${0.1 + glowIntensity * 0.1})`);
+        cursorGlow.addColorStop(1, 'transparent');
+
+        ctx.fillStyle = cursorGlow;
+        ctx.fillRect(mouse.x - glowRadius, mouse.y - glowRadius, glowRadius * 2, glowRadius * 2);
+
+        // Add subtle pulsing center point
+        const pulseSize = 1.5 + Math.sin(animationTime * 3) * 0.5;
+        ctx.fillStyle = `rgba(255, 255, 255, ${0.6 + glowIntensity * 0.2})`;
+        ctx.shadowBlur = 6;
+        ctx.shadowColor = 'rgba(240, 248, 255, 0.6)';
+        ctx.beginPath();
+        ctx.arc(mouse.x, mouse.y, pulseSize, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.restore();
+    }
+
+    // Handle project cards with enhanced effects
     allNodes.forEach(node => {
         const rect = node.element.getBoundingClientRect();
         const nodeCenterX = rect.left + rect.width / 2;
         const nodeCenterY = rect.top + rect.height / 2;
-        
+
         const dist = Math.sqrt(Math.pow(nodeCenterX - mouse.x, 2) + Math.pow(nodeCenterY - mouse.y, 2));
-        
-        // Handle skill nodes
-        if (node.type !== 'project-card') {
-            const skillRange = isMobile ? 250 : 400;
-            if (!isMobile && node.side === mouseSide && dist < skillRange || isMobile && dist < skillRange) {
-                node.element.classList.add('active');
-                
-                // Create gradient for connection line
-                const gradient = ctx.createLinearGradient(mouse.x, mouse.y, nodeCenterX, nodeCenterY);
-                const baseColor = node.side === 'analyst' ? '88, 166, 255' : '67, 233, 123';
-                const opacity = 0.8 * (1 - dist / skillRange);
-                
-                gradient.addColorStop(0, `rgba(${baseColor}, ${opacity * 0.2})`);
-                gradient.addColorStop(0.5, `rgba(${baseColor}, ${opacity})`);
-                gradient.addColorStop(1, `rgba(${baseColor}, ${opacity * 0.2})`);
-                
-                // Draw main connection line with glow
-                ctx.save();
-                ctx.strokeStyle = gradient;
-                ctx.lineWidth = isMobile ? 2 : 3;
-                ctx.shadowBlur = 15;
-                ctx.shadowColor = `rgba(${baseColor}, ${opacity})`;
-                ctx.beginPath();
-                ctx.moveTo(mouse.x, mouse.y);
-                ctx.lineTo(nodeCenterX, nodeCenterY);
-                ctx.stroke();
-                
-                // Draw energy pulse along line
-                const pulsePos = (animationTime * 3) % 1;
-                const pulseX = mouse.x + (nodeCenterX - mouse.x) * pulsePos;
-                const pulseY = mouse.y + (nodeCenterY - mouse.y) * pulsePos;
-                
-                ctx.fillStyle = `rgba(${baseColor}, ${opacity * 1.5})`;
-                ctx.shadowBlur = 12;
-                ctx.beginPath();
-                ctx.arc(pulseX, pulseY, 3, 0, Math.PI * 2);
-                ctx.fill();
-                
-                // Draw particles along connection (fewer on mobile)
-                const particleCount = isMobile ? 3 : 5;
-                for (let i = 0; i < particleCount; i++) {
-                    const particlePos = (pulsePos + i * (1 / particleCount)) % 1;
-                    const px = mouse.x + (nodeCenterX - mouse.x) * particlePos;
-                    const py = mouse.y + (nodeCenterY - mouse.y) * particlePos;
-                    
-                    ctx.fillStyle = `rgba(${baseColor}, ${opacity * 0.5})`;
-                    ctx.beginPath();
-                    ctx.arc(px, py, 1, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-                
-                ctx.restore();
-                
-                // Add star burst at node position (simplified for mobile)
-                if (!isMobile) {
-                    ctx.save();
-                    ctx.globalAlpha = opacity * 0.3;
-                    ctx.strokeStyle = `rgb(${baseColor})`;
-                    ctx.lineWidth = 1;
-                    for (let i = 0; i < 6; i++) {
-                        const angle = (i / 6) * Math.PI * 2 + animationTime;
-                        const x1 = nodeCenterX + Math.cos(angle) * 8;
-                        const y1 = nodeCenterY + Math.sin(angle) * 8;
-                        const x2 = nodeCenterX + Math.cos(angle) * 16;
-                        const y2 = nodeCenterY + Math.sin(angle) * 16;
-                        
-                        ctx.beginPath();
-                        ctx.moveTo(x1, y1);
-                        ctx.lineTo(x2, y2);
-                        ctx.stroke();
-                    }
-                    ctx.restore();
-                }
-                
-            } else {
-                node.element.classList.remove('active');
-            }
-        }
+
         // Handle project cards with enhanced effects
-        else {
+        if (node.type === 'project-card') {
             const cardRange = isMobile ? 200 : 300;
             if (dist < cardRange) {
                 node.element.classList.add('active');
@@ -1208,99 +1335,7 @@ function renderEnhancedConnections() {
     });
 }
 
-// Skill placement function with mobile-optimized layout
-function createSkillNodes(containerId, skills) {
-    const container = document.getElementById(containerId);
-    const nodeArray = [];
-    
-    if (isMobile || window.innerWidth <= 1024) {
-        // Mobile: Use grid layout
-        skills.forEach(skill => {
-            const node = document.createElement('div');
-            node.className = 'skill-node';
-            node.textContent = skill.name;
-            container.appendChild(node);
-            
-            // Add click event for glass shard effect
-            node.addEventListener('click', (e) => {
-                node.classList.toggle('constellation-active');
-                
-                // Create glass shard effect
-                const rect = node.getBoundingClientRect();
-                createGlassShards(rect.left + rect.width / 2, rect.top + rect.height / 2, 8);
-                
-                // Create pulse effect
-                for (let i = 0; i < 6; i++) {
-                    const angle = (i / 6) * Math.PI * 2;
-                    connectionParticles.push({
-                        x: rect.left + rect.width / 2,
-                        y: rect.top + rect.height / 2,
-                        vx: Math.cos(angle) * 3,
-                        vy: Math.sin(angle) * 3,
-                        radius: 2,
-                        opacity: 0.8,
-                        color: containerId.includes('analyst') ? '#58a6ff' : '#67e97b'
-                    });
-                }
-            });
-            
-            const nodeData = { element: node, side: containerId.split('-')[0], skill: skill };
-            nodeArray.push(nodeData);
-            allNodes.push(nodeData);
-        });
-    } else {
-        // Desktop: Use absolute positioning
-        let skillsToShow = skills;
-        
-        skillsToShow.forEach(skill => {
-            const node = document.createElement('div');
-            node.className = 'skill-node';
-            node.textContent = skill.name;
-            
-            let x, y, tooClose;
-            do {
-                tooClose = false;
-                x = 10 + Math.random() * 80;
-                y = 15 + Math.random() * 70;
-                
-                for (const existingNode of nodeArray) {
-                    const dist = Math.sqrt(Math.pow(existingNode.x - x, 2) + Math.pow(existingNode.y - y, 2));
-                    if (dist < 20) {
-                        tooClose = true;
-                        break;
-                    }
-                }
-            } while (tooClose);
-            
-            node.style.left = `${x}%`;
-            node.style.top = `${y}%`;
-            container.appendChild(node);
-            
-            // Keep constellation click event
-            node.addEventListener('click', () => {
-                node.classList.toggle('constellation-active');
-                // Create burst effect
-                for (let i = 0; i < 10; i++) {
-                    const angle = (i / 10) * Math.PI * 2;
-                    const rect = node.getBoundingClientRect();
-                    connectionParticles.push({
-                        x: rect.left + rect.width / 2,
-                        y: rect.top + rect.height / 2,
-                        vx: Math.cos(angle) * 5,
-                        vy: Math.sin(angle) * 5,
-                        radius: 3,
-                        opacity: 1,
-                        color: containerId.includes('analyst') ? '#58a6ff' : '#67e97b'
-                    });
-                }
-            });
-            
-            const nodeData = { element: node, x, y, side: containerId.split('-')[0], skill: skill };
-            nodeArray.push(nodeData);
-            allNodes.push(nodeData);
-        });
-    }
-}
+
 
 // Initialize project cards
 function initializeProjectCards() {
@@ -1313,6 +1348,113 @@ function initializeProjectCards() {
         };
         projectCards.push(cardData);
         allNodes.push(cardData);
+    });
+}
+
+// Initialize Marex Hub Card functionality
+function initializeMarexHub() {
+    const marexHub = document.getElementById('marex-hub');
+    const marexMainCard = marexHub.querySelector('.marex-main-card');
+    const subCards = document.querySelectorAll('.sub-card');
+    let isExpanded = false;
+
+    // Add click handler for main card
+    marexMainCard.addEventListener('click', function(e) {
+        e.preventDefault();
+        toggleMarexHub();
+    });
+
+    // Add hover effects for desktop
+    if (!isMobile) {
+        marexHub.addEventListener('mouseenter', function() {
+            if (!isExpanded) {
+                this.style.transform = 'translateY(-5px) scale(1.02)';
+            }
+        });
+
+        marexHub.addEventListener('mouseleave', function() {
+            if (!isExpanded) {
+                this.style.transform = '';
+            }
+        });
+    }
+
+    // Toggle function
+    function toggleMarexHub() {
+        isExpanded = !isExpanded;
+
+        if (isExpanded) {
+            marexHub.classList.add('expanded');
+
+            // Create expansion particle effect
+            const rect = marexMainCard.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+
+            // Create burst effect
+            for (let i = 0; i < 12; i++) {
+                const angle = (i / 12) * Math.PI * 2;
+                connectionParticles.push({
+                    x: centerX,
+                    y: centerY,
+                    vx: Math.cos(angle) * 4,
+                    vy: Math.sin(angle) * 4,
+                    radius: 2,
+                    opacity: 0.8,
+                    color: '#58a6ff'
+                });
+            }
+
+            // Animate sub-cards with stagger
+            subCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.transform = 'translateY(0) scale(1)';
+                    card.style.opacity = '1';
+                }, index * 100);
+            });
+
+        } else {
+            marexHub.classList.remove('expanded');
+
+            // Reset sub-card animations
+            subCards.forEach(card => {
+                card.style.transform = '';
+                card.style.opacity = '';
+            });
+        }
+    }
+
+    // Add sub-card hover effects
+    subCards.forEach(subCard => {
+        subCard.addEventListener('mouseenter', function() {
+            // Create subtle particle effect
+            const rect = this.getBoundingClientRect();
+            for (let i = 0; i < 3; i++) {
+                connectionParticles.push({
+                    x: rect.left + rect.width / 2,
+                    y: rect.top + rect.height / 2,
+                    vx: (Math.random() - 0.5) * 2,
+                    vy: (Math.random() - 0.5) * 2,
+                    radius: 1,
+                    opacity: 0.6,
+                    color: '#67e97b'
+                });
+            }
+        });
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function(e) {
+        if (isExpanded && !marexHub.contains(e.target)) {
+            toggleMarexHub();
+        }
+    });
+
+    // Close on escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && isExpanded) {
+            toggleMarexHub();
+        }
     });
 }
 
@@ -1396,37 +1538,17 @@ function handleTouchEnd(e) {
     }, 300);
 }
 
-// Add section header click handlers for mobile collapse
-function addMobileCollapsibility() {
-    if (window.innerWidth <= 1024) {
-        const headers = document.querySelectorAll('.mindset-side h2');
-        headers.forEach(header => {
-            header.style.cursor = 'pointer';
-            header.addEventListener('click', function() {
-                const skillsCloud = this.nextElementSibling;
-                if (skillsCloud.classList.contains('expanded')) {
-                    skillsCloud.classList.remove('expanded');
-                    skillsCloud.classList.add('collapsed');
-                } else {
-                    skillsCloud.classList.remove('collapsed');
-                    skillsCloud.classList.add('expanded');
-                }
-            });
-        });
-    }
-}
+
 
 // Initialization
 function init() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    
+
     detectMobile();
     createEnhancedStarField();
-    createSkillNodes('analyst-skills', analystSkills);
-    createSkillNodes('developer-skills', developerSkills);
     initializeProjectCards();
-    addMobileCollapsibility();
+    initializeMarexHub();
     
     // Mouse events for desktop
     window.addEventListener('mousemove', e => {
@@ -1452,16 +1574,12 @@ function init() {
         // If switching between mobile and desktop, rebuild the interface
         if (wasMobile !== isMobile) {
             // Clear existing nodes
-            document.getElementById('analyst-skills').innerHTML = '';
-            document.getElementById('developer-skills').innerHTML = '';
             allNodes.length = 0;
             projectCards.length = 0;
-            
+
             // Rebuild
-            createSkillNodes('analyst-skills', analystSkills);
-            createSkillNodes('developer-skills', developerSkills);
             initializeProjectCards();
-            addMobileCollapsibility();
+            initializeMarexHub();
         }
         
         createEnhancedStarField();
