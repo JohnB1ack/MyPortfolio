@@ -156,7 +156,6 @@ body {
 
 /* Marex Portfolio Card */
 .marex-hub-card {
-    /* grid-column: 1 / -1; << REMOVED FROM HERE */
     padding: 2.5rem; /* Give it standard padding like other cards */
     cursor: pointer;
     overflow: hidden;
