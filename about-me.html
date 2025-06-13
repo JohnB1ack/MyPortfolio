@@ -21,6 +21,12 @@
 --font-main: 'Inter', sans-serif;
 --glow-analyst: rgba(88, 166, 255, 0.2);
 --glow-developer: rgba(67, 233, 123, 0.2);
+--purple-primary: #B19CD9;
+--purple-secondary: #C8B4E6;
+--purple-glow: rgba(177, 156, 217, 0.2);
+--glass-bg: rgba(255, 255, 255, 0.05);
+--glass-border: rgba(255, 255, 255, 0.15);
+--glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
 }
 
 *, *::before, *::after {
@@ -185,239 +191,79 @@ font-size: 1rem;
 }
 }
 
-/* Orbital Widget - Enhanced with New Design System */
-.orbital-container {
+/* Platform Cards */
+.platform-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+gap: 1.5rem;
+margin: 2rem 0;
+}
+
+.platform-card {
+background: var(--glass-bg);
+backdrop-filter: blur(10px);
+border: 1px solid var(--glass-border);
+border-radius: 16px;
+padding: 2rem;
+transition: all 0.4s ease;
+box-shadow: var(--glass-shadow);
 position: relative;
-width: 100%;
-max-width: 800px;
-aspect-ratio: 1 / 1;
-margin: 40px auto;
-background: rgba(255, 255, 255, 0.02);
-backdrop-filter: blur(8px);
-border: 1px solid var(--color-border);
-border-radius: 20px;
-color: var(--color-text-main);
-font-family: var(--font-main);
-display: flex;
-justify-content: center;
-align-items: center;
 overflow: hidden;
-box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
-/* Central Profile */
-.center-profile {
+.platform-card::before {
+content: '';
 position: absolute;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-width: 200px;
-height: 200px;
-background: linear-gradient(135deg, var(--glow-analyst), var(--glow-developer));
-border-radius: 50%;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-text-align: center;
-color: var(--color-text-main);
-z-index: 10;
-box-shadow:
-0 0 30px rgba(88, 166, 255, 0.4),
-inset 0 0 20px rgba(255, 255, 255, 0.1);
-}
-
-.center-profile h1 {
-font-size: 28px;
-margin: 0 0 5px 0;
-font-weight: 700;
-color: var(--color-text-main);
-}
-
-.center-profile .title {
-font-size: 12px;
-opacity: 0.95;
-line-height: 1.4;
-padding: 0 20px;
-color: var(--color-text-main);
-text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-}
-
-/* Orbital Paths */
-.orbit {
-position: absolute;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-border: 1px solid var(--color-border);
-border-radius: 50%;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background: linear-gradient(135deg, var(--purple-glow), transparent);
+opacity: 0;
+transition: opacity 0.3s ease;
 pointer-events: none;
 }
 
-.orbit-skills {
-width: 350px;
-height: 350px;
-animation: rotate 30s linear infinite;
+.platform-card:hover {
+transform: translateY(-8px);
+border-color: var(--purple-primary);
+box-shadow: 0 15px 40px var(--purple-glow), var(--glass-shadow);
 }
 
-.orbit-attributes {
-width: 500px;
-height: 500px;
-animation: rotate 45s linear infinite reverse;
+.platform-card:hover::before {
+opacity: 1;
 }
 
-.orbit-tech {
-width: 650px;
-height: 650px;
-animation: rotate 60s linear infinite;
-}
-
-@keyframes rotate {
-from { transform: translate(-50%, -50%) rotate(0deg); }
-to { transform: translate(-50%, -50%) rotate(360deg); }
-}
-
-/* Orbital Items */
-.orbital-item {
-position: absolute;
-padding: 10px 20px;
-border-radius: 25px;
-font-size: 14px;
-font-weight: 600;
-white-space: nowrap;
-backdrop-filter: blur(8px);
+.platform-icon {
+font-size: 2.5rem;
+color: var(--purple-primary);
+margin-bottom: 1rem;
 transition: all 0.3s ease;
-cursor: pointer;
-z-index: 20;
-pointer-events: auto;
-transform-style: preserve-3d;
-text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
 }
 
-/* Keep items upright */
-.orbit-skills .orbital-item { animation: counter-rotate 30s linear infinite; }
-.orbit-attributes .orbital-item { animation: counter-rotate 45s linear infinite reverse; }
-.orbit-tech .orbital-item { animation: counter-rotate 60s linear infinite; }
-
-@keyframes counter-rotate {
-from { transform: translate(-50%, -50%) rotate(0deg); }
-to { transform: translate(-50%, -50%) rotate(-360deg); }
+.platform-card:hover .platform-icon {
+color: var(--purple-secondary);
+transform: scale(1.1);
 }
 
-/* Color Themes - Updated with Design System */
-.skill-core {
-background: rgba(88, 166, 255, 0.8);
-color: var(--color-text-main);
-border: 1px solid rgba(88, 166, 255, 0.3);
-}
-
-.attribute {
-background: rgba(67, 233, 123, 0.8);
-color: var(--color-background);
-border: 1px solid rgba(67, 233, 123, 0.3);
-}
-
-.tech-stack {
-background: rgba(155, 89, 182, 0.8);
-color: var(--color-text-main);
-border: 1px solid rgba(155, 89, 182, 0.3);
-}
-
-.orbital-item:hover {
-transform: translate(-50%, -50%) scale(1.1);
-box-shadow: 0 5px 20px rgba(255, 255, 255, 0.2);
-z-index: 30;
-}
-
-/* Position items evenly around orbits */
-/* Skills orbit - 3 items */
-.orbit-skills .item-1 { top: 0; left: 50%; }
-.orbit-skills .item-2 { bottom: 25%; right: 6.7%; }
-.orbit-skills .item-3 { bottom: 25%; left: 6.7%; }
-
-/* Attributes orbit - 4 items */
-.orbit-attributes .item-1 { top: 0; left: 50%; }
-.orbit-attributes .item-2 { top: 50%; right: 0; }
-.orbit-attributes .item-3 { bottom: 0; left: 50%; }
-.orbit-attributes .item-4 { top: 50%; left: 0; }
-
-/* Tech orbit - 6 items */
-.orbit-tech .item-1 { top: 0; left: 50%; }
-.orbit-tech .item-2 { top: 25%; right: 6.7%; }
-.orbit-tech .item-3 { bottom: 25%; right: 6.7%; }
-.orbit-tech .item-4 { bottom: 0; left: 50%; }
-.orbit-tech .item-5 { bottom: 25%; left: 6.7%; }
-.orbit-tech .item-6 { top: 25%; left: 6.7%; }
-
-/* Title sections */
-.orbit-label {
-position: absolute;
-font-size: 11px;
-text-transform: uppercase;
-letter-spacing: 2px;
-color: var(--color-text-secondary);
+.platform-card h3 {
+font-size: 1.3rem;
 font-weight: 600;
-z-index: 15;
-pointer-events: none;
-text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+margin-bottom: 1rem;
+color: var(--color-text-main);
 }
 
-.orbit-skills .orbit-label {
-top: -30px;
-left: 50%;
-transform: translateX(-50%);
-}
-
-.orbit-attributes .orbit-label {
-bottom: -30px;
-left: 50%;
-transform: translateX(-50%);
-}
-
-.orbit-tech .orbit-label {
-top: 50%;
-right: -60px;
-transform: translateY(-50%) rotate(90deg);
-}
-
-/* Glow effect */
-@keyframes glow {
-0%, 100% { box-shadow: 0 0 20px rgba(88, 166, 255, 0.4); }
-50% { box-shadow: 0 0 30px rgba(88, 166, 255, 0.6); }
-}
-
-.center-profile {
-animation: glow 3s ease-in-out infinite;
-}
-
-/* Mobile responsive */
-@media (max-width: 768px) {
-.orbital-item {
-font-size: 12px;
-padding: 8px 16px;
-}
-
-.center-profile h1 {
-font-size: 24px;
-}
-
-.center-profile .title {
-font-size: 11px;
-}
-
-.orbit-label {
-font-size: 9px;
-}
-
-.orbital-container {
-max-width: 600px;
-}
+.platform-card p {
+font-size: 1rem;
+line-height: 1.6;
+color: var(--color-text-secondary);
+margin: 0;
 }
 
 /* Pull Quote Styling */
 .pull-quote {
-background: linear-gradient(135deg, rgba(88, 166, 255, 0.1), rgba(67, 233, 123, 0.1));
-border-left: 4px solid var(--glow-analyst);
+background: linear-gradient(135deg, var(--purple-glow), rgba(200, 180, 230, 0.1));
+border-left: 4px solid var(--purple-primary);
 padding: 1.5rem 2rem;
 margin: 2rem 0;
 border-radius: 8px;
@@ -448,13 +294,13 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
 
 .metric-card:hover {
 transform: translateY(-5px);
-box-shadow: 0 10px 30px rgba(88, 166, 255, 0.2);
+box-shadow: 0 10px 30px var(--purple-glow);
 }
 
 .metric-number {
 font-size: 2.5rem;
 font-weight: 700;
-background: linear-gradient(135deg, var(--glow-analyst), var(--glow-developer));
+background: linear-gradient(135deg, var(--purple-primary), var(--purple-secondary));
 -webkit-background-clip: text;
 -webkit-text-fill-color: transparent;
 background-clip: text;
@@ -490,12 +336,12 @@ transition: transform 0.3s ease, border-color 0.3s ease;
 
 .skill-card:hover {
 transform: translateY(-2px);
-border-color: var(--glow-analyst);
+border-color: var(--purple-primary);
 }
 
 .skill-icon {
 font-size: 1.5rem;
-color: var(--glow-analyst);
+color: var(--purple-primary);
 min-width: 24px;
 }
 
@@ -542,7 +388,7 @@ color: var(--color-text-main);
 
 .toggle-icon {
 font-size: 1.2rem;
-color: var(--glow-analyst);
+color: var(--purple-primary);
 transition: transform 0.3s ease;
 }
 
@@ -576,7 +422,7 @@ line-height: 1.6;
 content: "▶";
 position: absolute;
 left: 0;
-color: var(--glow-analyst);
+color: var(--purple-primary);
 font-weight: bold;
 }
 
@@ -596,47 +442,24 @@ font-weight: bold;
 <!-- Main Content -->
 <main class="page-content">
 <h1>About Me</h1>
-<p class="subtitle">From Finance Analyst to Citizen Developer - Bridging the gap between business needs and technical solutions through formal education, continuous learning, and hands-on enterprise experience at Marex.</p>
-<!-- Orbital Skills Widget -->
-<div class="orbital-container">
-<!-- Center Profile -->
-<div class="center-profile">
-<h1>John Black</h1>
-<div class="title">
-Futures Brokerage Analyst<br>
-Citizen Developer<br>
-AI Automation Architect
-</div>
+<p class="subtitle">Citizen Developer & Futures Analyst transforming enterprise operations through user-focused automation solutions that bridge business needs with technical innovation.</p>
+
+<h2>User-Focused Development Philosophy</h2>
+
+<div class="pull-quote">
+"Every manual process represents an opportunity to give someone their time back."
 </div>
 
-<!-- Skills Orbit (Inner) -->
-<div class="orbit orbit-skills">
-<span class="orbit-label">Core Skills</span>
-<div class="orbital-item skill-core item-1">Python Expert</div>
-<div class="orbital-item skill-core item-2">Data Engineering</div>
-<div class="orbital-item skill-core item-3">Problem Solving</div>
-</div>
+<p>My approach to development centers on one fundamental principle: <strong>technology should work for people, not the other way around</strong>. As a citizen developer, I prioritize building intuitive applications that non-technical users can operate independently, eliminating the frustration of complex interfaces and data hunting.</p>
 
-<!-- Personal Attributes Orbit (Middle) -->
-<div class="orbit orbit-attributes">
-<span class="orbit-label">Key Attributes</span>
-<div class="orbital-item attribute item-1">Self Starter</div>
-<div class="orbital-item attribute item-2">Highly Motivated</div>
-<div class="orbital-item attribute item-3">Entrepreneurial Spirit</div>
-<div class="orbital-item attribute item-4">Innovation Leader</div>
-</div>
+<ul class="highlight-list">
+<li><strong>Workflow Simplification:</strong> Design solutions that integrate seamlessly into existing business processes</li>
+<li><strong>User Autonomy:</strong> Build self-service tools that empower teams to access data and insights independently</li>
+<li><strong>Practical Problem-Solving:</strong> Focus on real business pain points rather than impressive but impractical features</li>
+<li><strong>Speed Advantage:</strong> Deliver working solutions in hours while traditional IT estimates months or years</li>
+</ul>
 
-<!-- Technology Stack Orbit (Outer) -->
-<div class="orbit orbit-tech">
-<span class="orbit-label">Tech Stack</span>
-<div class="orbital-item tech-stack item-1">Machine Learning</div>
-<div class="orbital-item tech-stack item-2">API Integration</div>
-<div class="orbital-item tech-stack item-3">Alteryx Developer</div>
-<div class="orbital-item tech-stack item-4">AI/ML Frameworks</div>
-<div class="orbital-item tech-stack item-5">SQL & Databases</div>
-<div class="orbital-item tech-stack item-6">Web Development</div>
-</div>
-</div>
+<p>This philosophy drives every solution I create - from automated reconciliation systems that eliminate manual data matching to interactive dashboards that transform complex datasets into actionable insights. The goal is always the same: <strong>reduce manual effort, eliminate data gathering time, and let people focus on high-value analysis and decision-making.</strong></p>
 
 <h2>Key Achievements</h2>
 
@@ -659,36 +482,64 @@ AI Automation Architect
 "When IT estimated over a year for delivery, I delivered a working Python script in hours."
 </div>
 
-<h2>About Me</h2>
+<h2>Background & Approach</h2>
 <ul class="highlight-list">
-<li><strong>Futures Brokerage Analyst & Citizen Developer</strong> at Marex with finance domain expertise</li>
-<li><strong>Rapid Solution Delivery:</strong> Automated interest calculations when traditional IT timelines were too slow</li>
-<li><strong>Organic Growth:</strong> Colleagues across departments reached out after seeing automation results</li>
-<li><strong>Enterprise Bridge:</strong> Work directly with data teams and IT governance for compliant solutions</li>
-<li><strong>Speed Advantage:</strong> Complement formal IT processes with agile problem-solving options</li>
+<li><strong>Futures Brokerage Analyst & Citizen Developer</strong> at Marex with deep finance domain expertise</li>
+<li><strong>Rapid Solution Delivery:</strong> Delivered working Python automation in hours when IT estimated 1+ years</li>
+<li><strong>Organic Enterprise Adoption:</strong> Solutions spread across departments through word-of-mouth success</li>
+<li><strong>Compliant Innovation:</strong> Bridge citizen development with IT governance for enterprise-ready solutions</li>
 </ul>
 
-<p><strong>Ready to see how citizen development transforms enterprise efficiency?</strong> <a href="https://www.linkedin.com/in/john-black-532677194/" target="_blank">Let's connect</a> and explore what's possible.</p>
+<h2>Comprehensive Python Platform</h2>
 
-<h2>My Approach to Problem-Solving</h2>
+<p>I've developed an integrated Python application platform that serves as a centralized hub connecting multiple enterprise systems. This platform demonstrates the evolution from solving individual problems to building scalable, enterprise-grade solutions:</p>
+
+<div class="platform-grid">
+<div class="platform-card">
+<i class="platform-icon fas fa-cloud"></i>
+<h3>Atlantis API Integration</h3>
+<p>Real-time data retrieval from FIA Atlantis trading system, enabling live position monitoring and trade data access for operational teams.</p>
+</div>
+<div class="platform-card">
+<i class="platform-icon fas fa-server"></i>
+<h3>XTP Data Integration</h3>
+<p>Direct connectivity to XTP back office trade data and accounting systems, providing comprehensive transaction history and carry-side data processing.</p>
+</div>
+<div class="platform-card">
+<i class="platform-icon fas fa-project-diagram"></i>
+<h3>Alteryx Workflow Connectivity</h3>
+<p>Seamless integration with existing Alteryx data processing workflows, leveraging enterprise data infrastructure while adding Python's analytical capabilities.</p>
+</div>
+<div class="platform-card">
+<i class="platform-icon fas fa-balance-scale"></i>
+<h3>Specialized Process Automation</h3>
+<p>Including the XTP-to-FIA Atlantis carry reconciliation system and other custom workflows that automate complex manual processes.</p>
+</div>
+<div class="platform-card">
+<i class="platform-icon fas fa-expand-arrows-alt"></i>
+<h3>Scalable Architecture</h3>
+<p>Platform designed for continuous feature expansion and new integration capabilities, supporting growing enterprise automation needs.</p>
+</div>
+<div class="platform-card">
+<i class="platform-icon fas fa-hub"></i>
+<h3>Centralized Data Hub</h3>
+<p>Single access point connecting multiple enterprise systems (XTP, FIA Atlantis, Alteryx, APIs) through unified Python interface.</p>
+</div>
+</div>
+
+<h2>Development Impact & Evolution</h2>
 
 <div class="pull-quote">
 "Understanding the business problem deeply enough that the right solution reveals itself."
 </div>
 
-<ul class="highlight-list">
-<li><strong>Business-First Mindset:</strong> Focus on understanding real problems before jumping to technical solutions</li>
-<li><strong>Collaborative Problem-Solving:</strong> Work directly with teams to identify pain points and opportunities</li>
-<li><strong>Speed + Standards:</strong> Deliver rapid results while meeting enterprise governance requirements</li>
-<li><strong>Complement, Don't Replace:</strong> Enhance formal IT processes with agile citizen development</li>
-<li><strong>Future-Ready:</strong> Research next-gen AI/ML technologies for tomorrow's challenges</li>
-</ul>
+<p>My development journey shows clear progression: <strong>individual problem-solving → comprehensive platform development → scalable enterprise integration</strong>. This evolution demonstrates how citizen developer approaches can mature into sophisticated technical solutions while maintaining the core advantage of speed and user focus.</p>
 
-<h3>Current Focus Areas</h3>
 <ul class="highlight-list">
-<li><strong>Multi-Agent AI Systems:</strong> CrewAI and Langchain for sophisticated automation</li>
-<li><strong>Financial Services Innovation:</strong> AI-powered solutions for trading and operations</li>
-<li><strong>Enterprise Integration:</strong> Bridging citizen development with IT governance</li>
+<li><strong>Business-First Approach:</strong> Understand real operational pain points before building solutions</li>
+<li><strong>Rapid Iteration:</strong> Deliver working prototypes quickly, then refine based on user feedback</li>
+<li><strong>Enterprise Integration:</strong> Bridge citizen development with IT governance for compliant, scalable solutions</li>
+<li><strong>Continuous Innovation:</strong> Research emerging AI/ML technologies for next-generation automation capabilities</li>
 </ul>
 
 <h2>Technical Expertise</h2>
@@ -857,17 +708,9 @@ AI Automation Architect
 
 <h2>Let's Connect</h2>
 
-<div class="pull-quote">
-"Every manual process represents an opportunity to give someone their time back."
-</div>
+<p>This comprehensive platform showcases how user-centric development philosophy drives sophisticated technical solutions. From solving specific reconciliation problems to building unified data platforms, the focus remains constant: <strong>reducing operational overhead and enhancing user autonomy through practical automation.</strong></p>
 
-<ul class="highlight-list">
-<li><strong>Problem-Solving Mindset:</strong> Turn every challenge into a learning opportunity</li>
-<li><strong>Determination:</strong> Don't quit until the solution works effectively</li>
-<li><strong>Impact Focus:</strong> Help colleagues work more efficiently and effectively</li>
-</ul>
-
-<p><strong>Ready to see what happens when curiosity meets determination?</strong> <a href="https://www.linkedin.com/in/john-black-532677194/" target="_blank">Let's solve something together.</a></p>
+<p><strong>Ready to explore how citizen development transforms enterprise operations?</strong> <a href="https://www.linkedin.com/in/john-black-532677194/" target="_blank">Let's connect and solve something together.</a></p>
 
 </main>
 
