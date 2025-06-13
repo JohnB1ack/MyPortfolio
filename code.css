@@ -1,0 +1,277 @@
+/*
+ *  STYLE.CSS
+ *  - Defines the visual presentation of the portfolio.
+ */
+
+/* --- 1. THEME & VARIABLES --- */
+:root {
+    --color-background: #0D1117;
+    --color-text-main: #E6EDF3;
+    --color-text-secondary: #8B949E;
+    --color-border: #21262d;
+    --color-marex-primary: #B19CD9; /* Purple */
+    --color-marex-secondary: #C8B4E6;
+    --color-accent-blue: #58A6FF;
+    --color-accent-green: #43E97B;
+
+    --font-main: 'Inter', sans-serif;
+    
+    --glass-bg: rgba(30, 41, 59, 0.3);
+    --glass-backdrop-blur: 12px;
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+
+    --transition-fast: 0.3s ease;
+    --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --- 2. BASE & LAYOUT --- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--color-background);
+    font-family: var(--font-main);
+    color: var(--color-text-main);
+    overflow-x: hidden;
+}
+
+#canvas-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+#wrapper {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+#profile-section {
+    text-align: center;
+    margin-bottom: 2rem;
+    max-width: 650px;
+}
+
+#profile-section h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: 1rem;
+}
+
+#profile-section p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--color-text-secondary);
+}
+
+#project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    width: 100%;
+    max-width: 1200px;
+}
+
+/* --- 3. REUSABLE COMPONENTS --- */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-backdrop-blur));
+    -webkit-backdrop-filter: blur(var(--glass-backdrop-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 2.5rem;
+    transition: all var(--transition-fast);
+    text-decoration: none;
+    color: var(--color-text-main);
+}
+
+.glass-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: var(--glass-shadow);
+}
+
+.card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--color-accent-blue);
+    transition: all var(--transition-fast);
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    transition: all var(--transition-fast);
+}
+
+.card-description {
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+}
+
+/* --- 4. SPECIFIC CARD STYLING --- */
+
+/* About Me & General Project Card */
+.project-card.active {
+    border-color: var(--color-accent-blue);
+}
+.project-card.active .card-icon,
+.project-card.active .card-title {
+    color: var(--color-accent-blue);
+    text-shadow: 0 0 15px rgba(88, 166, 255, 0.5);
+}
+
+/* Message Me Card */
+.message-card {
+    background: linear-gradient(135deg, rgba(88, 166, 255, 0.08), rgba(67, 233, 123, 0.08));
+    border: 2px solid var(--color-accent-blue);
+}
+
+.message-card .card-title {
+    background: linear-gradient(135deg, var(--color-accent-blue), var(--color-accent-green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.message-card:hover {
+    border-color: var(--color-accent-green);
+    box-shadow: 0 15px 40px rgba(67, 233, 123, 0.3);
+}
+
+/* Marex Portfolio Card */
+.marex-hub-card {
+    grid-column: 1 / -1; /* Make card span full width to contain children */
+    padding: 0;
+    cursor: pointer;
+    overflow: hidden; /* Important for containing sub-cards */
+    border-color: var(--color-marex-primary);
+    animation: marexGlow 4s ease-in-out infinite alternate;
+}
+
+.marex-main-card {
+    padding: 2.5rem;
+    position: relative;
+}
+
+.expand-indicator {
+    transition: transform var(--transition-fast);
+}
+
+.project-count-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(177, 156, 217, 0.2);
+    border: 1px solid var(--color-marex-secondary);
+    border-radius: 12px;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-marex-primary);
+}
+
+/* --- Marex Sub-cards & Expansion Logic --- */
+.marex-sub-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 0 1.5rem 0 1.5rem; /* Left/Right padding is set, Top/Bottom is handled by height */
+    
+    /* THE CORE LOGIC: Use max-height for smooth, dynamic expansion */
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height var(--transition-slow), opacity var(--transition-slow), padding var(--transition-slow);
+}
+
+.marex-hub-card.expanded .marex-sub-cards {
+    max-height: 60rem; /* A large value to accommodate content */
+    opacity: 1;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.marex-hub-card.expanded .expand-indicator {
+    transform: rotate(180deg);
+}
+
+.sub-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    transition: all var(--transition-fast);
+}
+
+.sub-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-marex-secondary);
+    background: rgba(177, 156, 217, 0.1);
+}
+
+.sub-card-icon {
+    font-size: 1.5rem;
+    color: var(--color-accent-blue);
+    margin-bottom: 0.75rem;
+}
+
+.sub-card:hover .sub-card-icon,
+.sub-card:hover .sub-card-title {
+    color: var(--color-marex-primary);
+}
+.sub-card.data-insights {
+    border-color: var(--color-marex-secondary);
+}
+
+
+/* --- 5. ANIMATIONS --- */
+@keyframes marexGlow {
+    from {
+        box-shadow: 0 0 25px rgba(177, 156, 217, 0.2);
+    }
+    to {
+        box-shadow: 0 0 45px rgba(177, 156, 217, 0.4);
+    }
+}
+
+
+/* --- 6. RESPONSIVE DESIGN --- */
+@media (max-width: 768px) {
+    #project-grid {
+        grid-template-columns: 1fr; /* Single column layout */
+    }
+
+    .glass-card {
+        padding: 2rem;
+    }
+
+    .marex-hub-card {
+        padding: 0;
+    }
+
+    .marex-main-card {
+        padding: 2rem;
+    }
+
+    .marex-sub-cards {
+        grid-template-columns: 1fr; /* Stack sub-cards */
+    }
+}
