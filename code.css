@@ -7,7 +7,7 @@
 :root {
     --color-background: #0D1117;
     --color-text-main: #E6EDF3;
-    --color-text-secondary: #8B949E;
+    --color-text-secondary: #adb5bd; /* Slightly brightened for readability */
     --color-border: #21262d;
     --color-marex-primary: #B19CD9; /* Purple */
     --color-marex-secondary: #C8B4E6;
@@ -59,6 +59,9 @@ body {
     padding: 2rem;
 }
 
+/* --- 3. TYPOGRAPHY & TEXT EFFECTS --- */
+
+/* Main Profile Header */
 #profile-section {
     text-align: center;
     margin-bottom: 2rem;
@@ -66,25 +69,59 @@ body {
 }
 
 #profile-section h1 {
-    font-size: clamp(2rem, 5vw, 3rem);
-    margin-bottom: 1rem;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(120deg, var(--color-marex-secondary) 0%, var(--color-accent-blue) 50%, var(--color-marex-secondary) 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: cosmicGlow 5s ease-in-out infinite alternate, spaceFloat 8s ease-in-out infinite, auroraShimmer 8s ease-in-out infinite;
 }
 
 #profile-section p {
     font-size: 1.1rem;
     line-height: 1.7;
     color: var(--color-text-secondary);
+    text-shadow: 0 0 8px rgba(230, 237, 243, 0.15);
+    animation: spaceFloat 10s ease-in-out infinite alternate;
 }
 
-#project-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 2rem;
-    width: 100%;
-    max-width: 1200px;
+/* --- NEW/UPDATED --- Card Titles */
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    transition: all var(--transition-fast);
+    
+    /* Subtle metallic sheen gradient */
+    background: linear-gradient(120deg, #ffffff 30%, #a1acb8 70%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+    /* Add a soft glow for prominence */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
 }
 
-/* --- 3. REUSABLE COMPONENTS --- */
+/* --- NEW/UPDATED --- Card title shimmer on hover */
+.glass-card:hover .card-title {
+    animation: titleShimmer 2s ease-in-out infinite;
+}
+
+/* --- NEW/UPDATED --- Card Description Text */
+.card-description {
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    
+    /* Soft diffusion shadow makes text pop and improves readability */
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.8);
+}
+
+
+/* --- 4. REUSABLE COMPONENTS --- */
 .glass-card {
     background: var(--glass-bg);
     backdrop-filter: blur(var(--glass-backdrop-blur));
@@ -111,22 +148,15 @@ body {
     transition: all var(--transition-fast);
 }
 
-.card-title {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-bottom: 0.75rem;
-    transition: all var(--transition-fast);
+/* --- 5. SPECIFIC CARD STYLING --- */
+#project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    width: 100%;
+    max-width: 1200px;
 }
 
-.card-description {
-    font-size: 0.95rem;
-    color: var(--color-text-secondary);
-    line-height: 1.7;
-}
-
-/* --- 4. SPECIFIC CARD STYLING --- */
-
-/* About Me & General Project Card */
 .project-card.active {
     border-color: var(--color-accent-blue);
 }
@@ -136,7 +166,6 @@ body {
     text-shadow: 0 0 15px rgba(88, 166, 255, 0.5);
 }
 
-/* Message Me Card */
 .message-card {
     background: linear-gradient(135deg, rgba(88, 166, 255, 0.08), rgba(67, 233, 123, 0.08));
     border: 2px solid var(--color-accent-blue);
@@ -154,31 +183,21 @@ body {
     box-shadow: 0 15px 40px rgba(67, 233, 123, 0.3);
 }
 
-/* Marex Portfolio Card */
 .marex-hub-card {
-    padding: 2.5rem; /* Give it standard padding like other cards */
+    padding: 2.5rem;
     cursor: pointer;
     overflow: hidden;
     border-color: var(--color-marex-primary);
     position: relative;
-    /* Enhanced attention-drawing animations with amplified effects */
     animation: marexGlow 3s ease-in-out infinite alternate, marexAttention 6s ease-in-out infinite, marexBorderPulse 4s ease-in-out infinite;
 }
 
-/* Shimmer effect overlay for attention */
 .marex-hub-card::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(177, 156, 217, 0.15),
-        transparent
-    );
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(177, 156, 217, 0.15), transparent);
     border-radius: inherit;
     animation: marexShimmer 8s ease-in-out infinite;
     pointer-events: none;
@@ -186,15 +205,15 @@ body {
 }
 
 .marex-main-card {
-    padding: 0; /* Remove padding from inner container */
+    padding: 0;
     position: relative;
     z-index: 2;
 }
 
-/* Click to expand indicator */
 .marex-main-card::after {
+    content: 'Click to explore';
     position: absolute;
-    bottom: 0.5rem;
+    bottom: -1rem;
     left: 50%;
     transform: translateX(-50%);
     font-size: 0.7rem;
@@ -210,48 +229,34 @@ body {
 
 .project-count-badge {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 0; right: 0;
     background: linear-gradient(135deg, rgba(177, 156, 217, 0.25), rgba(200, 180, 230, 0.15));
     border: 1px solid rgba(177, 156, 217, 0.4);
     border-radius: 12px;
     padding: 0.25rem 0.75rem;
-    font-size: 0.75rem;
-    font-weight: 600;
+    font-size: 0.75rem; font-weight: 600;
     color: #B19CD9;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     box-shadow: 0 2px 8px rgba(177, 156, 217, 0.2);
-    /* Add amplified breathing animation with rotation */
     animation: badgeBreathing 3s ease-in-out infinite, badgeRotation 6s ease-in-out infinite;
 }
 
-/* --- Marex Sub-cards & Expansion Logic --- */
 .marex-sub-cards {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
-    padding: 0;
-    margin-top: 0; /* Will be handled by the expanded state */
+    padding: 0; margin-top: 0;
     max-height: 0;
     opacity: 0;
     overflow: hidden;
     transition: max-height var(--transition-slow), opacity var(--transition-slow), margin-top var(--transition-slow);
 }
 
-.marex-hub-card.expanded {
-    grid-column: 1 / -1; /* << MOVED HERE! Applies only when expanded */
-}
-
-.marex-hub-card.expanded .marex-sub-cards {
-    max-height: 60rem;
-    opacity: 1;
-    margin-top: 2.5rem; /* Add space between main content and sub-cards */
-}
-
-.marex-hub-card.expanded .expand-indicator {
-    transform: rotate(180deg);
-}
+.marex-hub-card.expanded { grid-column: 1 / -1; }
+.marex-hub-card.expanded .marex-sub-cards { max-height: 60rem; opacity: 1; margin-top: 2.5rem; }
+.marex-hub-card.expanded .expand-indicator { transform: rotate(180deg); }
+.marex-hub-card.expanded .marex-main-card::after { opacity: 0; }
 
 .sub-card {
     background: rgba(255, 255, 255, 0.03);
@@ -279,277 +284,116 @@ body {
 .sub-card:hover .sub-card-title {
     color: var(--color-marex-primary);
 }
+
 .sub-card.data-insights {
-    border-color: var(--color-marex-secondary);
     position: relative;
-    border: 1px solid rgba(177, 156, 217, 0.6) !important;
+    border-color: rgba(177, 156, 217, 0.6) !important;
     background: linear-gradient(135deg, rgba(177, 156, 217, 0.12), rgba(200, 180, 230, 0.08)) !important;
     animation: benefitsHighlight 4s ease-in-out infinite, benefitsBorderPulse 3s ease-in-out infinite, benefitsColorShift 8s ease-in-out infinite;
 }
 
-.sub-card.data-insights::after {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(135deg, rgba(177, 156, 217, 0.3), rgba(200, 180, 230, 0.2));
-    border-radius: inherit;
-    z-index: -1;
-    animation: benefitsGlow 3s ease-in-out infinite;
-    pointer-events: none;
-}
+/* --- 6. ANIMATIONS --- */
 
-.sub-card.data-insights:hover {
-    transform: translateY(-12px) !important;
-    border-color: rgba(220, 200, 250, 0.9) !important;
-    box-shadow:
-        0 20px 50px rgba(200, 180, 230, 0.4),
-        0 0 40px rgba(177, 156, 217, 0.35),
-        0 0 60px rgba(220, 200, 250, 0.2) !important;
-    animation: benefitsHighlight 1.5s ease-in-out infinite, benefitsBorderPulse 2s ease-in-out infinite;
-}
-
-
-/* --- 5. ANIMATIONS --- */
+/* Card Animations */
 @keyframes marexGlow {
-    0% {
-        box-shadow:
-            0 0 25px rgba(177, 156, 217, 0.2),
-            0 0 50px rgba(177, 156, 217, 0.12),
-            0 8px 32px rgba(0, 0, 0, 0.1),
-            inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-    100% {
-        box-shadow:
-            0 0 40px rgba(177, 156, 217, 0.4),
-            0 0 80px rgba(177, 156, 217, 0.2),
-            0 12px 50px rgba(0, 0, 0, 0.15),
-            inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    }
+    0% { box-shadow: 0 0 25px rgba(177, 156, 217, 0.2), 0 0 50px rgba(177, 156, 217, 0.12), 0 8px 32px rgba(0, 0, 0, 0.1); }
+    100% { box-shadow: 0 0 40px rgba(177, 156, 217, 0.4), 0 0 80px rgba(177, 156, 217, 0.2), 0 12px 50px rgba(0, 0, 0, 0.15); }
 }
-
-/* Amplified attention-drawing pulsing border effect */
 @keyframes marexAttention {
-    0%, 70%, 100% {
-        border-color: rgba(177, 156, 217, 0.3);
-        box-shadow:
-            0 0 25px rgba(177, 156, 217, 0.2),
-            0 0 50px rgba(177, 156, 217, 0.12),
-            0 8px 32px rgba(0, 0, 0, 0.1);
-    }
-    15%, 55% {
-        border-color: rgba(200, 180, 230, 0.8);
-        transform: scale(1.008);
-        box-shadow:
-            0 0 45px rgba(200, 180, 230, 0.35),
-            0 0 90px rgba(177, 156, 217, 0.25),
-            0 15px 60px rgba(0, 0, 0, 0.15);
-    }
+    0%, 70%, 100% { border-color: rgba(177, 156, 217, 0.3); }
+    15%, 55% { border-color: rgba(200, 180, 230, 0.8); transform: scale(1.008); }
 }
-
-/* Border width pulsing animation */
 @keyframes marexBorderPulse {
-    0%, 100% {
-        border-width: 1px;
-    }
-    50% {
-        border-width: 2px;
-    }
+    0%, 100% { border-width: 1px; }
+    50% { border-width: 2px; }
 }
-
-/* Shimmer sweep effect */
 @keyframes marexShimmer {
     0%, 90%, 100% { left: -100%; }
     5%, 85% { left: 100%; }
 }
 
-/* Expand hint animation */
+/* Badge & Hint Animations */
 @keyframes expandHint {
-    0%, 70%, 100% {
-        opacity: 0.6;
-        transform: translateX(-50%) translateY(0);
-    }
-    35% {
-        opacity: 1;
-        transform: translateX(-50%) translateY(-2px);
-    }
+    0%, 70%, 100% { opacity: 0.6; transform: translateX(-50%) translateY(0); }
+    35% { opacity: 1; transform: translateX(-50%) translateY(-2px); }
 }
-
-/* Amplified breathing animation for project count badge */
 @keyframes badgeBreathing {
-    0%, 100% {
-        transform: scale(1);
-        border-color: rgba(177, 156, 217, 0.4);
-        box-shadow: 0 2px 8px rgba(177, 156, 217, 0.2);
-        background: linear-gradient(135deg, rgba(177, 156, 217, 0.25), rgba(200, 180, 230, 0.15));
-    }
-    50% {
-        transform: scale(1.1);
-        border-color: rgba(200, 180, 230, 0.8);
-        box-shadow: 0 6px 18px rgba(200, 180, 230, 0.6);
-        background: linear-gradient(135deg, rgba(200, 180, 230, 0.4), rgba(220, 200, 250, 0.25));
-    }
+    0%, 100% { transform: scale(1); border-color: rgba(177, 156, 217, 0.4); box-shadow: 0 2px 8px rgba(177, 156, 217, 0.2); }
+    50% { transform: scale(1.1); border-color: rgba(200, 180, 230, 0.8); box-shadow: 0 6px 18px rgba(200, 180, 230, 0.6); }
 }
-
-/* Subtle rotation animation for project count badge */
 @keyframes badgeRotation {
-    0%, 100% {
-        transform: rotate(0deg);
-    }
-    25% {
-        transform: rotate(1deg);
-    }
-    75% {
-        transform: rotate(-1deg);
-    }
+    0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(1deg); } 75% { transform: rotate(-1deg); }
 }
 
-/* Amplified keyframes for Data Hub Benefits highlighting */
+/* Sub-card Animations */
 @keyframes benefitsHighlight {
-    0%, 100% {
-        box-shadow:
-            0 10px 30px rgba(177, 156, 217, 0.3),
-            0 0 25px rgba(177, 156, 217, 0.15);
-    }
-    50% {
-        box-shadow:
-            0 15px 45px rgba(200, 180, 230, 0.5),
-            0 0 40px rgba(177, 156, 217, 0.3);
-    }
+    0%, 100% { box-shadow: 0 10px 30px rgba(177, 156, 217, 0.3), 0 0 25px rgba(177, 156, 217, 0.15); }
+    50% { box-shadow: 0 15px 45px rgba(200, 180, 230, 0.5), 0 0 40px rgba(177, 156, 217, 0.3); }
 }
-
-@keyframes benefitsGlow {
-    0%, 100% {
-        opacity: 0.4;
-    }
-    50% {
-        opacity: 0.8;
-    }
-}
-
-/* Border pulsing animation for Data Hub Benefits */
-@keyframes benefitsBorderPulse {
-    0%, 100% {
-        border-width: 1px;
-    }
-    50% {
-        border-width: 2px;
-    }
-}
-
-/* Color shifting animation for Data Hub Benefits */
+@keyframes benefitsGlow { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.8; } }
+@keyframes benefitsBorderPulse { 0%, 100% { border-width: 1px; } 50% { border-width: 2px; } }
 @keyframes benefitsColorShift {
-    0%, 100% {
-        background: linear-gradient(135deg, rgba(177, 156, 217, 0.12), rgba(200, 180, 230, 0.08));
-    }
-    50% {
-        background: linear-gradient(135deg, rgba(200, 180, 230, 0.15), rgba(220, 200, 250, 0.1));
-    }
+    0%, 100% { background: linear-gradient(135deg, rgba(177, 156, 217, 0.12), rgba(200, 180, 230, 0.08)); }
+    50% { background: linear-gradient(135deg, rgba(200, 180, 230, 0.15), rgba(220, 200, 250, 0.1)); }
+}
+
+/* Text Effect Animations */
+@keyframes cosmicGlow {
+    from { text-shadow: 0 0 10px rgba(255, 255, 255, 0.4), 0 0 20px rgba(177, 156, 217, 0.3), 0 0 35px rgba(88, 166, 255, 0.2); }
+    to { text-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 30px rgba(177, 156, 217, 0.5), 0 0 50px rgba(88, 166, 255, 0.3); }
+}
+@keyframes spaceFloat {
+    0% { transform: translateY(0px); opacity: 0.9; }
+    50% { transform: translateY(-8px); opacity: 1; }
+    100% { transform: translateY(0px); opacity: 0.9; }
+}
+@keyframes auroraShimmer {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+/* --- NEW/UPDATED --- */
+@keyframes titleShimmer {
+    from { background-position: left; }
+    to { background-position: right; }
 }
 
 
-/* --- 6. RESPONSIVE DESIGN --- */
-
-/* Enhanced hover states */
+/* --- 7. RESPONSIVE & UTILITY --- */
 .marex-hub-card:hover {
     transform: translateY(-8px);
     border-color: rgba(177, 156, 217, 0.4) !important;
-    box-shadow:
-        0 0 30px rgba(177, 156, 217, 0.3),
-        0 0 60px rgba(177, 156, 217, 0.15),
-        0 15px 50px rgba(0, 0, 0, 0.15),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    animation: none; /* Pause breathing animation on hover */
+    box-shadow: 0 0 30px rgba(177, 156, 217, 0.3), 0 0 60px rgba(177, 156, 217, 0.15), 0 15px 50px rgba(0, 0, 0, 0.15);
+    animation: none;
 }
-
 .marex-hub-card.expanded {
-    box-shadow:
-        0 0 35px rgba(177, 156, 217, 0.4),
-        0 0 70px rgba(177, 156, 217, 0.2),
-        0 20px 60px rgba(0, 0, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.25);
-    animation: none; /* Stop breathing when expanded */
-}
-
-/* Hide click indicator when expanded */
-.marex-hub-card.expanded .marex-main-card::after {
-    opacity: 0;
+    box-shadow: 0 0 35px rgba(177, 156, 217, 0.4), 0 0 70px rgba(177, 156, 217, 0.2), 0 20px 60px rgba(0, 0, 0, 0.2);
+    animation: none;
 }
 
 @media (max-width: 768px) {
-    #project-grid {
-        grid-template-columns: 1fr; /* Single column layout */
-    }
-
-    .glass-card {
-        padding: 2rem;
-    }
-
+    #project-grid { grid-template-columns: 1fr; }
+    .glass-card, .marex-hub-card { padding: 2rem; }
+    .marex-main-card { padding: 0; }
     .marex-hub-card {
-        padding: 2rem; /* Keep padding consistent on mobile */
-        /* Mobile-optimized purple glow and effects */
-        box-shadow:
-            0 0 15px rgba(177, 156, 217, 0.12),
-            0 0 30px rgba(177, 156, 217, 0.06),
-            0 6px 24px rgba(0, 0, 0, 0.08),
-            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 15px rgba(177, 156, 217, 0.12), 0 0 30px rgba(177, 156, 217, 0.06), 0 6px 24px rgba(0, 0, 0, 0.08);
     }
-
     .marex-hub-card:hover {
-        box-shadow:
-            0 0 20px rgba(177, 156, 217, 0.2),
-            0 0 40px rgba(177, 156, 217, 0.1),
-            0 10px 35px rgba(0, 0, 0, 0.12),
-            inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        box-shadow: 0 0 20px rgba(177, 156, 217, 0.2), 0 0 40px rgba(177, 156, 217, 0.1), 0 10px 35px rgba(0, 0, 0, 0.12);
     }
-
-    .marex-main-card {
-        padding: 0;
-    }
-
-    /* Mobile click indicator */
-    .marex-main-card::after {
-        font-size: 0.65rem;
-        bottom: 0.3rem;
-    }
-
-    .marex-sub-cards {
-        grid-template-columns: 1fr; /* Stack sub-cards */
-    }
-
-    .marex-hub-card.expanded .marex-sub-cards {
-         margin-top: 2rem;
-    }
-
-    /* Mobile Data Hub Benefits highlighting - amplified */
-    .sub-card.data-insights {
-        animation: benefitsHighlight 5s ease-in-out infinite, benefitsColorShift 10s ease-in-out infinite;
-    }
-
-    /* Mobile badge breathing - enhanced */
-    .project-count-badge {
-        animation: badgeBreathing 4s ease-in-out infinite;
-    }
+    .marex-main-card::after { font-size: 0.65rem; bottom: -0.5rem; }
+    .marex-sub-cards { grid-template-columns: 1fr; }
+    .marex-hub-card.expanded .marex-sub-cards { margin-top: 2rem; }
+    .sub-card.data-insights { animation: benefitsHighlight 5s ease-in-out infinite, benefitsColorShift 10s ease-in-out infinite; }
+    .project-count-badge { animation: badgeBreathing 4s ease-in-out infinite; }
 }
 
-/* Mobile-specific enhancements */
 @media (hover: none) and (pointer: coarse) {
-    .project-card:active {
-        transform: translateY(-5px) scale(0.98);
-        border-color: rgba(88, 166, 255, 0.5);
-    }
+    .project-card:active { transform: translateY(-5px) scale(0.98); border-color: rgba(88, 166, 255, 0.5); }
 }
 
-/* Reduce motion for users who prefer it */
 @media (prefers-reduced-motion: reduce) {
-    .project-card,
-    .card-icon,
-    .card-title,
-    .marex-hub-card,
-    .project-count-badge,
-    .sub-card {
+    #profile-section h1, #profile-section p, .project-card, .card-icon, .card-title, .marex-hub-card, .project-count-badge, .sub-card {
         animation: none !important;
         transition: none !important;
     }
