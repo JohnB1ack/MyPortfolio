@@ -1,0 +1,1013 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>John C. Black - Analyst & Developer</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+
+<!-- Google Fonts & Font Awesome -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+:root {
+--color-background: #0D1117;
+--color-text-main: #E6EDF3;
+--color-text-secondary: #8B949E;
+--color-border: rgba(255, 255, 255, 0.1);
+--font-main: 'Inter', sans-serif;
+--glow-analyst: rgba(88, 166, 255, 0.2);
+--glow-developer: rgba(67, 233, 123, 0.2);
+--glass-bg: rgba(255, 255, 255, 0.05);
+--glass-border: rgba(255, 255, 255, 0.15);
+--glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+*, *::before, *::after {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+
+body {
+background-color: var(--color-background);
+font-family: var(--font-main);
+color: var(--color-text-main);
+overflow-x: hidden;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+-webkit-text-size-adjust: 100%;
+-ms-text-size-adjust: 100%;
+}
+
+#canvas-background {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+z-index: 1;
+background-color: var(--color-background);
+background-image:
+radial-gradient(ellipse at 15% 80%, var(--glow-analyst), transparent 50%),
+radial-gradient(ellipse at 85% 80%, var(--glow-developer), transparent 50%);
+}
+
+#wrapper {
+position: relative;
+z-index: 2;
+width: 100%;
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 2rem;
+}
+
+/* Profile section layout */
+#profile-section {
+display: flex;
+justify-content: center;
+align-items: center;
+width: 100%;
+max-width: 1400px;
+min-height: 40vh;
+padding: 5vh 2rem 2rem;
+}
+
+#profile-center {
+width: 100%;
+max-width: 600px;
+text-align: center;
+padding: 3rem 2rem;
+position: relative;
+z-index: 10;
+/* Enhanced glassmorphism for standalone profile */
+background: var(--glass-bg);
+backdrop-filter: blur(15px);
+-webkit-backdrop-filter: blur(15px);
+border: 1px solid var(--glass-border);
+border-radius: 24px;
+box-shadow: var(--glass-shadow);
+transition: all 0.3s ease;
+}
+
+#profile-center:hover {
+transform: translateY(-5px);
+box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15), 0 0 20px rgba(255, 255, 255, 0.1);
+border-color: rgba(255, 255, 255, 0.2);
+}
+
+#profile-center h1 {
+font-size: clamp(2rem, 5vw, 3rem);
+font-weight: 700;
+color: var(--color-text-main);
+margin-bottom: 1rem;
+text-align: center;
+}
+
+#profile-center p {
+font-size: 1.1rem;
+line-height: 1.7;
+color: var(--color-text-secondary);
+max-width: 500px;
+margin: 0 auto;
+text-align: center;
+}
+
+/* Project Cards Section */
+#project-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+gap: 2rem;
+width: 100%;
+max-width: 1200px;
+padding: 5rem 0;
+}
+
+.project-card {
+/* Enhanced glassmorphism */
+background: var(--glass-bg);
+backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
+border: 1px solid var(--glass-border);
+border-radius: 16px;
+padding: 2.5rem;
+text-decoration: none;
+color: inherit;
+position: relative;
+overflow: hidden;
+transition: all 0.4s ease;
+box-shadow: var(--glass-shadow);
+-webkit-tap-highlight-color: rgba(88, 166, 255, 0.1);
+touch-action: manipulation;
+cursor: pointer;
+}
+
+.project-card::before {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+opacity: 0;
+transition: opacity 0.3s ease;
+pointer-events: none;
+}
+
+.project-card:hover {
+transform: translateY(-10px);
+border-color: rgba(255, 255, 255, 0.3);
+background: rgba(255, 255, 255, 0.08);
+box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2), 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.project-card:hover::before {
+opacity: 1;
+}
+
+.project-card.active {
+border-color: rgba(88, 166, 255, 0.4);
+background: rgba(88, 166, 255, 0.08);
+box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2), 0 0 30px rgba(88, 166, 255, 0.2);
+}
+
+.project-card.active::before {
+background: linear-gradient(135deg, rgba(88, 166, 255, 0.1), rgba(67, 233, 123, 0.05));
+opacity: 1;
+}
+
+.project-card.active .card-icon {
+color: #58A6FF;
+text-shadow: 0 0 15px rgba(88, 166, 255, 0.5);
+transform: scale(1.1);
+transition: all 0.3s ease;
+}
+
+.project-card.active .card-title {
+color: #58A6FF;
+text-shadow: 0 0 10px rgba(88, 166, 255, 0.3);
+}
+
+.card-icon {
+font-size: 2.5rem;
+margin-bottom: 1.5rem;
+color: #58A6FF;
+transition: all 0.3s ease;
+}
+
+.card-title {
+font-size: 1.25rem;
+font-weight: 700;
+color: var(--color-text-main);
+margin-bottom: 0.75rem;
+transition: all 0.3s ease;
+}
+
+.card-description {
+font-size: 0.95rem;
+color: var(--color-text-secondary);
+line-height: 1.7;
+}
+
+/* Message Card Special Styling */
+.message-card {
+background: linear-gradient(135deg, rgba(88, 166, 255, 0.08), rgba(67, 233, 123, 0.08)) !important;
+border: 2px solid rgba(88, 166, 255, 0.3) !important;
+position: relative;
+overflow: hidden;
+}
+
+.message-card::before {
+content: '';
+position: absolute;
+top: 0;
+left: -100%;
+width: 100%;
+height: 100%;
+background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+transition: left 0.5s ease;
+}
+
+.message-card:hover::before {
+left: 100%;
+}
+
+.message-card:hover {
+transform: translateY(-8px) !important;
+box-shadow: 0 15px 40px rgba(88, 166, 255, 0.3) !important;
+border-color: rgba(88, 166, 255, 0.6) !important;
+}
+
+.message-card .card-icon {
+color: var(--glow-analyst) !important;
+font-size: 3rem !important;
+}
+
+.message-card .card-title {
+background: linear-gradient(135deg, var(--glow-analyst), var(--glow-developer));
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+}
+
+.message-card .card-description {
+color: var(--color-text-main) !important;
+font-weight: 500;
+}
+
+.message-card.active {
+border-color: rgba(67, 233, 123, 0.6) !important;
+box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2), 0 0 40px rgba(67, 233, 123, 0.3) !important;
+}
+
+.message-card.active .card-icon {
+color: #43E97B !important;
+text-shadow: 0 0 20px rgba(67, 233, 123, 0.6) !important;
+}
+
+.message-card.active .card-title {
+background: linear-gradient(135deg, #43E97B, #58A6FF) !important;
+-webkit-background-clip: text !important;
+-webkit-text-fill-color: transparent !important;
+background-clip: text !important;
+}
+
+/* Marex Hub Card Styles */
+.marex-hub-card {
+position: relative;
+overflow: visible !important;
+cursor: pointer;
+transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+/* Special styling with distinctive purple glow */
+background: linear-gradient(135deg, var(--glass-bg), rgba(177, 156, 217, 0.04)) !important;
+border: 1px solid rgba(177, 156, 217, 0.3) !important;
+box-shadow:
+    0 0 20px rgba(177, 156, 217, 0.15),
+    0 0 40px rgba(177, 156, 217, 0.08),
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+backdrop-filter: blur(12px);
+-webkit-backdrop-filter: blur(12px);
+/* Enhanced attention-drawing animations with amplified effects */
+animation: marexGlow 3s ease-in-out infinite alternate, marexAttention 6s ease-in-out infinite, marexBorderPulse 4s ease-in-out infinite;
+}
+
+/* Shimmer effect overlay for attention */
+.marex-hub-card::before {
+content: '';
+position: absolute;
+top: 0;
+left: -100%;
+width: 100%;
+height: 100%;
+background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(177, 156, 217, 0.15),
+    transparent
+);
+border-radius: inherit;
+animation: marexShimmer 8s ease-in-out infinite;
+pointer-events: none;
+z-index: 1;
+}
+
+@keyframes marexGlow {
+0% {
+    box-shadow:
+        0 0 25px rgba(177, 156, 217, 0.2),
+        0 0 50px rgba(177, 156, 217, 0.12),
+        0 8px 32px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+100% {
+    box-shadow:
+        0 0 40px rgba(177, 156, 217, 0.4),
+        0 0 80px rgba(177, 156, 217, 0.2),
+        0 12px 50px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+}
+
+/* Amplified attention-drawing pulsing border effect */
+@keyframes marexAttention {
+0%, 70%, 100% {
+    border-color: rgba(177, 156, 217, 0.3);
+    box-shadow:
+        0 0 25px rgba(177, 156, 217, 0.2),
+        0 0 50px rgba(177, 156, 217, 0.12),
+        0 8px 32px rgba(0, 0, 0, 0.1);
+}
+15%, 55% {
+    border-color: rgba(200, 180, 230, 0.8);
+    transform: scale(1.008);
+    box-shadow:
+        0 0 45px rgba(200, 180, 230, 0.35),
+        0 0 90px rgba(177, 156, 217, 0.25),
+        0 15px 60px rgba(0, 0, 0, 0.15);
+}
+}
+
+/* Border width pulsing animation */
+@keyframes marexBorderPulse {
+0%, 100% {
+    border-width: 1px;
+}
+50% {
+    border-width: 2px;
+}
+}
+
+/* Shimmer sweep effect */
+@keyframes marexShimmer {
+0%, 90%, 100% { left: -100%; }
+5%, 85% { left: 100%; }
+}
+
+.marex-main-card {
+position: relative;
+z-index: 2;
+}
+
+/* Click to expand indicator */
+.marex-main-card::after {
+content: 'Click to explore';
+position: absolute;
+bottom: 0.5rem;
+left: 50%;
+transform: translateX(-50%);
+font-size: 0.7rem;
+color: rgba(177, 156, 217, 0.7);
+opacity: 0.8;
+animation: expandHint 3s ease-in-out infinite;
+pointer-events: none;
+}
+
+@keyframes expandHint {
+0%, 70%, 100% {
+    opacity: 0.6;
+    transform: translateX(-50%) translateY(0);
+}
+35% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-2px);
+}
+}
+
+.marex-hub-card:hover {
+transform: translateY(-8px);
+border-color: rgba(177, 156, 217, 0.4) !important;
+box-shadow:
+    0 0 30px rgba(177, 156, 217, 0.3),
+    0 0 60px rgba(177, 156, 217, 0.15),
+    0 15px 50px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+animation: none; /* Pause breathing animation on hover */
+}
+
+.marex-main-card .card-title {
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+
+.expand-indicator {
+font-size: 0.8rem;
+transition: transform 0.3s ease;
+color: var(--color-text-secondary);
+}
+
+.marex-hub-card.expanded .expand-indicator {
+transform: rotate(180deg);
+color: #B19CD9;
+}
+
+.marex-hub-card.expanded {
+box-shadow:
+    0 0 35px rgba(177, 156, 217, 0.4),
+    0 0 70px rgba(177, 156, 217, 0.2),
+    0 20px 60px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+animation: none; /* Stop breathing when expanded */
+}
+
+/* Hide click indicator when expanded */
+.marex-hub-card.expanded .marex-main-card::after {
+opacity: 0;
+}
+
+.project-count-badge {
+position: absolute;
+top: 1rem;
+right: 1rem;
+background: linear-gradient(135deg, rgba(177, 156, 217, 0.25), rgba(200, 180, 230, 0.15));
+border: 1px solid rgba(177, 156, 217, 0.4);
+border-radius: 12px;
+padding: 0.25rem 0.75rem;
+font-size: 0.75rem;
+font-weight: 600;
+color: #B19CD9;
+backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
+box-shadow: 0 2px 8px rgba(177, 156, 217, 0.2);
+/* Add amplified breathing animation with rotation */
+animation: badgeBreathing 3s ease-in-out infinite, badgeRotation 6s ease-in-out infinite;
+}
+
+/* Amplified breathing animation for project count badge */
+@keyframes badgeBreathing {
+0%, 100% {
+    transform: scale(1);
+    border-color: rgba(177, 156, 217, 0.4);
+    box-shadow: 0 2px 8px rgba(177, 156, 217, 0.2);
+    background: linear-gradient(135deg, rgba(177, 156, 217, 0.25), rgba(200, 180, 230, 0.15));
+}
+50% {
+    transform: scale(1.1);
+    border-color: rgba(200, 180, 230, 0.8);
+    box-shadow: 0 6px 18px rgba(200, 180, 230, 0.6);
+    background: linear-gradient(135deg, rgba(200, 180, 230, 0.4), rgba(220, 200, 250, 0.25));
+}
+}
+
+/* Subtle rotation animation for project count badge */
+@keyframes badgeRotation {
+0%, 100% {
+    transform: rotate(0deg);
+}
+25% {
+    transform: rotate(1deg);
+}
+75% {
+    transform: rotate(-1deg);
+}
+}
+
+.marex-sub-cards {
+position: absolute;
+top: 100%;
+left: 0;
+right: 0;
+z-index: 1;
+opacity: 0;
+visibility: hidden;
+transform: translateY(-20px);
+transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 1rem;
+padding: 1rem;
+margin-top: 0.5rem;
+background: var(--glass-bg);
+backdrop-filter: blur(15px);
+-webkit-backdrop-filter: blur(15px);
+border: 1px solid var(--glass-border);
+border-radius: 16px;
+box-shadow: var(--glass-shadow);
+}
+
+.marex-hub-card.expanded .marex-sub-cards {
+opacity: 1;
+visibility: visible;
+transform: translateY(0);
+}
+
+.sub-card {
+/* Enhanced glassmorphism for sub-cards */
+background: rgba(255, 255, 255, 0.03);
+backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
+border: 1px solid rgba(255, 255, 255, 0.1);
+border-radius: 12px;
+padding: 1.5rem;
+text-decoration: none;
+color: inherit;
+position: relative;
+overflow: hidden;
+transition: all 0.3s ease;
+cursor: pointer;
+display: block;
+}
+
+.sub-card::before {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), transparent);
+opacity: 0;
+transition: opacity 0.3s ease;
+pointer-events: none;
+}
+
+.sub-card:hover {
+transform: translateY(-5px);
+border-color: rgba(177, 156, 217, 0.3);
+background: rgba(255, 255, 255, 0.06);
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15), 0 0 15px rgba(177, 156, 217, 0.15);
+}
+
+.sub-card:hover::before {
+opacity: 1;
+}
+
+.sub-card-icon {
+font-size: 1.5rem;
+margin-bottom: 0.75rem;
+color: #58A6FF;
+transition: all 0.3s ease;
+}
+
+.sub-card:hover .sub-card-icon {
+color: #B19CD9;
+transform: scale(1.1);
+}
+
+.sub-card-title {
+font-size: 1rem;
+font-weight: 600;
+color: var(--color-text-main);
+margin-bottom: 0.5rem;
+transition: all 0.3s ease;
+}
+
+.sub-card:hover .sub-card-title {
+color: #B19CD9;
+}
+
+.sub-card-description {
+font-size: 0.85rem;
+color: var(--color-text-secondary);
+line-height: 1.5;
+}
+
+/* Amplified special highlighting for Data Hub Benefits sub-card */
+.sub-card.data-insights {
+position: relative;
+border: 1px solid rgba(177, 156, 217, 0.6) !important;
+background: linear-gradient(135deg, rgba(177, 156, 217, 0.12), rgba(200, 180, 230, 0.08)) !important;
+animation: benefitsHighlight 4s ease-in-out infinite, benefitsBorderPulse 3s ease-in-out infinite, benefitsColorShift 8s ease-in-out infinite;
+}
+
+.sub-card.data-insights::after {
+content: '';
+position: absolute;
+top: -2px;
+left: -2px;
+right: -2px;
+bottom: -2px;
+background: linear-gradient(135deg, rgba(177, 156, 217, 0.3), rgba(200, 180, 230, 0.2));
+border-radius: inherit;
+z-index: -1;
+animation: benefitsGlow 3s ease-in-out infinite;
+pointer-events: none;
+}
+
+.sub-card.data-insights:hover {
+transform: translateY(-12px) !important;
+border-color: rgba(220, 200, 250, 0.9) !important;
+box-shadow:
+    0 20px 50px rgba(200, 180, 230, 0.4),
+    0 0 40px rgba(177, 156, 217, 0.35),
+    0 0 60px rgba(220, 200, 250, 0.2) !important;
+animation: benefitsHighlight 1.5s ease-in-out infinite, benefitsBorderPulse 2s ease-in-out infinite;
+}
+
+/* Amplified keyframes for Data Hub Benefits highlighting */
+@keyframes benefitsHighlight {
+0%, 100% {
+    box-shadow:
+        0 10px 30px rgba(177, 156, 217, 0.3),
+        0 0 25px rgba(177, 156, 217, 0.15);
+}
+50% {
+    box-shadow:
+        0 15px 45px rgba(200, 180, 230, 0.5),
+        0 0 40px rgba(177, 156, 217, 0.3);
+}
+}
+
+@keyframes benefitsGlow {
+0%, 100% {
+    opacity: 0.4;
+}
+50% {
+    opacity: 0.8;
+}
+}
+
+/* Border pulsing animation for Data Hub Benefits */
+@keyframes benefitsBorderPulse {
+0%, 100% {
+    border-width: 1px;
+}
+50% {
+    border-width: 2px;
+}
+}
+
+/* Color shifting animation for Data Hub Benefits */
+@keyframes benefitsColorShift {
+0%, 100% {
+    background: linear-gradient(135deg, rgba(177, 156, 217, 0.12), rgba(200, 180, 230, 0.08));
+}
+50% {
+    background: linear-gradient(135deg, rgba(200, 180, 230, 0.15), rgba(220, 200, 250, 0.1));
+}
+}
+
+/* Mobile-specific layout */
+@media (max-width: 1024px) {
+#profile-section {
+padding: 3rem 1rem 2rem;
+min-height: 30vh;
+}
+
+#profile-center {
+max-width: 500px;
+padding: 2rem 1.5rem;
+}
+}
+
+@media (max-width: 768px) {
+#wrapper {
+padding: 1rem;
+}
+
+#profile-section {
+padding: 2rem 1rem 1.5rem;
+min-height: 25vh;
+}
+
+#profile-center {
+padding: 1.5rem;
+max-width: 450px;
+}
+
+#profile-center h1 {
+font-size: 2.2rem;
+}
+
+#profile-center p {
+font-size: 1rem;
+}
+
+#project-grid {
+padding: 2rem 0;
+gap: 1.5rem;
+grid-template-columns: 1fr;
+}
+
+.project-card {
+padding: 2rem;
+margin: 0 auto;
+max-width: 400px;
+}
+
+.card-icon {
+font-size: 2rem;
+margin-bottom: 1rem;
+}
+
+.card-title {
+font-size: 1.1rem;
+}
+
+.card-description {
+font-size: 0.9rem;
+}
+
+/* Mobile Marex Hub Styles */
+.marex-sub-cards {
+grid-template-columns: 1fr;
+gap: 1rem;
+padding: 1rem;
+}
+
+/* Mobile layout adjustment for expanded Marex Hub */
+@media (max-width: 768px) {
+.project-card.mobile-push-down {
+    transform: translateY(320px);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-card.mobile-push-down.message-card {
+    transform: translateY(320px);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Ensure expanded sub-cards have proper z-index on mobile */
+.marex-hub-card.expanded .marex-sub-cards {
+    z-index: 10;
+    position: relative;
+}
+
+/* Adjust grid gap when expanded to prevent overlap */
+#project-grid.marex-expanded {
+    gap: 1rem;
+}
+}
+
+.sub-card {
+padding: 1.25rem;
+}
+
+.sub-card-icon {
+font-size: 1.25rem;
+margin-bottom: 0.5rem;
+}
+
+.sub-card-title {
+font-size: 0.95rem;
+}
+
+.sub-card-description {
+font-size: 0.8rem;
+}
+
+.project-count-badge {
+font-size: 0.7rem;
+padding: 0.2rem 0.6rem;
+}
+
+/* Mobile-optimized purple glow and effects */
+@media (max-width: 768px) {
+.marex-hub-card {
+    box-shadow:
+        0 0 15px rgba(177, 156, 217, 0.12),
+        0 0 30px rgba(177, 156, 217, 0.06),
+        0 6px 24px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.marex-hub-card:hover {
+    box-shadow:
+        0 0 20px rgba(177, 156, 217, 0.2),
+        0 0 40px rgba(177, 156, 217, 0.1),
+        0 10px 35px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* Mobile click indicator */
+.marex-main-card::after {
+    font-size: 0.65rem;
+    bottom: 0.3rem;
+}
+
+/* Mobile Data Hub Benefits highlighting - amplified */
+.sub-card.data-insights {
+    animation: benefitsHighlight 5s ease-in-out infinite, benefitsColorShift 10s ease-in-out infinite;
+}
+
+/* Mobile badge breathing - enhanced */
+.project-count-badge {
+    animation: badgeBreathing 4s ease-in-out infinite;
+}
+}
+
+@keyframes marexGlow {
+    0% {
+        box-shadow:
+            0 0 15px rgba(177, 156, 217, 0.12),
+            0 0 30px rgba(177, 156, 217, 0.06),
+            0 6px 24px rgba(0, 0, 0, 0.08),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+    100% {
+        box-shadow:
+            0 0 18px rgba(177, 156, 217, 0.18),
+            0 0 35px rgba(177, 156, 217, 0.09),
+            0 8px 30px rgba(0, 0, 0, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+}
+
+@media (max-width: 480px) {
+#wrapper {
+padding: 0.75rem;
+}
+
+#profile-section {
+padding: 1.5rem 0.75rem 1rem;
+min-height: 20vh;
+}
+
+#profile-center {
+padding: 1.25rem;
+max-width: 350px;
+}
+
+#profile-center h1 {
+font-size: 1.8rem;
+}
+
+#profile-center p {
+font-size: 0.9rem;
+padding: 0 0.5rem;
+}
+
+#project-grid {
+gap: 1rem;
+padding: 1.5rem 0;
+}
+
+.project-card {
+padding: 1.5rem;
+border-radius: 12px;
+}
+
+.card-icon {
+font-size: 1.8rem;
+}
+
+.card-title {
+font-size: 1rem;
+}
+
+.card-description {
+font-size: 0.85rem;
+line-height: 1.5;
+}
+
+/* Mobile Marex Hub Adjustments */
+.marex-sub-cards {
+padding: 0.75rem;
+gap: 0.75rem;
+}
+
+.sub-card {
+padding: 1rem;
+}
+
+.sub-card-icon {
+font-size: 1.1rem;
+}
+
+.sub-card-title {
+font-size: 0.9rem;
+}
+
+.sub-card-description {
+font-size: 0.75rem;
+}
+
+.project-count-badge {
+font-size: 0.65rem;
+padding: 0.15rem 0.5rem;
+top: 0.75rem;
+right: 0.75rem;
+}
+}
+
+@media (max-width: 360px) {
+#profile-center {
+padding: 1rem;
+max-width: 300px;
+}
+
+#profile-center h1 {
+font-size: 1.6rem;
+}
+
+.project-card {
+padding: 1.25rem;
+}
+}
+
+/* Mobile-specific enhancements */
+@media (hover: none) and (pointer: coarse) {
+.project-card:active {
+transform: translateY(-5px) scale(0.98);
+border-color: rgba(88, 166, 255, 0.5);
+}
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+.project-card,
+.skill-node,
+.card-icon,
+.card-title {
+transition: none;
+}
+}
+
+/* Hide original theme elements to prevent conflicts */
+#main, #header, #nav, #intro { display: none !important; }
+#wrapper { display: flex !important; }
+</style>
+</head>
+<body>
+
+<canvas id="canvas-background"></canvas>
+
+<div id="wrapper">
+<section id="profile-section">
+<div id="profile-center">
+<h1>John C. Black</h1>
+<p>A builder at the intersection of finance and technology, Data Solutions Developer, translating the bridge between Business users needs and Core data/IT Teams.</p>
+</div>
+</section>
+
+<section id="project-grid">
+<a href="about-me.html" class="project-card user-experience">
+<i class="card-icon fas fa-user-astronaut"></i>
+<h3 class="card-title">About Me</h3>
+<p class="card-description">Learn about my journey from operations to innovation and my approach to solving complex challenges.</p>
+</a>
+
+<div class="project-card marex-hub-card" id="marex-hub">
+<div class="marex-main-card">
+<i class="card-icon fas fa-building"></i>
+<h3 class="card-title">Marex Portfolio <i class="expand-indicator fas fa-chevron-down"></i></h3>
+<p class="card-description">Explore my comprehensive suite of automation solutions that transformed operations at Marex, from reporting platforms to data processing engines.</p>
+<div class="project-count-badge">4 Projects</div>
+</div>
+
+<div class="marex-sub-cards" id="marex-sub-cards">
+<a href="streamlit-report-generator.html" class="sub-card dashboard-development financial-analysis">
+<i class="sub-card-icon fas fa-chart-line"></i>
+<h4 class="sub-card-title">Reporting Platform</h4>
+<p class="sub-card-description">A unified platform serving as a centralized hub for reporting needs across departments.</p>
+</a>
+
+<a href="interest-rate-automation.html" class="sub-card automation-platform risk-automation">
+<i class="sub-card-icon fas fa-cogs"></i>
+<h4 class="sub-card-title">Automation Engine</h4>
+<p class="sub-card-description">Discover how a custom solution reduced daily processing from 4 hours to 15 minutes.</p>
+</a>
+
+<a href="xtp-data-integration.html" class="sub-card data-platform system-integration">
+<i class="sub-card-icon fas fa-database"></i>
+<h4 class="sub-card-title">Data Processing</h4>
+<p class="sub-card-description">Enhanced collaboration through Alteryx workflows, empowering teams with direct data access.</p>
+</a>
+
+<a href="benefits.html" class="sub-card data-insights business-value">
+<i class="sub-card-icon fas fa-chart-pie"></i>
+<h4 class="sub-card-title">Data Hub</h4>
+<p class="sub-card-description">Discover the transformative value of unified data access and the ROI of automated data pipelines.</p>
+</a>
+</div>
+</div>
+
+<a href="https://www.linkedin.com/in/john-black-532677194/" target="_blank" class="project-card message-card">
+<i class="card-icon fas fa-envelope"></i>
+<h3 class="card-title">Message Me</h3>
+<p class="card-description">Ready to discuss automation opportunities? Let's connect and explore how citizen development can transform your processes.</p>
+</a>
+</section>
+</div>
+
+<!-- External JavaScript Module -->
+<script src="code.js"></script>
+
+</body>
+</html>
