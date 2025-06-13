@@ -5,7 +5,6 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 
-<!-- Google Fonts & Font Awesome -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -33,6 +32,11 @@
 box-sizing: border-box;
 margin: 0;
 padding: 0;
+}
+
+/* Added for smooth scrolling */
+html {
+scroll-behavior: smooth;
 }
 
 body {
@@ -70,7 +74,7 @@ padding: 2rem 1rem;
 .page-header {
 width: 100%;
 max-width: 1200px;
-margin-bottom: 3rem;
+margin-bottom: 2rem; /* Reduced */
 padding: 1.5rem 0;
 border-bottom: 1px solid var(--color-border);
 }
@@ -99,11 +103,11 @@ background: rgba(255, 255, 255, 0.02);
 backdrop-filter: blur(8px);
 border: 1px solid var(--color-border);
 border-radius: 16px;
-padding: 3rem;
+padding: 2.5rem; /* Reduced */
 }
 
 .page-content h1 {
-font-size: 3rem;
+font-size: 2.8rem; /* Reduced */
 font-weight: 700;
 margin-bottom: 1rem;
 background: linear-gradient(135deg, var(--glow-analyst), var(--glow-developer));
@@ -113,23 +117,23 @@ background-clip: text;
 }
 
 .page-content h2 {
-font-size: 2rem;
+font-size: 1.8rem; /* Reduced */
 font-weight: 600;
-margin: 2.5rem 0 1rem 0;
+margin: 1.8rem 0 1rem 0; /* Reduced top margin for better flow */
 color: var(--color-text-main);
 }
 
 .page-content h3 {
-font-size: 1.5rem;
+font-size: 1.4rem; /* Reduced */
 font-weight: 600;
-margin: 2rem 0 1rem 0;
+margin: 1.5rem 0 1rem 0; /* Reduced */
 color: var(--color-text-main);
 }
 
 .page-content p {
-font-size: 1.1rem;
-line-height: 1.7;
-margin-bottom: 1.5rem;
+font-size: 1rem;
+line-height: 1.6;
+margin-bottom: 1.25rem; /* Reduced */
 color: var(--color-text-secondary);
 }
 
@@ -138,8 +142,8 @@ margin: 1rem 0 1.5rem 2rem;
 }
 
 .page-content li {
-font-size: 1.1rem;
-line-height: 1.7;
+font-size: 1rem;
+line-height: 1.6;
 margin-bottom: 0.5rem;
 color: var(--color-text-secondary);
 }
@@ -155,9 +159,9 @@ color: var(--glow-developer);
 }
 
 .subtitle {
-font-size: 1.3rem;
+font-size: 1.2rem;
 color: var(--color-text-secondary);
-margin-bottom: 2rem;
+margin-bottom: 1.5rem; /* Reduced */
 font-weight: 500;
 }
 
@@ -175,59 +179,58 @@ padding: 2rem 1.5rem;
 }
 
 .page-content h1 {
-font-size: 2.5rem;
+font-size: 2.2rem;
 }
 
 .page-content h2 {
-font-size: 1.7rem;
+font-size: 1.6rem;
 }
 
 .page-content h3 {
-font-size: 1.3rem;
+font-size: 1.2rem;
 }
 
 .page-content p, .page-content li {
-font-size: 1rem;
+font-size: 0.95rem;
 }
 }
 
 /* Platform Cards */
 .platform-grid {
 display: grid;
-grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-gap: 1.5rem;
-margin: 2rem 0;
+grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* Reduced min-width */
+gap: 1.25rem; /* Reduced gap */
+margin: 1.5rem 0; /* Reduced margin */
 }
 
 .platform-card {
 background: var(--glass-bg);
 backdrop-filter: blur(10px);
 border: 1px solid var(--glass-border);
-border-radius: 16px;
-padding: 2rem;
+border-radius: 12px; /* Slightly smaller radius */
+padding: 1.25rem; /* Reduced padding by ~30% */
 transition: all 0.4s ease;
 box-shadow: var(--glass-shadow);
 position: relative;
 overflow: hidden;
+display: flex;
+flex-direction: column;
+}
+
+.platform-card:hover {
+transform: translateY(-6px); /* Slightly reduced */
+border-color: var(--purple-primary);
+box-shadow: 0 12px 35px var(--purple-glow), var(--glass-shadow);
 }
 
 .platform-card::before {
 content: '';
 position: absolute;
-top: 0;
-left: 0;
-right: 0;
-bottom: 0;
+top: 0; left: 0; right: 0; bottom: 0;
 background: linear-gradient(135deg, var(--purple-glow), transparent);
 opacity: 0;
 transition: opacity 0.3s ease;
 pointer-events: none;
-}
-
-.platform-card:hover {
-transform: translateY(-8px);
-border-color: var(--purple-primary);
-box-shadow: 0 15px 40px var(--purple-glow), var(--glass-shadow);
 }
 
 .platform-card:hover::before {
@@ -235,9 +238,9 @@ opacity: 1;
 }
 
 .platform-icon {
-font-size: 2.5rem;
+font-size: 2rem; /* Reduced */
 color: var(--purple-primary);
-margin-bottom: 1rem;
+margin-bottom: 0.75rem; /* Reduced */
 transition: all 0.3s ease;
 }
 
@@ -247,15 +250,15 @@ transform: scale(1.1);
 }
 
 .platform-card h3 {
-font-size: 1.3rem;
+font-size: 1.1rem; /* Reduced */
 font-weight: 600;
-margin-bottom: 1rem;
+margin-bottom: 0.5rem; /* Reduced */
 color: var(--color-text-main);
 }
 
 .platform-card p {
-font-size: 1rem;
-line-height: 1.6;
+font-size: 0.85rem; /* Reduced */
+line-height: 1.5;
 color: var(--color-text-secondary);
 margin: 0;
 }
@@ -263,11 +266,11 @@ margin: 0;
 /* Pull Quote Styling */
 .pull-quote {
 background: linear-gradient(135deg, var(--purple-glow), rgba(200, 180, 230, 0.1));
-border-left: 4px solid var(--purple-primary);
-padding: 1.5rem 2rem;
-margin: 2rem 0;
+border-left: 3px solid var(--purple-primary); /* Thinner border */
+padding: 1.25rem 1.75rem; /* Reduced */
+margin: 1.5rem 0; /* Reduced */
 border-radius: 8px;
-font-size: 1.2rem;
+font-size: 1.05rem; /* Reduced */
 font-weight: 600;
 font-style: italic;
 color: var(--color-text-main);
@@ -277,9 +280,9 @@ backdrop-filter: blur(8px);
 /* Metric Cards */
 .metrics-grid {
 display: grid;
-grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-gap: 1.5rem;
-margin: 2rem 0;
+grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Reduced */
+gap: 1.25rem; /* Reduced */
+margin: 1.5rem 0; /* Reduced */
 }
 
 .metric-card {
@@ -287,7 +290,7 @@ background: rgba(255, 255, 255, 0.03);
 backdrop-filter: blur(8px);
 border: 1px solid var(--color-border);
 border-radius: 12px;
-padding: 1.5rem;
+padding: 1.25rem; /* Reduced padding */
 text-align: center;
 transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -298,18 +301,18 @@ box-shadow: 0 10px 30px var(--purple-glow);
 }
 
 .metric-number {
-font-size: 2.5rem;
+font-size: 2.2rem; /* Reduced */
 font-weight: 700;
 background: linear-gradient(135deg, var(--purple-primary), var(--purple-secondary));
 -webkit-background-clip: text;
 -webkit-text-fill-color: transparent;
 background-clip: text;
 display: block;
-margin-bottom: 0.5rem;
+margin-bottom: 0.25rem; /* Reduced */
 }
 
 .metric-label {
-font-size: 1rem;
+font-size: 0.9rem; /* Reduced */
 color: var(--color-text-secondary);
 font-weight: 500;
 }
@@ -317,9 +320,9 @@ font-weight: 500;
 /* Skill Cards */
 .skills-grid {
 display: grid;
-grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-gap: 1rem;
-margin: 1.5rem 0;
+grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Reduced */
+gap: 0.75rem; /* Reduced */
+margin: 1.25rem 0; /* Reduced */
 }
 
 .skill-card {
@@ -327,10 +330,10 @@ background: rgba(255, 255, 255, 0.03);
 backdrop-filter: blur(8px);
 border: 1px solid var(--color-border);
 border-radius: 8px;
-padding: 1rem;
+padding: 0.75rem; /* Reduced padding */
 display: flex;
 align-items: center;
-gap: 0.75rem;
+gap: 0.6rem; /* Reduced */
 transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
@@ -340,35 +343,35 @@ border-color: var(--purple-primary);
 }
 
 .skill-icon {
-font-size: 1.5rem;
+font-size: 1.3rem; /* Reduced */
 color: var(--purple-primary);
-min-width: 24px;
+min-width: 20px; /* Adjusted */
 }
 
 .skill-info h4 {
-margin: 0 0 0.25rem 0;
-font-size: 0.95rem;
+margin: 0 0 0.15rem 0; /* Reduced */
+font-size: 0.9rem; /* Reduced */
 font-weight: 600;
 color: var(--color-text-main);
 }
 
 .skill-info p {
 margin: 0;
-font-size: 0.8rem;
+font-size: 0.75rem; /* Reduced */
 color: var(--color-text-secondary);
 line-height: 1.3;
 }
 
 /* Progressive Disclosure */
 .expandable-section {
-margin: 2rem 0;
+margin: 1.5rem 0; /* Reduced */
 }
 
 .section-toggle {
 background: rgba(255, 255, 255, 0.03);
 border: 1px solid var(--color-border);
 border-radius: 8px;
-padding: 1rem 1.5rem;
+padding: 0.8rem 1.25rem; /* Reduced */
 cursor: pointer;
 display: flex;
 justify-content: space-between;
@@ -382,12 +385,12 @@ background: rgba(255, 255, 255, 0.05);
 
 .section-toggle h3 {
 margin: 0;
-font-size: 1.3rem;
+font-size: 1.2rem; /* Reduced */
 color: var(--color-text-main);
 }
 
 .toggle-icon {
-font-size: 1.2rem;
+font-size: 1.1rem; /* Reduced */
 color: var(--purple-primary);
 transition: transform 0.3s ease;
 }
@@ -412,8 +415,8 @@ margin: 1rem 0;
 
 .highlight-list li {
 position: relative;
-padding-left: 2rem;
-margin-bottom: 0.75rem;
+padding-left: 1.75rem; /* Reduced */
+margin-bottom: 0.6rem; /* Reduced */
 color: var(--color-text-secondary);
 line-height: 1.6;
 }
@@ -434,382 +437,197 @@ font-weight: bold;
 
 <div id="wrapper">
 
-<!-- Page Header -->
 <header class="page-header">
 <h1><a href="index.html">John C. Black</a></h1>
 </header>
 
-<!-- Main Content -->
 <main class="page-content">
 <h1>About Me</h1>
-<p class="subtitle">Data Solutions Developer bridging Finance and Technology - transforming enterprise operations through rapid, user-focused automation platforms.</p>
+<p class="subtitle">Data Solutions Developer bridging finance and tech to build rapid, user-focused automation platforms.</p>
 
+<section id="evolution">
 <h2>Professional Evolution</h2>
-
 <div class="pull-quote">
-"From Futures Brokerage Analyst to full-stack data solutions developer - leveraging finance domain expertise to build enterprise automation platforms."
+"From Brokerage Analyst to full-stack developer—using finance expertise to build enterprise automation."
 </div>
-
-<ul class="highlight-list">
-<li><strong>Official Title:</strong> Futures Brokerage Analyst at Marex</li>
-<li><strong>Evolved Role:</strong> Full-stack data solutions development</li>
-<li><strong>Core Value:</strong> Finance domain expertise + advanced technical capabilities</li>
-<li><strong>Impact:</strong> Individual problem-solving → enterprise-wide automation platforms</li>
-</ul>
-
 <div class="platform-grid">
-<div class="platform-card">
-<i class="platform-icon fas fa-chart-line"></i>
-<h3>Traditional Analyst Phase</h3>
-<p>Started with standard futures brokerage analysis - market research, trade reporting, and operational support using Excel and basic tools.</p>
+    <div class="platform-card">
+        <i class="platform-icon fas fa-chart-line"></i>
+        <h3>Analyst Phase</h3>
+        <p>Standard brokerage analysis: market research, trade reporting, and ops support with basic tools.</p>
+    </div>
+    <div class="platform-card">
+        <i class="platform-icon fas fa-lightbulb"></i>
+        <h3>Problem-Solver Phase</h3>
+        <p>Identified inefficiencies and automated personal workflows with Python and Alteryx.</p>
+    </div>
+    <div class="platform-card">
+        <i class="platform-icon fas fa-rocket"></i>
+        <h3>Solution-Builder Phase</h3>
+        <p>Colleagues requested solutions, leading to cross-departmental tool development.</p>
+    </div>
+    <div class="platform-card">
+        <i class="platform-icon fas fa-building"></i>
+        <h3>Platform-Developer Phase</h3>
+        <p>Architecting comprehensive automation platforms for enterprise-grade solutions.</p>
+    </div>
 </div>
-<div class="platform-card">
-<i class="platform-icon fas fa-lightbulb"></i>
-<h3>Problem-Solving Phase</h3>
-<p>Identified manual inefficiencies and began automating personal workflows with Python scripts and Alteryx workflows.</p>
-</div>
-<div class="platform-card">
-<i class="platform-icon fas fa-rocket"></i>
-<h3>Solution Builder Phase</h3>
-<p>Colleagues noticed my automation success and began requesting similar solutions, leading to cross-departmental tool development.</p>
-</div>
-<div class="platform-card">
-<i class="platform-icon fas fa-building"></i>
-<h3>Platform Developer Phase</h3>
-<p>Now architecting comprehensive automation platforms that serve multiple departments with enterprise-grade solutions.</p>
-</div>
-</div>
+</section>
 
-<h2>Full-Stack Data Solutions Development</h2>
-
+<section id="solutions">
+<h2>Full-Stack Data Solutions</h2>
 <div class="pull-quote">
-"Complete data solution pipeline: backend processing → frontend interfaces → end-to-end automation platforms."
+"Building the complete data pipeline: from backend processing to frontend UIs and end-to-end automation."
 </div>
-
 <div class="platform-grid">
-<div class="platform-card">
-<i class="platform-icon fas fa-server"></i>
-<h3>Backend Data Processing</h3>
-<p>Alteryx workflows for heavy data transformation, SQL database queries, API integrations, and automated data pipeline orchestration.</p>
+    <div class="platform-card">
+        <i class="platform-icon fas fa-server"></i>
+        <h3>Backend Processing</h3>
+        <p>Alteryx workflows, SQL queries, API integrations, and automated data pipeline orchestration.</p>
+    </div>
+    <div class="platform-card">
+        <i class="platform-icon fas fa-desktop"></i>
+        <h3>Frontend Interfaces</h3>
+        <p>Intuitive Streamlit web apps for self-service analytics, empowering business users.</p>
+    </div>
+    <div class="platform-card">
+        <i class="platform-icon fas fa-link"></i>
+        <h3>Integration Layer</h3>
+        <p>Connecting disparate systems (XTP, FIA) with Python scripts and real-time API calls.</p>
+    </div>
 </div>
-<div class="platform-card">
-<i class="platform-icon fas fa-desktop"></i>
-<h3>Frontend User Interfaces</h3>
-<p>Streamlit web applications providing intuitive, self-service interfaces that empower business users to access insights independently.</p>
-</div>
-<div class="platform-card">
-<i class="platform-icon fas fa-link"></i>
-<h3>Integration Layer</h3>
-<p>Python scripts connecting disparate systems (XTP, FIA Atlantis, databases) with real-time API calls and data synchronization.</p>
-</div>
-</div>
+</section>
 
-<h3>Key Capabilities</h3>
-<ul class="highlight-list">
-<li><strong>Domain Expert + Developer:</strong> Finance knowledge + technical sophistication</li>
-<li><strong>Technical Polyglot:</strong> Python, Alteryx, SQL, APIs - right tool for each task</li>
-<li><strong>Business Translator:</strong> Complex tech → intuitive user applications</li>
-<li><strong>Rapid Prototyper:</strong> Days vs. months for functional solutions</li>
-<li><strong>Enterprise Integrator:</strong> Citizen development + IT governance</li>
-</ul>
-
-<div class="pull-quote">
-"Force multiplier: Building tools that make hundreds of employees more efficient while maintaining citizen developer speed and focus."
-</div>
-
-<h2>Development Philosophy</h2>
-
-<div class="pull-quote">
-"Technology should work for people, not the other way around. Every manual process is an opportunity to give someone their time back."
-</div>
-
-<h3>Core Principles</h3>
-<ul class="highlight-list">
-<li><strong>Workflow Simplification:</strong> Seamless integration into existing processes</li>
-<li><strong>User Autonomy:</strong> Self-service tools for independent data access</li>
-<li><strong>Practical Problem-Solving:</strong> Real business pain points over flashy features</li>
-<li><strong>Speed Advantage:</strong> Hours vs. months for working solutions</li>
-</ul>
-
-<h3>Solution Impact</h3>
-<ul class="highlight-list">
-<li>Automated reconciliation → eliminate manual data matching</li>
-<li>Interactive dashboards → complex data into actionable insights</li>
-<li>Self-service analytics → reduce IT dependency</li>
-<li>Focus shift → data gathering to high-value analysis</li>
-</ul>
-
+<section id="achievements">
 <h2>Key Achievements</h2>
-
 <div class="metrics-grid">
-<div class="metric-card">
-<span class="metric-number">95%</span>
-<span class="metric-label">Time Reduction</span>
+    <div class="metric-card">
+        <span class="metric-number">95%</span>
+        <span class="metric-label">Time Reduction</span>
+    </div>
+    <div class="metric-card">
+        <span class="metric-number">Hours</span>
+        <span class="metric-label">vs IT's 1+ Year</span>
+    </div>
+    <div class="metric-card">
+        <span class="metric-number">Multi-Dept</span>
+        <span class="metric-label">Enterprise Adoption</span>
+    </div>
 </div>
-<div class="metric-card">
-<span class="metric-number">Hours</span>
-<span class="metric-label">vs IT's 1+ Year</span>
-</div>
-<div class="metric-card">
-<span class="metric-number">Multi-Dept</span>
-<span class="metric-label">Enterprise Adoption</span>
-</div>
-</div>
+<div class="pull-quote">"When IT quoted over a year, I delivered a working Python script in hours."</div>
+</section>
 
-<div class="pull-quote">
-"When IT estimated over a year for delivery, I delivered a working Python script in hours."
-</div>
-
-<h2>Technical Expertise: Hybrid Toolkit</h2>
-
-<div class="pull-quote">
-"Polyglot developer: Right tool for each task. Hybrid approach maximizes efficiency over single-platform solutions."
-</div>
-
-<div class="platform-grid">
-<div class="platform-card">
-<i class="platform-icon fab fa-python"></i>
-<h3>Python Mastery</h3>
-<p>Expert-level Python skills with Pandas for intricate data manipulation and Streamlit for rapid web UI deployment. Non-negotiable foundation for custom automation solutions.</p>
-</div>
-<div class="platform-card">
-<i class="platform-icon fas fa-project-diagram"></i>
-<h3>Alteryx Expertise</h3>
-<p>Power user of Alteryx Designer for robust, heavy-lifting workflows with deep understanding of Alteryx Server API for programmatic execution.</p>
-</div>
-<div class="platform-card">
-<i class="platform-icon fas fa-plug"></i>
-<h3>API Integration</h3>
-<p>Adept at connecting to internal and external REST APIs, stitching disparate data sources together in real-time for comprehensive solutions.</p>
-</div>
-<div class="platform-card">
-<i class="platform-icon fas fa-database"></i>
-<h3>Database Proficiency</h3>
-<p>Comfortable writing complex SQL queries and manipulating data across traditional databases and modern data platforms.</p>
-</div>
-<div class="platform-card">
-<i class="platform-icon fas fa-chart-line"></i>
-<h3>Business Intelligence</h3>
-<p>Deep understanding of KPIs, business logic, and reporting requirements that make applications valuable to end users.</p>
-</div>
-<div class="platform-card">
-<i class="platform-icon fas fa-users-cog"></i>
-<h3>User Experience Design</h3>
-<p>Building with empathy for end-users, creating intuitive, fast experiences that empower self-service analytics.</p>
-</div>
-</div>
-
-<h2>Value Proposition</h2>
-
-<div class="pull-quote">
-"Deep futures market knowledge + full-stack development skills = solutions traditional developers couldn't build and analysts couldn't implement."
-</div>
-
-<h3>Professional Approach</h3>
-<ul class="highlight-list">
-<li><strong>Solution-Oriented:</strong> Understand problems → architect efficient solutions</li>
-<li><strong>User-Centric Design:</strong> Empathy-driven, intuitive self-service experiences</li>
-<li><strong>Agile & Iterative:</strong> Prototypes in days → feedback → fast iteration</li>
-<li><strong>Analytics Catalyst:</strong> Manual processes → automated workflows</li>
-<li><strong>Enterprise Integration:</strong> Citizen development + IT governance</li>
-</ul>
-
-<h3>Unique Value Delivery</h3>
-<ul class="highlight-list">
-<li><strong>Domain-Driven Development:</strong> True futures brokerage understanding</li>
-<li><strong>Platform Investment Maximization:</strong> Existing Alteryx/database/API value extraction</li>
-<li><strong>Time-to-Insight Reduction:</strong> Weeks → minutes of processing</li>
-<li><strong>Self-Service Analytics:</strong> Independent business user empowerment</li>
-<li><strong>Expertise Scaling:</strong> Domain knowledge multiplication across teams</li>
-<li><strong>Rapid Innovation:</strong> Days vs. months for working prototypes</li>
-</ul>
-
-
-
-<h2>Development Evolution</h2>
-
-<div class="pull-quote">
-"Individual problem-solving → platform development → enterprise integration. Understanding problems deeply reveals the right solutions."
-</div>
-
-<ul class="highlight-list">
-<li><strong>Business-First:</strong> Operational pain points → targeted solutions</li>
-<li><strong>Rapid Iteration:</strong> Quick prototypes → user feedback → refinement</li>
-<li><strong>Enterprise Integration:</strong> Citizen development + IT governance</li>
-<li><strong>Continuous Innovation:</strong> AI/ML research for next-gen automation</li>
-</ul>
-
+<section id="expertise">
 <h2>Technical Expertise</h2>
+<div class="pull-quote">"A polyglot approach: using the right tool for each task to maximize efficiency over single-platform solutions."</div>
+<div class="platform-grid">
+    <div class="platform-card">
+        <i class="platform-icon fab fa-python"></i>
+        <h3>Python Mastery</h3>
+        <p>Expert-level skills in Pandas and Streamlit for custom data manipulation and rapid UI deployment.</p>
+    </div>
+    <div class="platform-card">
+        <i class="platform-icon fas fa-project-diagram"></i>
+        <h3>Alteryx Expertise</h3>
+        <p>Power user of Alteryx Designer and Server API for robust, heavy-lifting workflow automation.</p>
+    </div>
+    <div class="platform-card">
+        <i class="platform-icon fas fa-plug"></i>
+        <h3>API Integration</h3>
+        <p>Adept at connecting REST APIs to stitch disparate data sources together in real-time.</p>
+    </div>
+    <div class="platform-card">
+        <i class="platform-icon fas fa-database"></i>
+        <h3>Database Proficiency</h3>
+        <p>Comfortable writing complex SQL queries across traditional and modern data platforms.</p>
+    </div>
+    <div class="platform-card">
+        <i class="platform-icon fas fa-chart-line"></i>
+        <h3>Business Intelligence</h3>
+        <p>Deep understanding of the business logic and KPIs that make applications valuable.</p>
+    </div>
+    <div class="platform-card">
+        <i class="platform-icon fas fa-users-cog"></i>
+        <h3>User Experience</h3>
+        <p>Building intuitive, fast experiences that empower self-service and user autonomy.</p>
+    </div>
+</div>
+</section>
 
-<h3>Programming & Development</h3>
+<section id="skills">
+<h3>Technical Skills</h3>
 <div class="skills-grid">
-<div class="skill-card">
-<i class="skill-icon fab fa-python"></i>
-<div class="skill-info">
-<h4>Python (Advanced)</h4>
-<p>Primary language for automation, data processing, enterprise solutions</p>
-</div>
-</div>
-<div class="skill-card">
-<i class="skill-icon fas fa-database"></i>
-<div class="skill-info">
-<h4>SQL</h4>
-<p>Database querying, data extraction, reporting</p>
-</div>
-</div>
-<div class="skill-card">
-<i class="skill-icon fab fa-js-square"></i>
-<div class="skill-info">
-<h4>JavaScript, HTML/CSS</h4>
-<p>Web development and user interface design</p>
-</div>
-</div>
-<div class="skill-card">
-<i class="skill-icon fab fa-r-project"></i>
-<div class="skill-info">
-<h4>R</h4>
-<p>Statistical analysis and data science applications</p>
-</div>
-</div>
-<div class="skill-card">
-<i class="skill-icon fas fa-project-diagram"></i>
-<div class="skill-info">
-<h4>Alteryx</h4>
-<p>Enterprise data processing and workflow automation</p>
-</div>
-</div>
-</div>
-
-<h3>Data & Analytics</h3>
-<div class="skills-grid">
-<div class="skill-card">
-<i class="skill-icon fas fa-chart-bar"></i>
-<div class="skill-info">
-<h4>Power BI & Tableau</h4>
-<p>Business intelligence and data visualization</p>
-</div>
-</div>
-<div class="skill-card">
-<i class="skill-icon fas fa-brain"></i>
-<div class="skill-info">
-<h4>Machine Learning</h4>
-<p>Predictive modeling and data science applications</p>
-</div>
-</div>
-<div class="skill-card">
-<i class="skill-icon fas fa-file-excel"></i>
-<div class="skill-info">
-<h4>Excel (Advanced)</h4>
-<p>Complex modeling, automation, and analysis</p>
-</div>
-</div>
-<div class="skill-card">
-<i class="skill-icon fas fa-chart-line"></i>
-<div class="skill-info">
-<h4>SAS</h4>
-<p>Statistical analysis and data management</p>
-</div>
-</div>
+    <div class="skill-card">
+        <i class="skill-icon fab fa-python"></i>
+        <div class="skill-info"><h4>Python (Advanced)</h4><p>Automation, data processing</p></div>
+    </div>
+    <div class="skill-card">
+        <i class="skill-icon fas fa-project-diagram"></i>
+        <div class="skill-info"><h4>Alteryx</h4><p>Enterprise data workflows</p></div>
+    </div>
+    <div class="skill-card">
+        <i class="skill-icon fas fa-database"></i>
+        <div class="skill-info"><h4>SQL</h4><p>Database querying, extraction</p></div>
+    </div>
+    <div class="skill-card">
+        <i class="skill-icon fab fa-js-square"></i>
+        <div class="skill-info"><h4>HTML/CSS/JS</h4><p>Web dev & UI design</p></div>
+    </div>
+    <div class="skill-card">
+        <i class="skill-icon fas fa-chart-bar"></i>
+        <div class="skill-info"><h4>Power BI & Tableau</h4><p>Data visualization</p></div>
+    </div>
+    <div class="skill-card">
+        <i class="skill-icon fas fa-brain"></i>
+        <div class="skill-info"><h4>Machine Learning</h4><p>Predictive modeling</p></div>
+    </div>
 </div>
 
 <div class="expandable-section">
-<div class="section-toggle" onclick="toggleSection('financial-systems')">
-<h3>Financial Systems & APIs</h3>
-<i class="toggle-icon fas fa-chevron-down"></i>
+    <div class="section-toggle" onclick="toggleSection('financial-systems')">
+        <h3>Financial Systems & APIs</h3>
+        <i class="toggle-icon fas fa-chevron-down"></i>
+    </div>
+    <div class="section-content" id="financial-systems">
+        <div class="skills-grid">
+            <div class="skill-card">
+                <i class="skill-icon fas fa-chart-area"></i>
+                <div class="skill-info"><h4>Atlantis, GPS, ERECS</h4><p>Core trading platforms</p></div>
+            </div>
+            <div class="skill-card">
+                <i class="skill-icon fas fa-plug"></i>
+                <div class="skill-info"><h4>FIA Tech Atlantis API</h4><p>System integration</p></div>
+            </div>
+            <div class="skill-card">
+                <i class="skill-icon fas fa-building"></i>
+                <div class="skill-info"><h4>PeopleSoft</h4><p>Enterprise resource planning</p></div>
+            </div>
+        </div>
+    </div>
 </div>
-<div class="section-content" id="financial-systems">
-<div class="skills-grid">
-<div class="skill-card">
-<i class="skill-icon fas fa-chart-area"></i>
-<div class="skill-info">
-<h4>Atlantis, GPS, ERECS</h4>
-<p>Core trading and operations platforms</p>
-</div>
-</div>
-<div class="skill-card">
-<i class="skill-icon fas fa-plug"></i>
-<div class="skill-info">
-<h4>FIA Tech Atlantis API</h4>
-<p>System integration and automation</p>
-</div>
-</div>
-<div class="skill-card">
-<i class="skill-icon fas fa-building"></i>
-<div class="skill-info">
-<h4>PeopleSoft</h4>
-<p>Enterprise resource planning</p>
-</div>
-</div>
-</div>
-</div>
-</div>
+</section>
 
-<div class="expandable-section">
-<div class="section-toggle" onclick="toggleSection('emerging-tech')">
-<h3>Emerging Technologies</h3>
-<i class="toggle-icon fas fa-chevron-down"></i>
-</div>
-<div class="section-content" id="emerging-tech">
-<div class="skills-grid">
-<div class="skill-card">
-<i class="skill-icon fas fa-robot"></i>
-<div class="skill-info">
-<h4>AI/ML Frameworks</h4>
-<p>Building proof-of-concept multi-agent systems</p>
-</div>
-</div>
-<div class="skill-card">
-<i class="skill-icon fas fa-link"></i>
-<div class="skill-info">
-<h4>Langchain & CrewAI</h4>
-<p>AI agent development and orchestration</p>
-</div>
-</div>
-<div class="skill-card">
-<i class="skill-icon fas fa-cogs"></i>
-<div class="skill-info">
-<h4>N8N</h4>
-<p>Workflow automation and integration</p>
-</div>
-</div>
-<div class="skill-card">
-<i class="skill-icon fas fa-microchip"></i>
-<div class="skill-info">
-<h4>MCP Development</h4>
-<p>Next-generation AI application frameworks</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-<h2>Education & Continuous Learning</h2>
-
+<section id="education">
+<h2>Education & Learning</h2>
 <div class="metrics-grid">
-<div class="metric-card">
-<span class="metric-number">2023</span>
-<span class="metric-label">Finance + Data Science Degree</span>
+    <div class="metric-card">
+        <span class="metric-number">2023</span>
+        <span class="metric-label">BS Finance + Data Science</span>
+    </div>
+    <div class="metric-card">
+        <span class="metric-number">Google</span>
+        <span class="metric-label">Advanced Data Analytics Cert</span>
+    </div>
 </div>
-<div class="metric-card">
-<span class="metric-number">Google</span>
-<span class="metric-label">Advanced Data Analytics Cert</span>
-</div>
-</div>
+</section>
 
-<ul class="highlight-list">
-<li><strong>Miami University (2019-2023):</strong> BS Finance + Data Science Minor</li>
-<li><strong>Google Advanced Data Analytics (2023):</strong> Python, ML, Data Science</li>
-<li><strong>Dual Foundation:</strong> Business operations + data analytics</li>
-<li><strong>Continuous Learning:</strong> Next-gen AI/ML for enterprise applications</li>
-</ul>
-
+<section id="connect">
 <h2>Let's Connect</h2>
-
 <div class="pull-quote">
-"From reconciliation problems to unified automation platforms - reducing operational overhead through practical, business-relevant solutions."
+"From reconciliation problems to unified platforms—reducing overhead through practical, business-first solutions."
 </div>
-
-<p><strong>Interested in finance domain expertise driving technical innovation?</strong> <a href="https://www.linkedin.com/in/john-black-532677194/" target="_blank">Let's connect and explore citizen development transformation.</a></p>
+<p>Interested in finance domain expertise driving technical innovation? <a href="https://www.linkedin.com/in/john-black-532677194/" target="_blank">Let's connect.</a></p>
+</section>
 
 </main>
 
