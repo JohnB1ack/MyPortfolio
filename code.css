@@ -1,5 +1,5 @@
 /*
- *  STYLE.CSS
+ *  CODE.CSS
  *  - Defines the visual presentation of the portfolio.
  */
 
@@ -156,10 +156,10 @@ body {
 
 /* Marex Portfolio Card */
 .marex-hub-card {
-    grid-column: 1 / -1; /* Make card span full width to contain children */
-    padding: 0;
+    /* grid-column: 1 / -1; << REMOVED FROM HERE */
+    padding: 2.5rem; /* Give it standard padding like other cards */
     cursor: pointer;
-    overflow: hidden; /* Important for containing sub-cards */
+    overflow: hidden;
     border-color: var(--color-marex-primary);
     position: relative;
     /* Enhanced attention-drawing animations with amplified effects */
@@ -187,7 +187,7 @@ body {
 }
 
 .marex-main-card {
-    padding: 2.5rem;
+    padding: 0; /* Remove padding from inner container */
     position: relative;
     z-index: 2;
 }
@@ -212,8 +212,8 @@ body {
 
 .project-count-badge {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
+    top: 0;
+    right: 0;
     background: linear-gradient(135deg, rgba(177, 156, 217, 0.25), rgba(200, 180, 230, 0.15));
     border: 1px solid rgba(177, 156, 217, 0.4);
     border-radius: 12px;
@@ -233,20 +233,22 @@ body {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
-    padding: 0 1.5rem 0 1.5rem; /* Left/Right padding is set, Top/Bottom is handled by height */
-    
-    /* THE CORE LOGIC: Use max-height for smooth, dynamic expansion */
+    padding: 0;
+    margin-top: 0; /* Will be handled by the expanded state */
     max-height: 0;
     opacity: 0;
     overflow: hidden;
-    transition: max-height var(--transition-slow), opacity var(--transition-slow), padding var(--transition-slow);
+    transition: max-height var(--transition-slow), opacity var(--transition-slow), margin-top var(--transition-slow);
+}
+
+.marex-hub-card.expanded {
+    grid-column: 1 / -1; /* << MOVED HERE! Applies only when expanded */
 }
 
 .marex-hub-card.expanded .marex-sub-cards {
-    max-height: 60rem; /* A large value to accommodate content */
+    max-height: 60rem;
     opacity: 1;
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
+    margin-top: 2.5rem; /* Add space between main content and sub-cards */
 }
 
 .marex-hub-card.expanded .expand-indicator {
@@ -488,7 +490,7 @@ body {
     }
 
     .marex-hub-card {
-        padding: 0;
+        padding: 2rem; /* Keep padding consistent on mobile */
         /* Mobile-optimized purple glow and effects */
         box-shadow:
             0 0 15px rgba(177, 156, 217, 0.12),
@@ -506,7 +508,7 @@ body {
     }
 
     .marex-main-card {
-        padding: 2rem;
+        padding: 0;
     }
 
     /* Mobile click indicator */
@@ -517,6 +519,10 @@ body {
 
     .marex-sub-cards {
         grid-template-columns: 1fr; /* Stack sub-cards */
+    }
+
+    .marex-hub-card.expanded .marex-sub-cards {
+         margin-top: 2rem;
     }
 
     /* Mobile Data Hub Benefits highlighting - amplified */
